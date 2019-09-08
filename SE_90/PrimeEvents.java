@@ -28,6 +28,9 @@ public class PrimeEvents
         owner = new Owner();
     }
 
+    /**
+     * Home page Menu list
+     */
     private void mainMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -41,6 +44,9 @@ public class PrimeEvents
         System.out.println("Please Enter Your Choice: ");
     }
     
+    /**
+     * View Hall page Menu list
+     */
     private void viewMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -52,7 +58,10 @@ public class PrimeEvents
         System.out.println("Press 3 Back to Home Page\r\n");
         System.out.println("Please Enter Your Choice: ");
     }
-    
+
+    /**
+     * Searching option Menu list
+     */
     private void searchMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -66,11 +75,14 @@ public class PrimeEvents
         System.out.println("Please Enter Your Choice: ");
     }
     
+    /**
+     * login page Menu list
+     */
     private void loginMenu()
     {
-        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-        System.out.println("+ Welcome to Prime Events -- Search Halls+");
-        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
+        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+        System.out.println("+ Welcome to Prime Events -- Login+");
+        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
         System.out.println("Press 1 to Login As Customer");
         System.out.println("Press 2 to Login As Administrator");
@@ -78,7 +90,10 @@ public class PrimeEvents
         System.out.println("Press 4 Back to Home Page\r\n");
         System.out.println("Please Enter Your Choice: ");
     }
-    
+
+    /**
+     * Owner page Menu list
+     */
     private void ownerMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -95,6 +110,9 @@ public class PrimeEvents
         System.out.println("Please Enter Your Choice: ");
     }
     
+    /**
+     * Customer page Menu list
+     */    
     private void customerMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -111,6 +129,9 @@ public class PrimeEvents
         System.out.println("Please Enter Your Choice: ");
     }
     
+    /**
+     * administrator page Menu list
+     */
     private void administratorMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -127,6 +148,9 @@ public class PrimeEvents
         System.out.println("Please Enter Your Choice: ");
     }
     
+    /**
+     * option of Search page
+     */    
     private void searchHall()
     {
         Scanner input = new Scanner(System.in);
@@ -149,6 +173,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * option of view hall
+     */      
     private void viewHall()
     {
         Scanner input = new Scanner(System.in);
@@ -168,7 +195,10 @@ public class PrimeEvents
                 }
         }
     }
-    
+
+    /**
+     * option of login
+     */  
     private void login()
     {
         Scanner input = new Scanner(System.in);
@@ -209,7 +239,10 @@ public class PrimeEvents
     {
         
     }
-        
+
+    /**
+     * option of home page
+     */      
     public void start()
     {
         Scanner input = new Scanner(System.in);
