@@ -67,4 +67,20 @@ public class Validation
         }
         return flag;
     }
+    
+    /**
+     * Check if the value input is a valid email address.
+     * 
+     * @param value The value input by user as email address to be checked.
+     * @return The checking result in boolean type.
+     */
+    public boolean stringIsEmailAddr(String value)
+    {
+        boolean flag = false;
+        if(value.contains("@"))
+        {
+            flag = true;
+        }
+        return flag;
+    }
 }
