@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Validation
+comment0.text=\r\n\ Class\ Validation\ -\ a\ class\ to\ check\ values\ and\ loops\ to\ meet\ the\ program\ requirements.\r\n\ \r\n\ @author\ Jialiang\ Wu\r\n\ @version\ 09\ September\ 2019\r\n
+comment1.params=
+comment1.target=Validation()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Validation.\r\n
+comment2.params=value
+comment2.target=boolean\ stringIsBlank(java.lang.String)
+comment2.text=\r\n\ Check\ if\ the\ value\ input\ is\ blank.\r\n\ \r\n\ @param\ value\ The\ value\ to\ be\ checked\ in\ String\ type.\r\n\ @return\ The\ checking\ result\ in\ boolean\ type.\r\n
+comment3.params=value\ min\ max
+comment3.target=boolean\ stringLengthWithinRange(java.lang.String,\ int,\ int)
+comment3.text=\r\n\ Check\ if\ the\ length\ of\ value\ input\ is\ within\ the\ specified\ range.\r\n\ \r\n\ @param\ value\ The\ value\ to\ be\ checked\ in\ String\ type.\r\n\ @param\ min\ The\ minimum\ length\ of\ string.\r\n\ @param\ max\ The\ maximum\ length\ of\ string.\r\n\ @return\ The\ checking\ result\ in\ boolean\ type.\r\n
+comment4.params=value\ min\ max
+comment4.target=boolean\ numberWithinRange(int,\ int,\ int)
+comment4.text=\r\n\ Check\ if\ the\ value\ input\ is\ within\ the\ specified\ range.\r\n\ \r\n\ @param\ value\ The\ value\ to\ be\ checked\ in\ integer\ type.\r\n\ @param\ min\ The\ minimum\ value\ required.\r\n\ @param\ max\ The\ maximum\ value\ required.\r\n\ @return\ The\ checking\ result\ in\ boolean\ type.\r\n
+numComments=5
