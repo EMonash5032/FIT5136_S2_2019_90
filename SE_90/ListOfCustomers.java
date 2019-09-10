@@ -2,7 +2,7 @@ import java.util.ArrayList;
 /**
  * Class ListOfCustomers
  * 
- * @author Jialiang Wu
+ * @author Jialiang Wu && Yuekai Huang
  * @version 10 September 2019
  */
 public class ListOfCustomers

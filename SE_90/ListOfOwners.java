@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 /**
  * Class ListOfOwners
  * 
@@ -7,39 +7,35 @@ import java.util.ArrayList;
  */
 public class ListOfOwners
 {
-    private ArrayList<Owner> owners;
+    private Owner[] owner;
 
     /**
      * 
      */
     public ListOfOwners()
     {
-        owners = new ArrayList<Owner>();
-        Owner ownerTest = new Owner("", "", "owner", "", "123", "");
-        owners.add(ownerTest);
-    }
-
-    /**
-     *
-     */
-    public ListOfOwners(ArrayList<Owner> newOwners)
-    {
-        owners = newOwners;
+        int totalNumOwners = 99999;
+        owner = new Owner[totalNumOwners];
+        for(int index = 0; index < totalNumOwners; index++)
+        {
+            owner[index] = new Owner("????","????","????","????", "????", "????","????","????","????","????");
+        }
     }
     
-    public ArrayList<Owner> getOwners()
+    public Owner[] getAllOwner()
     {
-        return owners;
-    }
-    
-    public void setOwners(ArrayList<Owner> newOwners)
-    {
-        owners = newOwners;
+        return owner;
     }
     
     public Owner getOwner(int index)
     {
-        Owner owner = owners.get(index);
-        return owner;
+        return owner[index];
     }
+    
+    public void setOwner(int index, String firstName, String lastName, String email, String address, String password, String phone, String question1, String answer1, String question2, String answer2)
+    {
+        owner[index] = new Owner(firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2);
+    }
+    
+
 }

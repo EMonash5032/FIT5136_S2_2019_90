@@ -1,45 +1,35 @@
-import java.util.ArrayList;
+
 /**
  * Class ListOfAdmins
  * 
- * @author Jialiang Wu
+ * @author Jialiang Wu && Yuekai Huang
  * @version 10 September 2019
  */
 public class ListOfAdmins
 {
-    private ArrayList<Administrator> admins;
+    private Administrator[] admin;
 
     /**
      * 
      */
     public ListOfAdmins()
     {
-        admins = new ArrayList<Administrator>();
-        Administrator adminTest = new Administrator("admin", "123");
-        admins.add(adminTest);
-    }
-
-    /**
-     *
-     */
-    public ListOfAdmins(ArrayList<Administrator> newAdmins)
-    {
-        admins = newAdmins;
+        admin = new Administrator[1];
+        admin[0] = new Administrator("admin@gmail.com", "admin");
     }
     
-    public ArrayList<Administrator> getAdmins()
+    public ListOfAdmins(Administrator admin[])
     {
-        return admins;
-    }
-    
-    public void setAdmins(ArrayList<Administrator> newAdmins)
-    {
-        admins = newAdmins;
+        
     }
     
     public Administrator getAdmin(int index)
     {
-        Administrator admin = admins.get(index);
-        return admin;
+        return admin[index];
+    }
+    
+    public void setAdmin(Administrator[] admin)
+    {
+        this.admin = admin;
     }
 }

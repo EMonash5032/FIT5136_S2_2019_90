@@ -2,7 +2,7 @@
 /**
  * Write a description of class Administrator here.
  *
- * @author Jialiang Wu
+ * @author Jialiang Wu && Yuekai Huang
  * @version 10 September 2019
  */
 public class Administrator
@@ -17,14 +17,14 @@ public class Administrator
     public Administrator()
     {
         // initialise instance variables
-        email = "";
-        password = "";
+        email = "admin@gmail.com";
+        password = "admin";
     }
     
-    public Administrator(String newEmail, String newPassword)
+    public Administrator(String email, String password)
     {
-        email = newEmail;
-        password = newPassword;
+        this.email = email;
+        this.password = password;
     }
     
     public String getEmail()
@@ -35,5 +35,15 @@ public class Administrator
     public String getPassword()
     {
         return password;
+    }
+    
+    public void setEmail()
+    {
+        this.email = email;
+    }
+    
+    public void setPassword()
+    {
+        this.password = password;
     }
 }

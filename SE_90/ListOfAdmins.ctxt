@@ -1,16 +1,13 @@
 #BlueJ class context
 comment0.target=ListOfAdmins
-comment0.text=\r\n\ Class\ ListOfAdmins\r\n\ \r\n\ @author\ Jialiang\ Wu\r\n\ @version\ 10\ September\ 2019\r\n
+comment0.text=\r\n\ Class\ ListOfAdmins\r\n\ \r\n\ @author\ Jialiang\ Wu\ &&\ Yuekai\ Huang\r\n\ @version\ 10\ September\ 2019\r\n
 comment1.params=
 comment1.target=ListOfAdmins()
 comment1.text=\r\n\ \r\n
-comment2.params=newAdmins
-comment2.target=ListOfAdmins(java.util.ArrayList)
-comment2.text=\r\n\r\n
-comment3.params=
-comment3.target=java.util.ArrayList\ getAdmins()
-comment4.params=newAdmins
-comment4.target=void\ setAdmins(java.util.ArrayList)
-comment5.params=index
-comment5.target=Administrator\ getAdmin(int)
-numComments=6
+comment2.params=admin
+comment2.target=ListOfAdmins(Administrator[])
+comment3.params=index
+comment3.target=Administrator\ getAdmin(int)
+comment4.params=admin
+comment4.target=void\ setAdmin(Administrator[])
+numComments=5
