@@ -14,7 +14,7 @@ public class Customer
     private String address;
     private String password;
     private String phone;
-    private String concessions;
+    private boolean isConcession;
 
     /**
      * Constructor for objects of class Customer
@@ -28,10 +28,10 @@ public class Customer
         address = "";
         password = "";
         phone = "";
-        concessions = "";
+        isConcession = false;
     }
     
-    public Customer(String newFirstName, String newLastName, String newEmail, String newAddress, String newPassword, String newPhone, String newConcessions)
+    public Customer(String newFirstName, String newLastName, String newEmail, String newAddress, String newPassword, String newPhone, boolean newIsConcession)
     {
         firstName = newFirstName;
         lastName = newLastName;
@@ -39,7 +39,7 @@ public class Customer
         address = newAddress;
         password = newPassword;
         phone = newPhone;
-        concessions = newConcessions;
+        isConcession = newIsConcession;
     }
     
     public void setFirstName(String newFirstName)
@@ -72,9 +72,9 @@ public class Customer
         phone = newPhone;
     }
     
-    public void setConcessions(String newConcessions)
+    public void setIsConcession(boolean newIsConcession)
     {
-        concessions = newConcessions;
+        isConcession = newIsConcession;
     }
     
     public String getFirstName()
@@ -107,8 +107,8 @@ public class Customer
         return phone;
     }
     
-    public String getConcessions()
+    public boolean getIsConcession()
     {
-        return concessions;
+        return isConcession;
     }
 }
