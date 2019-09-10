@@ -2,8 +2,8 @@
 /**
  * Write a description of class Administrator here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Jialiang Wu
+ * @version 10 September 2019
  */
 public class Administrator
 {
@@ -17,8 +17,23 @@ public class Administrator
     public Administrator()
     {
         // initialise instance variables
-        
+        email = "";
+        password = "";
     }
-
-
+    
+    public Administrator(String newEmail, String newPassword)
+    {
+        email = newEmail;
+        password = newPassword;
+    }
+    
+    public String getEmail()
+    {
+        return email;
+    }
+    
+    public String getPassword()
+    {
+        return password;
+    }
 }

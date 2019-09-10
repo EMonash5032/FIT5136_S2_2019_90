@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=ListOfCustomers
+comment0.text=\r\n\ Class\ ListOfCustomers\r\n\ \r\n\ @author\ Jialiang\ Wu\r\n\ @version\ 10\ September\ 2019\r\n
+comment1.params=
+comment1.target=ListOfCustomers()
+comment1.text=\r\n\ \r\n
+comment2.params=newCustomers
+comment2.target=ListOfCustomers(java.util.ArrayList)
+comment2.text=\r\n\r\n
+comment3.params=
+comment3.target=java.util.ArrayList\ getCustomers()
+comment4.params=newCustomers
+comment4.target=void\ setCustomers(java.util.ArrayList)
+comment5.params=index
+comment5.target=Customer\ getCustomer(int)
+numComments=6
