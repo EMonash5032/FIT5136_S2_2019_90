@@ -9,6 +9,7 @@ public class PrimeEvents
 {
     // instance variables - replace the example below with your own
     private Customer customer;
+    private ListOfCustomers customers;
     private Administrator administrator;
     private ListOfAdmins admin;
     private Owner owner;
@@ -28,6 +29,7 @@ public class PrimeEvents
     {
         // initialise instance variables
         customer = new Customer();
+        customers = new ListOfCustomers();
         administrator = new Administrator();
         admin = new ListOfAdmins();
         owner = new Owner();
@@ -39,7 +41,7 @@ public class PrimeEvents
         int index = 0;
         while(index < owners.getAllOwner().length)
         {
-            if(owners.getOwner(index).getFirstName().equals("????"))
+            if(owners.getOwner(index).getPassword().equals("????"))
                 return index;
             index++;
         }
@@ -56,7 +58,30 @@ public class PrimeEvents
         }
         return -1;
     }
-       
+    
+    private int getCustIndex()
+    {
+        int index = 0;
+        while(index < customers.getAllCus().length)
+        {
+            if(customers.getCustomer(index).getPassword().equals("????"))
+                return index;
+            index++;
+        }
+        return -1;
+    }
+    
+    public int getCheckCust(String email)
+    {
+
+        for(int index = 0 ; index < customers.getAllCus().length; index++)
+        {
+            if(customers.getCustomer(index).getEmail().equals(email))
+                return index;
+        }
+        return -1;
+    }
+    
     /**
      * Home page Menu list
      */
@@ -238,7 +263,7 @@ public class PrimeEvents
             resetPage();
                 switch(loginOption)
                 {
-                    case 1: customer();
+                    case 1: customerLogin();
                             break;
                     case 2: administratorLogin();
                             break;
@@ -424,6 +449,9 @@ public class PrimeEvents
                 {
                     isConcession = false;
                 }
+                
+                int custId = getCustIndex();
+                customers.setCustomer(custId, firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2, isConcession);
             }
             
             if(usertype.toLowerCase().equals("o"))
@@ -445,7 +473,7 @@ public class PrimeEvents
                 }
                 
                 int ownerId = getOwnerIndex();
-                owners.setOwner(ownerId, firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2 );
+                owners.setOwner(ownerId, firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2);
             }
             resetPage();
             System.out.println("Congratulations! "+ firstName + " " + lastName + "!");
@@ -457,51 +485,64 @@ public class PrimeEvents
     }
 
     
-    public void customer()
+    public void customerLogin()
     {
-        Input input = new Input();
-        String email = input.acceptStringInput("Enter B/b to go back to previous page.\nPlease enter your email address:");
-        ListOfCustomers customers = new ListOfCustomers();
-        boolean customerExists = false;
-        String password = "";
-        while(!customerExists)
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("Please enter Customer email: ");
+        String userName = input.nextLine();
+        int custID = getCheckCust(userName);
+        if(custID == -1)
         {
-            if(email.toLowerCase().equals("b"))
-            {
-                login();
-            }
-            for(int i = 0; i < customers.getCustomers().size(); i++)
-            {
-                if(email.equals(customers.getCustomer(i).getEmail()))
-                {
-                    customerExists = true;
-                    password = customers.getCustomer(i).getPassword();
-                    break;
-                }
-            }
-            if(!customerExists)
-            {
-                email = input.acceptStringInput("This email address has not been registered. Please check your email address or enter B/b to go back to previous page:");
-            }
+            System.out.println("Account: " + userName + " are not registered yet! Press any key to back!");
+            input.nextLine();
+            resetPage();
         }
-        String userInput = input.acceptStringInput("Please enter your password:\n(If you forgot your password, please enter F/f.)");
-        boolean isCorrect = false;
-        while(!isCorrect)
+        else
         {
-            if(userInput.toLowerCase().equals("f"))
+            System.out.println("Please enter Customer password: ");
+            String password = input.nextLine();
+            boolean status = true;
+            while(status == true)
             {
-                forgotPassword();
+                int index;
+                
+                for(index = 0; index < customers.getAllCus().length; index++)
+                {
+                    if(customers.getCustomer(index).getEmail().equals(userName) && customers.getCustomer(index).getPassword().equals(password) && !customers.getCustomer(index).getEmail().equals("????"))
+                    {
+                        System.out.println("OK");
+                        status = false;
+                    }
+                    if(customers.getCustomer(index).getEmail().equals(userName) && !customers.getCustomer(index).getPassword().equals(password))
+                    {
+                        System.out.println("You have wrong password! Please Enter your password again(if your forgot just type F/f): ");
+                        password = input.nextLine();
+                    }
+                    if(password.toLowerCase().equals("f"))
+                    {
+                        System.out.println("This need fill information of admin or function of recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
+                        status = false;
+                    }
+                }
+
             }
-            else if(userInput.equals(password))
+            
+            if(password.toLowerCase().equals("f") && status == false)
             {
-                isCorrect = true;
+                System.out.println("Press any key to continue");
+                input.nextLine();
+                resetPage();
             }
             else
             {
-                userInput = input.acceptStringInput("Incorrect password. PLease re-enter your password:\n(If you forgot your password, please enter F/f.)");
+                System.out.println("Welcome! You are successfully login");
+                System.out.println("Press any key to continue...");
+                input.nextLine();
+                resetPage();
+                //customer();
             }
         }
-        customerMenu();
     }
    
     private void administratorLogin()

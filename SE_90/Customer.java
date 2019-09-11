@@ -2,7 +2,7 @@
 /**
  * Write a description of class Customer here.
  *
- * @author Jialiang Wu
+ * @author Jialiang Wu, Yuekai Huang
  * @version 09 September 2019
  */
 public class Customer
@@ -14,67 +14,99 @@ public class Customer
     private String address;
     private String password;
     private String phone;
+    private String question1;
+    private String answer1;
+    private String question2;
+    private String answer2;
     private boolean isConcession;
-
+    
     /**
      * Constructor for objects of class Customer
      */
     public Customer()
     {
         // initialise instance variables
-        firstName = "";
-        lastName = "";
-        email = "";
-        address = "";
-        password = "";
-        phone = "";
+        firstName = "????";
+        lastName = "????";
+        email = "????";
+        address = "????";
+        password = "????";
+        phone = "????";
+        question1 = "????";
+        answer1 = "????";
+        question2 = "????";
+        answer2 = "????";
         isConcession = false;
     }
     
-    public Customer(String newFirstName, String newLastName, String newEmail, String newAddress, String newPassword, String newPhone, boolean newIsConcession)
+    public Customer(String firstName, String lastName, String email, String address, String password, String phone, String question1, String answer1, String question2, String answer2, boolean isConcession)
     {
-        firstName = newFirstName;
-        lastName = newLastName;
-        email = newEmail;
-        address = newAddress;
-        password = newPassword;
-        phone = newPhone;
-        isConcession = newIsConcession;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.password = password;
+        this.phone = phone;
+        this.question1 = question1;
+        this.answer1 = answer1;
+        this.question2 = question2;
+        this.answer2 = answer2;
+        this.isConcession = isConcession;
     }
     
-    public void setFirstName(String newFirstName)
+    public void setFirstName(String firstName)
     {
-        firstName = newFirstName;
+        this.firstName = firstName;
     }
     
-    public void setLastName(String newLastName)
+    public void setLastName(String lastName)
     {
-        lastName = newLastName;
+        this.lastName = lastName;
     }
     
-    public void setEmail(String newEmail)
+    public void setEmail(String email)
     {
-        email = newEmail;
+        this.email = email;
     }
     
-    public void setAddress(String newAddress)
+    public void setAddress(String address)
     {
-        address = newAddress;
+        this.address = address;
     }
     
-    public void setPassword(String newPassword)
+    public void setPassword(String password)
     {
-        password = newPassword;
+        this.password = password;
     }
     
-    public void setPhone(String newPhone)
+    public void setPhone(String phone)
     {
-        phone = newPhone;
+        this.phone = phone;
     }
     
-    public void setIsConcession(boolean newIsConcession)
+    public void setQuestion1(String question1)
     {
-        isConcession = newIsConcession;
+        this.question1 = question1;
+    }
+    
+    public void setAnswer1(String answer1)
+    {
+        this.answer1 = answer1;
+    }
+    
+    public void setQuestion2(String question2)
+    {
+        this.question2 = question2;
+    }
+    
+    public void setAnswer2(String answer2)
+    {
+        this.answer2 = answer2;
+    }
+    
+    public void setIsConcession(boolean isConcession)
+    {
+        this.isConcession = isConcession;
     }
     
     public String getFirstName()
@@ -105,6 +137,26 @@ public class Customer
     public String getPhone()
     {
         return phone;
+    }
+    
+    public String getQuestion1()
+    {
+        return question1;
+    }
+    
+    public String getAnswer1()
+    {
+        return answer1;
+    }
+    
+    public String getQuestion2()
+    {
+        return question2;
+    }
+    
+    public String getAnswer2()
+    {
+        return answer2;
     }
     
     public boolean getIsConcession()
