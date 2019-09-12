@@ -19,6 +19,10 @@ public class Customer
     private String question2;
     private String answer2;
     private boolean isConcession;
+    private Quotation quota;
+    private Quotation[] quotas;
+    
+    private Booking[] book;
     
     /**
      * Constructor for objects of class Customer
@@ -37,6 +41,13 @@ public class Customer
         question2 = "????";
         answer2 = "????";
         isConcession = false;
+        
+        int bookingID = 99999;
+        book = new Booking[bookingID];
+        for(int index = 0; index < bookingID; index++)
+        {
+            book[index] = new Booking("????","????","????","????","????", -0.01, -0.01, -0.01);
+        }
     }
     
     public Customer(String firstName, String lastName, String email, String address, String password, String phone, String question1, String answer1, String question2, String answer2, boolean isConcession)
@@ -162,5 +173,60 @@ public class Customer
     public boolean getIsConcession()
     {
         return isConcession;
+    }
+    
+    public void quotationInfo(int index)
+    {
+        String hallName = quota.getHalls(index).getHallName();
+        String hallAddress = quota.getHalls(index).getHallAddress();
+        int hallCapacity = quota.getHalls(index).getHallCapacity();
+        double hallPrice = quota.getHalls(index).getHallPrice();
+        String hallEvents = quota.getHalls(index).getHallEvents();
+        
+        System.out.println("Youe Quotation is");
+        System.out.println("Hall Name: " + hallName);
+        System.out.println(" Address: " + hallAddress);
+        System.out.println(" Capacity: " + hallCapacity);
+        System.out.println(" Pirce: $" + hallPrice);
+        System.out.println(" Events Type: " + hallEvents + "\r\n");
+    }
+    
+    public void view(int inputIndex)
+    {
+        System.out.println("This is View Halls");
+        
+        //System.out.println("Select the hall number " + (inputIndex + 1) + ": ");
+        //System.out.println("Hall Name: " + halls[inputIndex].getHallName());
+        //System.out.println(" Address: " + halls[inputIndex].getHallAddress());
+        //System.out.println(" Capacity: " + halls[inputIndex].getHallCapacity());
+        //System.out.println(" Pirce: " + halls[inputIndex].getHallPrice());
+        //System.out.println(" Events Type: " + halls[inputIndex].getHallEvents() + "\r\n");
+        
+        System.out.println("Please Enter 'y' or 'n'");
+    }
+    
+    public Booking[] getAllBook()
+    {
+        return book;
+    }
+    
+    public Booking getBook(int index)
+    {
+        return book[index];
+    }
+    
+    public void setBook(int index, String firstName, String lastName, String hallName, String eventType, String date, double price, double actualFee, double deposit)
+    {
+        book[index] = new Booking(firstName, lastName, hallName, eventType, date, price, actualFee, deposit);
+    }
+    
+    public void displayBook(int inputIndex)
+    {
+        System.out.println("The Booking reference " + (inputIndex + 1) + ": ");
+        System.out.println("Hall Name: " + book[inputIndex].getHallName());
+        System.out.println("  Event Types: " + book[inputIndex].getEventType());
+        System.out.println("  Hall Price: " + book[inputIndex].getPrice());
+        System.out.println("  Acutal Cost: " + book[inputIndex].getActualFee());
+        System.out.println("  Deposit: " + book[inputIndex].getDeposit() + "\r\n");
     }
 }

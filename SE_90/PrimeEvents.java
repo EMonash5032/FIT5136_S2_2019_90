@@ -21,7 +21,7 @@ public class PrimeEvents
     private int loginOption;
     private int ownerOption;
     private int manageHallOption;
-    
+    private int customerOption;
     /**
      * Constructor for objects of class PrimeEvents
      */
@@ -104,7 +104,7 @@ public class PrimeEvents
     private void viewMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-        System.out.println("+ Welcome to Prime Events -- View Halls+");
+        System.out.println("+ Welcome to Prime Events -- View Halls +");
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
         System.out.println("Press 1 to List Hall");
@@ -112,7 +112,39 @@ public class PrimeEvents
         System.out.println("Press 3 Back to Home Page\r\n");
         System.out.println("Please Enter Your Choice: ");
     }
-
+    private int checkHallList()
+    {
+        for(int i = 0; i < owner.getAllHalls().length; i++)
+        {
+            if(owner.getHalls(i).getHallCapacity() != -1)
+                return 1;
+        }
+        return 0;
+    }
+    private void listHall()
+    {
+        Scanner input = new Scanner(System.in);
+        int check = checkHallList();
+        
+        if(check == 0)
+        {
+            System.out.println("There is no hall, unless Owner add one!");
+            System.out.println("Press any key to continue");
+            input.nextLine();
+            resetPage();
+        }
+        else
+        {
+            for(int i = 0; i < owner.getAllHalls().length; i++)
+            {
+                if(owner.getHalls(i).getHallCapacity() != -1)
+                {
+                    owner.displayHalls(i);
+                }
+            }
+        }
+    }
+    
     /**
      * Searching option Menu list
      */
@@ -173,13 +205,14 @@ public class PrimeEvents
         System.out.println("+ Welcome to Prime Events +");
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
-        System.out.println("Press 1 to ");
-        System.out.println("Press 2 to ");
-        System.out.println("Press 3 to ");
-        System.out.println("Press 4 to ");
-        System.out.println("Press 5 ");
-        System.out.println("Press 6 ");
-        System.out.println("Press 7 Exit\r\n");
+        System.out.println("Press 1 to View Hall");
+        System.out.println("Press 2 to View Booking History");
+        System.out.println("Press 3 to View Receipt");
+        System.out.println("Press 4 to Manage Booking");
+        System.out.println("Press 5 to Book Hall");
+        System.out.println("Press 6 to Rate service");
+        System.out.println("Press 7 to Manage Profile");
+        System.out.println("Press 8 Back to Home Page and Logout\r\n");
         System.out.println("Please Enter Your Choice: ");
     }
     
@@ -212,13 +245,15 @@ public class PrimeEvents
         {
             searchMenu();
             searchOption = input.nextInt();
+            String searchName = "?";
                 switch(searchOption)
                 {
-                    case 1: 
+                    case 1: System.out.println("Function Search Hall by name");
+                            userSearchHall(searchName);
                             break;
-                    case 2: 
+                    case 2: System.out.println("Function Search Hall by event type");
                             break;
-                    case 3: 
+                    case 3: System.out.println("Function Search Hall by date");
                             break;
                     case 4: viewOption = 3;
                             break;
@@ -239,7 +274,7 @@ public class PrimeEvents
             viewOption = input.nextInt();
                 switch(viewOption)
                 {
-                    case 1: 
+                    case 1: listHall();
                             break;
                     case 2: searchHall();
                             break;
@@ -275,9 +310,12 @@ public class PrimeEvents
         }
     }
     
-    public void ownerLogin()
+    private void ownerLogin()
     {
         Scanner input = new Scanner(System.in);
+        String firstName = "????";
+        String lastName = "????";
+        
         
         System.out.println("Please enter Owner user name: ");
         String userName = input.nextLine();
@@ -301,7 +339,8 @@ public class PrimeEvents
                 {
                     if(owners.getOwner(index).getEmail().equals(userName) && owners.getOwner(index).getPassword().equals(password) && !owners.getOwner(index).getEmail().equals("????"))
                     {
-                        System.out.println("OK");
+                        firstName = owners.getOwner(index).getFirstName();
+                        lastName = owners.getOwner(index).getLastName();
                         status = false;
                     }
                     if(owners.getOwner(index).getEmail().equals(userName) && !owners.getOwner(index).getPassword().equals(password))
@@ -330,13 +369,13 @@ public class PrimeEvents
                 System.out.println("Press any key to continue...");
                 input.nextLine();
                 resetPage();
-                owner();
+                owner(firstName, lastName);
             }
         }
         
     }
     
-    public void register()
+    private void register()
     {
         boolean validation = true;
         
@@ -483,11 +522,12 @@ public class PrimeEvents
             resetPage();
         }
     }
-
     
-    public void customerLogin()
+    private void customerLogin()
     {
         Scanner input = new Scanner(System.in);
+        String firstName = "????";
+        String lastName = "????";
         
         System.out.println("Please enter Customer email: ");
         String userName = input.nextLine();
@@ -511,7 +551,8 @@ public class PrimeEvents
                 {
                     if(customers.getCustomer(index).getEmail().equals(userName) && customers.getCustomer(index).getPassword().equals(password) && !customers.getCustomer(index).getEmail().equals("????"))
                     {
-                        System.out.println("OK");
+                        firstName = customers.getCustomer(index).getFirstName();
+                        lastName = customers.getCustomer(index).getLastName();
                         status = false;
                     }
                     if(customers.getCustomer(index).getEmail().equals(userName) && !customers.getCustomer(index).getPassword().equals(password))
@@ -540,7 +581,7 @@ public class PrimeEvents
                 System.out.println("Press any key to continue...");
                 input.nextLine();
                 resetPage();
-                //customer();
+                customer(firstName, lastName);
             }
         }
     }
@@ -574,7 +615,138 @@ public class PrimeEvents
         resetPage();
     }
     
-    private void owner()
+    public void customer(String firstName, String lastName)
+    {
+        Scanner input = new Scanner(System.in);
+        while(customerOption != 8)
+        {
+            resetOption();
+            
+            customerMenu();
+            customerOption = input.nextInt();
+            resetPage();
+                switch(customerOption)
+                {
+                    case 1: System.out.println("View Hall");
+                            listHall();
+                            break;
+                    case 2: System.out.println("View Booking History");
+                            bookHistroy(firstName, lastName);
+                            break;
+                    case 3: System.out.println("View Receipt");
+                            break;
+                    case 4: System.out.println("Manage Booking");
+                            break;
+                    case 5: System.out.println("Book Hall");
+                            bookHall(firstName, lastName);
+                            break;
+                    case 6: System.out.println("Rate service");
+                            break;
+                    case 7: System.out.println("Manage Profile");
+                            break;
+                    case 8: loginOption = 4;
+                            break;
+                            default: System.out.println("You can only choose a number between 1 and 8!");
+                }
+        }
+    }
+    
+    public void getCusBookHistory(String firstName, String lastName)
+    {
+        int index = 0;
+        for(index = 0; index < customer.getAllBook().length; index++)
+        {
+            if(customer.getBook(index).getFirstName().equals(firstName) && customer.getBook(index).getLastName().equals(lastName))
+            {
+                customer.displayBook(index);
+            }
+        }
+        
+    }
+    
+    private void bookHistroy(String firstName, String lastName)
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Your booking history is: \r\n");
+        getCusBookHistory(firstName, lastName);
+        System.out.println("Press any to continue...");
+        input.nextLine();
+    }
+    
+    private int checkBook()
+    {
+        for(int i = 0; i < customer.getAllBook().length; i++)
+        {
+            if(customer.getBook(i).getPrice() != -1)
+                return 1;
+        }
+        return 0;
+    }
+    
+    private void bookHall(String firstName, String lastName)
+    {
+        Scanner input = new Scanner(System.in);
+        boolean validation = true;
+        int hallChoice = -1;
+        listHall();
+        int checkHall = checkBook();
+        
+        if(checkHall == 1)
+        {
+            do
+            {
+                validation = true;//set loop into while true
+                try
+                {
+                    System.out.println("Please make a choice for the hall you want to book with(by hall number)");
+                    hallChoice = Integer.parseInt(input.nextLine());//transfer the input value from String into int
+                    while(owner.getHalls(hallChoice - 1).getHallCapacity() == -1)
+                    {
+                        System.out.println("There is no option of " + hallChoice  + "! Please enter again:");
+                        hallChoice = Integer.parseInt(input.nextLine());
+                    }
+                    validation = false;
+                }
+                catch(Exception e)//if input not a string, then it cant transfer from string to int
+                {
+                System.out.println("You can only enter Number here!");
+                }
+            }while(validation == true);
+    
+            String hallName = owner.getHalls(hallChoice - 1).getHallName();
+            String hallEvents = owner.getHalls(hallChoice - 1).getHallEvents();
+            String date = "this need input date";
+            double hallPrice = owner.getHalls(hallChoice - 1).getHallPrice();
+            double hallDeposit = hallPrice * 0.5;
+            double acutalFee = hallPrice * 1; //hall price times discount rate, now set as 1
+            
+            int bookID = getBookID();
+            customer.setBook(bookID, firstName, lastName, hallName, hallEvents, date, hallPrice, acutalFee, hallDeposit);
+            System.out.println("Congratulations! Booking Successful!");
+            System.out.println("Press any to continue...");
+            input.nextLine();
+        }
+        else
+        {
+            System.out.println("There is no hall could book");
+            System.out.println("Press any to continue...");
+            input.nextLine();
+        }
+    }
+    
+    private int getBookID()
+    {
+        int index = 0;
+        while(index < customer.getAllBook().length)
+        {
+            if(customer.getBook(index).getPrice() == -0.01)
+                return index;
+            index++;
+        }
+        return -1;
+    }
+    
+    private void owner(String firstName, String lastName)
     {           
         Scanner input = new Scanner(System.in);
         while(ownerOption != 7)
@@ -587,7 +759,7 @@ public class PrimeEvents
                 switch(ownerOption)
                 {
                     case 1: System.out.println("Manage hall");
-                            manageHall();
+                            manageHall(firstName, lastName);
                             break;
                     case 2: System.out.println("Manage Booking");
                             break;
@@ -616,53 +788,221 @@ public class PrimeEvents
         System.out.println("Press 2 to Search Hall");
         System.out.println("Press 3 to Update Hall");
         System.out.println("Press 4 to Delete Hall");
-        System.out.println("Press 5 Back to Owner Page\r\n");
+        System.out.println("Press 5 to View Hall");
+        System.out.println("Press 6 Back to Owner Page\r\n");
         System.out.println("Please Enter Your Choice: ");
     }
     
-    private void manageHall()
+    private void manageHall(String firstName, String lastName)
     {
         Scanner input = new Scanner(System.in);
-        while(manageHallOption != 5)
+        while(manageHallOption != 6)
         {
             manageHallMenu();
             manageHallOption = input.nextInt();
             resetPage();
+            int index;
+            String search = "?";
                 switch(manageHallOption)
                 {
                     case 1: System.out.println("Create Hall");
+                            index = getHallIndex();
+                            createHall("c",index, firstName, lastName);
                             break;
                     case 2: System.out.println("Search Hall");
+                            System.out.println("Please Enter the hall name you want to search");
+                            search = input.nextLine();
+                            searchHall(firstName, lastName, search);
+                            //no search validation here such as if there is no match
                             break;
                     case 3: System.out.println("Update Hall");
+                            System.out.println("Plesase chose the hall you want to edit(by hall number)");
+                            index = input.nextInt() - 1;
+                            createHall("e",index , firstName, lastName);
                             break;
                     case 4: System.out.println("Delete Hall");
                             break;
-                    case 5: 
+                    case 5: resetPage();
+                            System.out.println("View Hall");
+                            getOwnerHall(firstName, lastName);
+                            input.nextLine();
                             break;
-                            default: System.out.println("You can only choose a number between 1 and 5!");
+                    case 6: 
+                            break;
+                            default: System.out.println("You can only choose a number between 1 and 6!");
                 }
             
         }
     }
     
+    public void searchHall(String firstName, String lastName, String searchName)
+    {
+        int index = 0;
+        for(index = 0; index < owner.getAllHalls().length; index++)
+        {
+            if(owner.getHalls(index).getHallOwnerFirstName().equals(firstName) && owner.getHalls(index).getHallOwnerLastName().equals(lastName))
+            {
+                if(owner.getHalls(index).getHallName().equals(searchName))
+                    owner.displayHalls(index);
+            }
+        }
+    }
+    
+    public void userSearchHall(String searchName)
+    {
+        int index = 0;
+        for(index = 0; index < owner.getAllHalls().length; index++)
+        {
+            if(owner.getHalls(index).getHallName().equals(searchName))
+                owner.displayHalls(index);
+        }
+    }
+    
+    private int getHallIndex()
+    {
+        int index = 0;
+        while(index < owner.getAllHalls().length)
+        {
+            if(owner.getHalls(index).getHallCapacity() == -1)
+                return index;
+            index++;
+        }
+        return -1;
+    }
+    
+    public void createHall(String type, int index, String hallOwnerFirstName, String hallOwnerLastName)
+    {
+        Scanner input = new Scanner(System.in);
+        boolean validation = true;
+        int hallCapacity = -1;
+        double hallPrice = -0.01;
+        String confirm;
+        
+        System.out.println("Pleas enter the Hall Name: ");
+        String hallName = input.nextLine();
+        while(hallName.trim().length() < 3 || hallName.trim().length() > 25)
+        {
+            System.out.println("Must be between 3 and 25 characters long!");
+            System.out.println("Please enter your hall name again: ");
+            hallName = input.nextLine();
+        }
+        
+        System.out.println("Pleas enter the Hall Address: ");
+        String hallAddress = input.nextLine();
+        while(hallAddress.trim().length() < 5 || hallAddress.trim().length() > 505)
+        {
+            System.out.println("Must be between 5 and 50 characters long!");
+            System.out.println("Please enter your hall address again: ");
+            hallAddress = input.nextLine();
+        }
+        
+        do
+        {
+            validation = true;//set loop into while true
+            try
+            {
+                System.out.println("Pleas enter the Hall Capacity: ");
+                hallCapacity = Integer.parseInt(input.nextLine());//transfer the input value from String into int
+                while(hallCapacity < 10 || hallCapacity > 100)//validate the input range
+                {
+                    System.out.println("Hall capacity Must Be between 10 and 100");
+                    System.out.println("Please enter again:");
+                    hallCapacity = Integer.parseInt(input.nextLine());
+                }
+                validation = false;
+            }
+            catch(Exception e)//if input not a string, then it cant transfer from string to int
+            {
+            System.out.println("You can only Enter integer here!");
+            }
+        }while(validation == true);    
+        
+        do
+        {
+            validation = true;//set loop into while true
+            try
+            {
+                System.out.println("Pleas enter the Hall Price: ");
+                hallPrice = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                while(hallPrice < 0 )//validate the input range
+                {
+                    System.out.println("Hall value cannot lower than 0");
+                    System.out.println("Please enter again:");
+                    hallPrice = Double.parseDouble(input.nextLine());
+                }
+                validation = false;
+            }
+            catch(Exception e)//if input not a string, then it cant transfer from string to int
+            {
+            System.out.println("You can only Enter integer here!");
+            }
+        }while(validation == true);   
+        
+        
+        System.out.println("Pleas enter event type you want to add in: ");
+        String hallEvents = input.nextLine();
+        while(hallEvents.trim().length() < 0)
+        {
+            System.out.println("It require must at least one event!");
+            System.out.println("Please enter event type again: ");
+            hallEvents = input.nextLine();
+        }
+        
+        System.out.println("Are you confirm you want to add this hall information? Please enter Y/y for yes, N/n for No");
+        confirm = input.nextLine();
+        
+        while(!confirm.toLowerCase().matches("[yn]"))
+        {
+            System.out.println("Error! you can only type in Y/y for comfirm or N/n for back");
+        }
+        
+        if(confirm.toLowerCase().equals("y") && type.equals("c"))
+        {
+            System.out.println("Hall add in successfully! ");
+            owner.setHall(index, hallOwnerFirstName, hallOwnerLastName, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
+        }
+        
+        if(confirm.toLowerCase().equals("y") && type.equals("e"))
+        {
+            System.out.println("Hall edit successfully! ");
+            owner.setHall(index, hallOwnerFirstName, hallOwnerLastName, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
+        }
+        
+        if(confirm.toLowerCase().equals("n"))
+        {
+            resetPage();
+        }
+        
+    }
+    
     /**
      * method of get halls Index(ID, unique)
      */   
-    public int getHallsNumb()
+    private int getHallsNumb()
     {
         int i = 0;
         while(i < owner.getAllHalls().length)
         {
-            if(owner.getHalls(i).getHallName().equals("????"))
+            if(owner.getHalls(i).getHallCapacity() == -1)
                 return i;
             i++;
         }
         return -1;// result -1 means there is no space another hall
     }
     
+    public void getOwnerHall(String firstName, String lastName)
+    {
+        int index = 0;
+        for(index = 0; index < owner.getAllHalls().length; index++)
+        {
+            if(owner.getHalls(index).getHallOwnerFirstName().equals(firstName) && owner.getHalls(index).getHallOwnerLastName().equals(lastName))
+            {
+                owner.displayHalls(index);
+            }
+        }
+        
+    }
     
-
     /**
      * option of home page
      */      
@@ -702,8 +1042,10 @@ public class PrimeEvents
         loginOption = 0;
         ownerOption = 0;
         manageHallOption = 0;
+        customerOption = 0;
     }
-    private void forgotPassword()
+    
+    public void test()
     {
         
     }

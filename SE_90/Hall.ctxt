@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Hall
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Hall\ here.\r\n\r\n\ @author\ (Yuekai\ Huang)\r\n\ @version\ (10.09.2019)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ Hall\ here.\n\n\ @author\ (Yuekai\ Huang)\n\ @version\ (10.09.2019)\n
 comment1.params=
 comment1.target=Hall()
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Hall\r\n
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Hall\n
 comment10.params=
 comment10.target=java.lang.String\ getHallEvents()
 comment11.params=
@@ -24,7 +24,7 @@ comment2.params=hallOwnerFirstName\ hallOwnerLastName\ hallName\ hallAddress\ ha
 comment2.target=Hall(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ double,\ java.lang.String)
 comment3.params=hallName\ hallAddress\ hallCapacity\ hallPrice\ hallEvents
 comment3.target=void\ display(java.lang.String,\ java.lang.String,\ int,\ double,\ java.lang.String)
-comment3.text=\r\n\ display\ method\ for\ display\ hall\ \r\n
+comment3.text=\n\ display\ method\ for\ display\ hall\ \n
 comment4.params=
 comment4.target=java.lang.String\ getHallOwnerFirstName()
 comment5.params=

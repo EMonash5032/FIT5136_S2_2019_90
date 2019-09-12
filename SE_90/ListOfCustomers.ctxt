@@ -1,12 +1,12 @@
 #BlueJ class context
 comment0.target=ListOfCustomers
-comment0.text=\r\n\ Class\ ListOfCustomers\r\n\ \r\n\ @author\ Jialiang\ Wu\ &&\ Yuekai\ Huang\r\n\ @version\ 10\ September\ 2019\r\n
+comment0.text=\n\ Class\ ListOfCustomers\n\ \n\ @author\ Jialiang\ Wu\ &&\ Yuekai\ Huang\n\ @version\ 10\ September\ 2019\n
 comment1.params=
 comment1.target=ListOfCustomers()
-comment1.text=\r\n\ \r\n
+comment1.text=\n\ \n
 comment2.params=
 comment2.target=Customer[]\ getAllCus()
-comment2.text=\r\n\r\n
+comment2.text=\n\n
 comment3.params=index
 comment3.target=Customer\ getCustomer(int)
 comment4.params=index\ firstName\ lastName\ email\ address\ password\ phone\ question1\ answer1\ question2\ answer2\ isConcession

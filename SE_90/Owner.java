@@ -174,9 +174,9 @@ public class Owner
         this.halls = halls;
     }
     
-    public void setHall(int index, Hall hall)
+    public void setHall(int index, String hallOwnerFirstName, String hallOwnerLastName, String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
     {
-        halls[index] = new Hall("????","????","????","????", -1, -0.01, "????");
+        halls[index] = new Hall(hallOwnerFirstName, hallOwnerLastName, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
     }
     
     public void remove()
@@ -199,18 +199,14 @@ public class Owner
         System.out.println("Please Enter Hall Number You Want To Remove: ");
     }
 
-    public void confirmRemove(int inputIndex)
+    public void displayHalls(int inputIndex)
     {
-        System.out.println("Do you want to remove the hall: ");
-        
-        System.out.println("Select the hall number " + (inputIndex + 1) + ": ");
+        System.out.println("The hall number " + (inputIndex + 1) + ": ");
         System.out.println("Hall Name: " + halls[inputIndex].getHallName());
-        System.out.println(" Address: " + halls[inputIndex].getHallAddress());
-        System.out.println(" Capacity: " + halls[inputIndex].getHallCapacity());
-        System.out.println(" Pirce: " + halls[inputIndex].getHallPrice());
-        System.out.println(" Events Type: " + halls[inputIndex].getHallEvents() + "\r\n");
-        
-        System.out.println("Please Enter 'y' or 'n'");
+        System.out.println("  Address: " + halls[inputIndex].getHallAddress());
+        System.out.println("  Capacity: " + halls[inputIndex].getHallCapacity());
+        System.out.println("  Pirce: " + halls[inputIndex].getHallPrice());
+        System.out.println("  Events Type: " + halls[inputIndex].getHallEvents() + "\r\n");
     }
     
 }
