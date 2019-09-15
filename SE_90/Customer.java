@@ -183,11 +183,11 @@ public class Customer
         double hallPrice = quota.getHalls(index).getHallPrice();
         String hallEvents = quota.getHalls(index).getHallEvents();
         
-        System.out.println("Youe Quotation is");
+        System.out.println("Your Quotation is");
         System.out.println("Hall Name: " + hallName);
         System.out.println(" Address: " + hallAddress);
         System.out.println(" Capacity: " + hallCapacity);
-        System.out.println(" Pirce: $" + hallPrice);
+        System.out.println(" Price: $" + hallPrice);
         System.out.println(" Events Type: " + hallEvents + "\r\n");
     }
     

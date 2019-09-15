@@ -38,6 +38,7 @@ comment20.params=
 comment20.target=void\ customerLogin()
 comment21.params=
 comment21.target=void\ administratorLogin()
+comment21.text=\r\n\ Administrator\ Login\r\n
 comment22.params=firstName\ lastName
 comment22.target=void\ customer(java.lang.String,\ java.lang.String)
 comment23.params=firstName\ lastName

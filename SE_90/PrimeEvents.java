@@ -91,7 +91,7 @@ public class PrimeEvents
         System.out.println("+ Welcome to Prime Events +");
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
-        System.out.println("Press 1 to View hall");
+        System.out.println("Press 1 to View Hall");
         System.out.println("Press 2 to Login");
         System.out.println("Press 3 to Register");
         System.out.println("Press 4 Exit\r\n");
@@ -128,7 +128,7 @@ public class PrimeEvents
         
         if(check == 0)
         {
-            System.out.println("There is no hall, unless Owner add one!");
+            System.out.println("There is no hall until Owner has added a hall!");
             System.out.println("Press any key to continue");
             input.nextLine();
             resetPage();
@@ -186,9 +186,9 @@ public class PrimeEvents
         System.out.println("+ Welcome to Prime Events -- Owner Page +");
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
-        System.out.println("Press 1 to Manage hall");
+        System.out.println("Press 1 to Manage Hall");
         System.out.println("Press 2 to Manage Booking");
-        System.out.println("Press 3 to Manage discounts");
+        System.out.println("Press 3 to Manage Discounts");
         System.out.println("Press 4 to View Halls Booking History");
         System.out.println("Press 5 to Manage Receipt");
         System.out.println("Press 6 to View Feedback");
@@ -248,16 +248,16 @@ public class PrimeEvents
             String searchName = "?";
                 switch(searchOption)
                 {
-                    case 1: System.out.println("Function Search Hall by name");
+                    case 1: System.out.println("Function Search Hall by Name");
                             userSearchHall(searchName);
                             break;
-                    case 2: System.out.println("Function Search Hall by event type");
+                    case 2: System.out.println("Function Search Hall by Event Type");
                             break;
-                    case 3: System.out.println("Function Search Hall by date");
+                    case 3: System.out.println("Function Search Hall by Date");
                             break;
                     case 4: viewOption = 3;
                             break;
-                            default: System.out.println("You can only choose a number between 1 and 4!");
+                            default: System.out.println("Please choose an option between 1 and 4!");
                 }
         }
     }
@@ -280,7 +280,7 @@ public class PrimeEvents
                             break;
                     case 3: 
                             break;
-                            default: System.out.println("You can only choose a number between 1 and 3!");
+                            default: System.out.println("Please choose an option between 1 and 3!");
                 }
         }
     }
@@ -305,7 +305,7 @@ public class PrimeEvents
                     case 3: ownerLogin();
                             break;
                     case 4: break;
-                            default: System.out.println("You can only choose a number between 1 and 4!");
+                            default: System.out.println("Please choose an option between 1 and 4!");
                 }
         }
     }
@@ -317,18 +317,18 @@ public class PrimeEvents
         String lastName = "????";
         
         
-        System.out.println("Please enter Owner user name: ");
+        System.out.println("Please enter Owner Email Address: ");
         String userName = input.nextLine();
         int ownerId = getCheckOwner(userName);
         if(ownerId == -1)
         {
-            System.out.println("Account: " + userName + " are not registered yet! Press any key to back!");
+            System.out.println("Account: " + userName + " is not registered yet! Press any key to back!");
             input.nextLine();
             resetPage();
         }
         else
         {
-            System.out.println("Please enter Owner password: ");
+            System.out.println("Please enter Owner Password: ");
             String password = input.nextLine();
             boolean status = true;
             while(status == true)
@@ -345,12 +345,12 @@ public class PrimeEvents
                     }
                     if(owners.getOwner(index).getEmail().equals(userName) && !owners.getOwner(index).getPassword().equals(password))
                     {
-                        System.out.println("You have wrong password! Please Enter your password again(if your forgot just type F/f): ");
+                        System.out.println("Password is incorrect for specified email! Please enter your password again(if your forgotten, choose F/f): ");
                         password = input.nextLine();
                     }
                     if(password.toLowerCase().equals("f"))
                     {
-                        System.out.println("This need fill information of admin or function of recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
+                        System.out.println("Please contact administrator or recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
                         status = false;
                     }
                 }
@@ -365,7 +365,7 @@ public class PrimeEvents
             }
             else
             {
-                System.out.println("Welcome! You are successfully login");
+                System.out.println("Welcome! You have successfully login");
                 System.out.println("Press any key to continue...");
                 input.nextLine();
                 resetPage();
@@ -446,11 +446,11 @@ public class PrimeEvents
             
             System.out.println("Please enter your first security question");
             String question1 = input.nextLine();
-            System.out.println("Please enter your first security answer");
+            System.out.println("Please type the answer to your first security question");
             String answer1 = input.nextLine();
             System.out.println("Please enter your second security question");
             String question2 = input.nextLine();
-            System.out.println("Please enter your second security answer");
+            System.out.println("Please type the answer to your second security question");
             String answer2 = input.nextLine();
             
             boolean isConcession;
@@ -465,7 +465,7 @@ public class PrimeEvents
                 {
                     if(!phone.matches("[0-9]+"))
                     {
-                        System.out.println("Phone number only allow numbers! OR You can hit enter to skip! Please enter again: ");
+                        System.out.println("Phone number only have digits involved! ALTERNATIVELY, hit enter to skip this step! Please enter again: ");
                         phone = input.nextLine();
                     }
                 }
@@ -476,7 +476,7 @@ public class PrimeEvents
                 choice = input.nextLine();
                 while(!choice.toLowerCase().matches("[yn]"))
                 {
-                    System.out.println("You can only pick yes(y) or no(n)");
+                    System.out.println("Please choose yes(y) or no(n)");
                     System.out.println("Please enter again: ");
                     choice = input.nextLine();
                 }
@@ -499,7 +499,7 @@ public class PrimeEvents
                 phone = input.nextLine();
                 while(!phone.matches("[0-9]+"))
                 {
-                    System.out.println("Phone number only allow numbers! Please enter again: ");
+                    System.out.println("Phone number may only have digits! Please enter again: ");
                     phone = input.nextLine();
                 }
                 
@@ -507,7 +507,7 @@ public class PrimeEvents
                 address = input.nextLine();
                 while(address.trim().length() < 5 || address.trim().length() > 50)
                 {
-                    System.out.println("Address is required! and must between 5 to 50 characters! Please enter again: ");
+                    System.out.println("An Address is required! It must be between 5 to 50 characters! Please enter again: ");
                     address = input.nextLine();
                 }
                 
@@ -529,12 +529,12 @@ public class PrimeEvents
         String firstName = "????";
         String lastName = "????";
         
-        System.out.println("Please enter Customer email: ");
+        System.out.println("Please enter a Customer email: ");
         String userName = input.nextLine();
         int custID = getCheckCust(userName);
         if(custID == -1)
         {
-            System.out.println("Account: " + userName + " are not registered yet! Press any key to back!");
+            System.out.println("Account: " + userName + " is not registered yet! Press any key to back!");
             input.nextLine();
             resetPage();
         }
@@ -557,12 +557,12 @@ public class PrimeEvents
                     }
                     if(customers.getCustomer(index).getEmail().equals(userName) && !customers.getCustomer(index).getPassword().equals(password))
                     {
-                        System.out.println("You have wrong password! Please Enter your password again(if your forgot just type F/f): ");
+                        System.out.println("You have a wrong password! Please Enter your password again(if your forgot just type F/f): ");
                         password = input.nextLine();
                     }
                     if(password.toLowerCase().equals("f"))
                     {
-                        System.out.println("This need fill information of admin or function of recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
+                        System.out.println("Please contact administrator or recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
                         status = false;
                     }
                 }
@@ -586,6 +586,10 @@ public class PrimeEvents
         }
     }
    
+    
+    /**
+     * Administrator Login
+     */
     private void administratorLogin()
     {
         Scanner input = new Scanner(System.in);
@@ -829,7 +833,7 @@ public class PrimeEvents
                             break;
                     case 6: 
                             break;
-                            default: System.out.println("You can only choose a number between 1 and 6!");
+                            default: System.out.println("Please enter a choice between 1 and 6!");
                 }
             
         }
@@ -878,7 +882,7 @@ public class PrimeEvents
         double hallPrice = -0.01;
         String confirm;
         
-        System.out.println("Pleas enter the Hall Name: ");
+        System.out.println("Pleas enter a Hall Name: ");
         String hallName = input.nextLine();
         while(hallName.trim().length() < 3 || hallName.trim().length() > 25)
         {
@@ -901,7 +905,7 @@ public class PrimeEvents
             validation = true;//set loop into while true
             try
             {
-                System.out.println("Pleas enter the Hall Capacity: ");
+                System.out.println("Please enter the Hall Capacity: ");
                 hallCapacity = Integer.parseInt(input.nextLine());//transfer the input value from String into int
                 while(hallCapacity < 10 || hallCapacity > 100)//validate the input range
                 {
@@ -913,7 +917,7 @@ public class PrimeEvents
             }
             catch(Exception e)//if input not a string, then it cant transfer from string to int
             {
-            System.out.println("You can only Enter integer here!");
+            System.out.println("You can only Enter a number here!");
             }
         }while(validation == true);    
         
@@ -922,11 +926,11 @@ public class PrimeEvents
             validation = true;//set loop into while true
             try
             {
-                System.out.println("Pleas enter the Hall Price: ");
+                System.out.println("Please enter the Hall Price: ");
                 hallPrice = Double.parseDouble(input.nextLine());//transfer the input value from String into int
                 while(hallPrice < 0 )//validate the input range
                 {
-                    System.out.println("Hall value cannot lower than 0");
+                    System.out.println("Price of hall cannot be lower than 0");
                     System.out.println("Please enter again:");
                     hallPrice = Double.parseDouble(input.nextLine());
                 }
@@ -934,37 +938,37 @@ public class PrimeEvents
             }
             catch(Exception e)//if input not a string, then it cant transfer from string to int
             {
-            System.out.println("You can only Enter integer here!");
+            System.out.println("You can only Enter a number here!");
             }
         }while(validation == true);   
         
         
-        System.out.println("Pleas enter event type you want to add in: ");
+        System.out.println("Pleas enter event type you want to host: ");
         String hallEvents = input.nextLine();
         while(hallEvents.trim().length() < 0)
         {
-            System.out.println("It require must at least one event!");
-            System.out.println("Please enter event type again: ");
+            System.out.println("Hall must be available for at least one event!");
+            System.out.println("Please enter the event type again: ");
             hallEvents = input.nextLine();
         }
         
-        System.out.println("Are you confirm you want to add this hall information? Please enter Y/y for yes, N/n for No");
+        System.out.println("Are you sure you want to add this hall information? Please enter Y/y for yes, N/n for No");
         confirm = input.nextLine();
         
         while(!confirm.toLowerCase().matches("[yn]"))
         {
-            System.out.println("Error! you can only type in Y/y for comfirm or N/n for back");
+            System.out.println("Error! you can only type in Y/y to confirm or N/n to go back");
         }
         
         if(confirm.toLowerCase().equals("y") && type.equals("c"))
         {
-            System.out.println("Hall add in successfully! ");
+            System.out.println("Hall has been added in successfully! ");
             owner.setHall(index, hallOwnerFirstName, hallOwnerLastName, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
         }
         
         if(confirm.toLowerCase().equals("y") && type.equals("e"))
         {
-            System.out.println("Hall edit successfully! ");
+            System.out.println("Hall has been edited successfully! ");
             owner.setHall(index, hallOwnerFirstName, hallOwnerLastName, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
         }
         
@@ -1024,8 +1028,8 @@ public class PrimeEvents
                             break;
                     case 3: register();
                             break;
-                    case 4: System.out.println("Thank you for using"); break;
-                            default: System.out.println("You can only choose a number between 1 and 4!");
+                    case 4: System.out.println("Thank you for using Prime Events"); break;
+                            default: System.out.println("Please select an option between 1 and 4!");
                 }
         }
     }
