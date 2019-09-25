@@ -46,81 +46,129 @@ public class Booking
         this.deposit = deposit;
     }
 
+    /**
+     * #1
+     */
     public String getFirstName()
     {
         return firstName;
     }
     
+    /**
+     * #2
+     */
     public String getLastName()
     {
         return lastName;
     }
     
+    /**
+     * #3
+     */
     public String getHallName()
     {
         return hallName;
     }
     
+    /**
+     * #4
+     */
     public String getEventType()
     {
         return eventType;
     }
     
+    /**
+     * #5
+     */
     public String getDate()
     {
         return date;
     }
     
+    /**
+     * #6
+     */
     public double getPrice()
     {
         return price;
     }
     
+    /**
+     * #7
+     */
     public double getActualFee()
     {
         return actualFee;
     }
     
+    /**
+     * #8
+     */
     public double getDeposit()
     {
         return deposit;
     }   
     
+    /**
+     * #9
+     */
     public void setFirstName(String firstName)
     {
         this.firstName = firstName;
     }
     
+    /**
+     * #10
+     */
     public void setLastName(String lastName)
     {
         this.lastName = lastName;
     }
     
+    /**
+     * #11
+     */
     public void setHallName(String hallName)
     {
         this.hallName = hallName;
     }
 
+    /**
+     * #12
+     */
     public void setEventType(String eventType)
     {
         this.eventType = eventType;
     }
     
+    /**
+     * #13
+     */
     public void setDate(String date)
     {
         this.date = date;
     }
 
+    /**
+     * #14
+     */
     public void setPrice(double price)
     {
         this.price = price;
     } 
     
+    /**
+     * #15
+     */
     public void setActualFee(double actualFee)
     {
         this.actualFee = actualFee;
     }
 
+    /**
+     * #16
+     */
     public void setDeposit(double deposit)
     {
         this.deposit = deposit;

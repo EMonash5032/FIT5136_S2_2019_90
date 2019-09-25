@@ -27,21 +27,33 @@ public class Administrator
         this.password = password;
     }
     
+    /**
+     * #1
+     */
     public String getEmail()
     {
         return email;
     }
     
+    /**
+     * #2
+     */
     public String getPassword()
     {
         return password;
     }
     
+    /**
+     * #3
+     */
     public void setEmail()
     {
         this.email = email;
     }
     
+    /**
+     * #4
+     */
     public void setPassword()
     {
         this.password = password;

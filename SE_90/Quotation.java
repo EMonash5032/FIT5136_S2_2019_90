@@ -32,16 +32,25 @@ public class Quotation
         this.quota = quota;
     }
     
+    /**
+     * #1
+     */
     public void setQuota(String quota)
     {
         this.quota = quota;
     }
     
+    /**
+     * #2
+     */
     public String getQuota()
     {
         return quota;
     }
     
+    /**
+     * #3
+     */
     public Hall getHalls(int index)
     {
         return halls[index];

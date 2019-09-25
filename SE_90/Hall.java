@@ -43,6 +43,7 @@ public class Hall
     }
 
     /**
+     * #1
      * display method for display hall 
      */
     public void display(String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
@@ -54,71 +55,113 @@ public class Hall
          System.out.println("Hall Events Type: " + hallEvents);
     }
     
+    /**
+     * #2
+     */
     public String getHallOwnerFirstName()
     {
         return hallOwnerFirstName;
     }
     
+    /**
+     * #3
+     */
     public String getHallOwnerLastName()
     {
         return hallOwnerLastName;
     }
     
+    /**
+     * #4
+     */
     public String getHallName()
     {
         return hallName;
     }
     
+    /**
+     * #5
+     */
     public String getHallAddress()
     {
         return hallAddress;
     }
     
+    /**
+     * #6
+     */
     public int getHallCapacity()
     {
         return hallCapacity;
     }
     
+    /**
+     * #7
+     */
     public double getHallPrice()
     {
         return hallPrice;
     }
     
+    /**
+     * #8
+     */
     public String getHallEvents()
     {
         return hallEvents;
     }
     
+    /**
+     * #9
+     */
     public void setHallOwnerFirstName()
     {
         this.hallOwnerFirstName = hallOwnerFirstName;
     }
     
+    /**
+     * #10
+     */
     public void setHallOwnerLastName()
     {
         this.hallOwnerLastName = hallOwnerLastName;
     }
     
+    /**
+     * #11
+     */
     public void setHallName(String name)
     {
         this.hallName = hallName;
     }
     
+    /**
+     * #12
+     */
     public void setHallAddress(String hallAddress)
     {
         this.hallAddress = hallAddress;
     }
     
+    /**
+     * #13
+     */
     public void setHallCapacity(int hallCapacity)
     {
         this.hallCapacity = hallCapacity;
     }
     
+    /**
+     * #14
+     */
     public void setHallPrice(double hallPrice)
     {
         this.hallPrice = hallPrice;
     }
     
+    /**
+     * #15
+     */
     public void setHallEvents(String hallEvents)
     {
         this.hallEvents = hallEvents;

@@ -36,6 +36,9 @@ public class PrimeEvents
         owners = new ListOfOwners();
     }
 
+    /**
+     * #1
+     */
     private int getOwnerIndex()
     {
         int index = 0;
@@ -48,6 +51,9 @@ public class PrimeEvents
         return -1;
     }
     
+    /**
+     * #2
+     */
     public int getCheckOwner(String email)
     {
 
@@ -59,6 +65,9 @@ public class PrimeEvents
         return -1;
     }
     
+    /**
+     * #3
+     */
     private int getCustIndex()
     {
         int index = 0;
@@ -71,6 +80,9 @@ public class PrimeEvents
         return -1;
     }
     
+    /**
+     * #4
+     */
     public int getCheckCust(String email)
     {
 
@@ -83,7 +95,8 @@ public class PrimeEvents
     }
     
     /**
-     * Home page Menu list
+     *#5
+     *Home page Menu list
      */
     private void mainMenu()
     {
@@ -99,6 +112,7 @@ public class PrimeEvents
     }
     
     /**
+     * #6
      * View Hall page Menu list
      */
     private void viewMenu()
@@ -112,6 +126,10 @@ public class PrimeEvents
         System.out.println("Press 3 Back to Home Page\r\n");
         System.out.println("Please Enter Your Choice: ");
     }
+    
+    /**
+     * #7
+     */
     private int checkHallList()
     {
         for(int i = 0; i < owner.getAllHalls().length; i++)
@@ -121,6 +139,10 @@ public class PrimeEvents
         }
         return 0;
     }
+    
+    /**
+     * #8
+     */
     private void listHall()
     {
         Scanner input = new Scanner(System.in);
@@ -146,6 +168,7 @@ public class PrimeEvents
     }
     
     /**
+     * #9
      * Searching option Menu list
      */
     private void searchMenu()
@@ -162,6 +185,7 @@ public class PrimeEvents
     }
     
     /**
+     * #10
      * login page Menu list
      */
     private void loginMenu()
@@ -178,6 +202,7 @@ public class PrimeEvents
     }
 
     /**
+     * #11
      * Owner page Menu list
      */
     private void ownerMenu()
@@ -197,6 +222,7 @@ public class PrimeEvents
     }
     
     /**
+     * #12
      * Customer page Menu list
      */    
     private void customerMenu()
@@ -217,6 +243,7 @@ public class PrimeEvents
     }
     
     /**
+     * #13
      * administrator page Menu list
      */
     private void administratorMenu()
@@ -236,6 +263,7 @@ public class PrimeEvents
     }
     
     /**
+     * #14
      * option of Search page
      */    
     private void searchHall()
@@ -263,6 +291,7 @@ public class PrimeEvents
     }
     
     /**
+     * #15
      * option of view hall
      */      
     private void viewHall()
@@ -286,6 +315,7 @@ public class PrimeEvents
     }
 
     /**
+     * #16
      * option of login
      */  
     private void login()
@@ -310,6 +340,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #17
+     */
     private void ownerLogin()
     {
         Scanner input = new Scanner(System.in);
@@ -375,6 +408,9 @@ public class PrimeEvents
         
     }
     
+    /**
+     * #18
+     */
     private void register()
     {
         boolean validation = true;
@@ -523,6 +559,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #19
+     */
     private void customerLogin()
     {
         Scanner input = new Scanner(System.in);
@@ -588,6 +627,7 @@ public class PrimeEvents
    
     
     /**
+     * #20
      * Administrator Login
      */
     private void administratorLogin()
@@ -619,6 +659,9 @@ public class PrimeEvents
         resetPage();
     }
     
+    /**
+     * #21
+     */
     public void customer(String firstName, String lastName)
     {
         Scanner input = new Scanner(System.in);
@@ -655,6 +698,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #22
+     */
     public void getCusBookHistory(String firstName, String lastName)
     {
         int index = 0;
@@ -668,6 +714,9 @@ public class PrimeEvents
         
     }
     
+    /**
+     * #23
+     */
     private void bookHistroy(String firstName, String lastName)
     {
         Scanner input = new Scanner(System.in);
@@ -677,6 +726,9 @@ public class PrimeEvents
         input.nextLine();
     }
     
+    /**
+     * #24
+     */
     private int checkBook()
     {
         for(int i = 0; i < customer.getAllBook().length; i++)
@@ -687,6 +739,9 @@ public class PrimeEvents
         return 0;
     }
     
+    /**
+     * #25
+     */
     private void bookHall(String firstName, String lastName)
     {
         Scanner input = new Scanner(System.in);
@@ -738,6 +793,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #26
+     */
     private int getBookID()
     {
         int index = 0;
@@ -750,6 +808,9 @@ public class PrimeEvents
         return -1;
     }
     
+    /**
+     * #27
+     */
     private void owner(String firstName, String lastName)
     {           
         Scanner input = new Scanner(System.in);
@@ -782,6 +843,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #28
+     */
     private void manageHallMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -797,6 +861,9 @@ public class PrimeEvents
         System.out.println("Please Enter Your Choice: ");
     }
     
+    /**
+     * #29
+     */
     private void manageHall(String firstName, String lastName)
     {
         Scanner input = new Scanner(System.in);
@@ -839,6 +906,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #30
+     */
     public void searchHall(String firstName, String lastName, String searchName)
     {
         int index = 0;
@@ -852,6 +922,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #31
+     */
     public void userSearchHall(String searchName)
     {
         int index = 0;
@@ -862,6 +935,9 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #32
+     */
     private int getHallIndex()
     {
         int index = 0;
@@ -874,6 +950,9 @@ public class PrimeEvents
         return -1;
     }
     
+    /**
+     * #33
+     */
     public void createHall(String type, int index, String hallOwnerFirstName, String hallOwnerLastName)
     {
         Scanner input = new Scanner(System.in);
@@ -980,6 +1059,7 @@ public class PrimeEvents
     }
     
     /**
+     * #34
      * method of get halls Index(ID, unique)
      */   
     private int getHallsNumb()
@@ -994,6 +1074,9 @@ public class PrimeEvents
         return -1;// result -1 means there is no space another hall
     }
     
+    /**
+     * #35
+     */
     public void getOwnerHall(String firstName, String lastName)
     {
         int index = 0;
@@ -1008,6 +1091,7 @@ public class PrimeEvents
     }
     
     /**
+     * #36
      * option of home page
      */      
     public void start()
@@ -1034,11 +1118,17 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * #37
+     */
     private void resetPage()
     {
         System.out.print('\u000C');
     }
     
+    /**
+     * #38
+     */
     private void resetOption()
     {
         viewOption = 0;
@@ -1049,6 +1139,9 @@ public class PrimeEvents
         customerOption = 0;
     }
     
+    /**
+     * #39
+     */
     public void test()
     {
         

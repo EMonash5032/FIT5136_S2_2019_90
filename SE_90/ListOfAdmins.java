@@ -23,11 +23,17 @@ public class ListOfAdmins
         
     }
     
+    /**
+     * #1
+     */
     public Administrator getAdmin(int index)
     {
         return admin[index];
     }
     
+    /**
+     * #2
+     */
     public void setAdmin(Administrator[] admin)
     {
         this.admin = admin;

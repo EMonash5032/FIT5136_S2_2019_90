@@ -1,4 +1,5 @@
 
+
 /**
  * Write a description of class Customer here.
  *
@@ -65,116 +66,185 @@ public class Customer
         this.isConcession = isConcession;
     }
     
+    /**
+     * #1
+     */
     public void setFirstName(String firstName)
     {
         this.firstName = firstName;
     }
     
+    /**
+     * #2
+     */
     public void setLastName(String lastName)
     {
         this.lastName = lastName;
     }
     
+    /**
+     * #3
+     */
     public void setEmail(String email)
     {
         this.email = email;
     }
     
+    /**
+     * #4
+     */
     public void setAddress(String address)
     {
         this.address = address;
     }
     
+    /**
+     * #5
+     */
     public void setPassword(String password)
     {
         this.password = password;
     }
     
+    /**
+     * #6
+     */
     public void setPhone(String phone)
     {
         this.phone = phone;
     }
     
+    /**
+     * #7
+     */
     public void setQuestion1(String question1)
     {
         this.question1 = question1;
     }
     
+    /**
+     * #8
+     */
     public void setAnswer1(String answer1)
     {
         this.answer1 = answer1;
     }
     
+    /**
+     * #9
+     */
     public void setQuestion2(String question2)
     {
         this.question2 = question2;
     }
     
+    /**
+     * #10
+     */
     public void setAnswer2(String answer2)
     {
         this.answer2 = answer2;
     }
     
+    /**
+     * #11
+     */
     public void setIsConcession(boolean isConcession)
     {
         this.isConcession = isConcession;
     }
     
+    /**
+     * #12
+     */
     public String getFirstName()
     {
         return firstName;
     }
     
+    /**
+     * #13
+     */
     public String getLastName()
     {
         return lastName;
     }
     
+    /**
+     * #14
+     */
     public String getEmail()
     {
         return email;
     }
     
+    /**
+     * #15
+     */
     public String getAddress()
     {
         return address;
     }
     
+    /**
+     * #16
+     */
     public String getPassword()
     {
         return password;
     }
     
+    /**
+     * #17
+     */
     public String getPhone()
     {
         return phone;
     }
     
+    /**
+     * #18
+     */
     public String getQuestion1()
     {
         return question1;
     }
     
+    /**
+     * #19
+     */
     public String getAnswer1()
     {
         return answer1;
     }
     
+    /**
+     * #20
+     */
     public String getQuestion2()
     {
         return question2;
     }
     
+    /**
+     * #21
+     */
     public String getAnswer2()
     {
         return answer2;
     }
     
+    /**
+     * #22
+     */
     public boolean getIsConcession()
     {
         return isConcession;
     }
     
+    /**
+     * #23
+     */
     public void quotationInfo(int index)
     {
         String hallName = quota.getHalls(index).getHallName();
@@ -191,6 +261,9 @@ public class Customer
         System.out.println(" Events Type: " + hallEvents + "\r\n");
     }
     
+    /**
+     * #24
+     */
     public void view(int inputIndex)
     {
         System.out.println("This is View Halls");
@@ -205,21 +278,33 @@ public class Customer
         System.out.println("Please Enter 'y' or 'n'");
     }
     
+    /**
+     * #25
+     */
     public Booking[] getAllBook()
     {
         return book;
     }
     
+    /**
+     * #26
+     */
     public Booking getBook(int index)
     {
         return book[index];
     }
     
+    /**
+     * #27
+     */
     public void setBook(int index, String firstName, String lastName, String hallName, String eventType, String date, double price, double actualFee, double deposit)
     {
         book[index] = new Booking(firstName, lastName, hallName, eventType, date, price, actualFee, deposit);
     }
     
+    /**
+     * #28
+     */
     public void displayBook(int inputIndex)
     {
         System.out.println("The Booking reference " + (inputIndex + 1) + ": ");
