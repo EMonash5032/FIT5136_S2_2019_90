@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=ListOfAdmins
+comment0.text=\n\ Class\ ListOfAdmins\n\ \n\ @author\ Jialiang\ Wu\ &&\ Yuekai\ Huang\n\ @version\ 10\ September\ 2019\n
+comment1.params=
+comment1.target=ListOfAdmins()
+comment1.text=\n\ \n
+comment2.params=admin
+comment2.target=ListOfAdmins(Administrator[])
+comment3.params=index
+comment3.target=Administrator\ getAdmin(int)
+comment3.text=\n\ \#1\n
+comment4.params=admin
+comment4.target=void\ setAdmin(Administrator[])
+comment4.text=\n\ \#2\n
+numComments=5
