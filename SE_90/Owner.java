@@ -2,7 +2,7 @@
 /**
  * Write a description of class Owner here.
  *
- * @author Jialiang Wu, Yuekai Huang
+ * @author Team 90
  * @version 09 September 2019
  */
 public class Owner
@@ -41,7 +41,7 @@ public class Owner
         halls = new Hall[totalNumHalls];
         for(int index = 0; index < totalNumHalls; index++)
         {
-            halls[index] = new Hall("????","????","????","????", -1, -0.01, "????");
+            halls[index] = new Hall("????","????","????", -1, -0.01, "????");
         }
     }
 
@@ -246,9 +246,9 @@ public class Owner
     /**
      * #24
      */
-    public void setHall(int index, String hallOwnerFirstName, String hallOwnerLastName, String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
+    public void setHall(int index, String hallOwnerEmail, String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
     {
-        halls[index] = new Hall(hallOwnerFirstName, hallOwnerLastName, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
+        halls[index] = new Hall(hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
     }
     
     /**

@@ -2,7 +2,7 @@
 /**
  * Class ListOfCustomers
  * 
- * @author Jialiang Wu && Yuekai Huang
+ * @author Team 90
  * @version 10 September 2019
  */
 public class ListOfCustomers

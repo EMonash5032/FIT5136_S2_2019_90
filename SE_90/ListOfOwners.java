@@ -2,7 +2,7 @@
 /**
  * Class ListOfOwners
  * 
- * @author Jialiang Wu
+ * @author Team 90
  * @version 10 September 2019
  */
 public class ListOfOwners

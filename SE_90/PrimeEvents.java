@@ -346,16 +346,16 @@ public class PrimeEvents
     private void ownerLogin()
     {
         Scanner input = new Scanner(System.in);
-        String firstName = "????";
-        String lastName = "????";
+        String ownerEmail = "????";
+        
         
         
         System.out.println("Please enter Owner Email Address: ");
-        String userName = input.nextLine();
-        int ownerId = getCheckOwner(userName);
+        ownerEmail = input.nextLine();
+        int ownerId = getCheckOwner(ownerEmail);
         if(ownerId == -1)
         {
-            System.out.println("Account: " + userName + " is not registered yet! Press any key to back!");
+            System.out.println("Account: " + ownerEmail + " is not registered yet! Press any key to back!");
             input.nextLine();
             resetPage();
         }
@@ -370,13 +370,12 @@ public class PrimeEvents
                 
                 for(index = 0; index < owners.getAllOwner().length; index++)
                 {
-                    if(owners.getOwner(index).getEmail().equals(userName) && owners.getOwner(index).getPassword().equals(password) && !owners.getOwner(index).getEmail().equals("????"))
+                    if(owners.getOwner(index).getEmail().equals(ownerEmail) && owners.getOwner(index).getPassword().equals(password) && !owners.getOwner(index).getEmail().equals("????"))
                     {
-                        firstName = owners.getOwner(index).getFirstName();
-                        lastName = owners.getOwner(index).getLastName();
+                        ownerEmail = owners.getOwner(index).getEmail();
                         status = false;
                     }
-                    if(owners.getOwner(index).getEmail().equals(userName) && !owners.getOwner(index).getPassword().equals(password))
+                    if(owners.getOwner(index).getEmail().equals(ownerEmail) && !owners.getOwner(index).getPassword().equals(password))
                     {
                         System.out.println("Password is incorrect for specified email! Please enter your password again(if your forgotten, choose F/f): ");
                         password = input.nextLine();
@@ -402,7 +401,7 @@ public class PrimeEvents
                 System.out.println("Press any key to continue...");
                 input.nextLine();
                 resetPage();
-                owner(firstName, lastName);
+                owner(ownerEmail);
             }
         }
         
@@ -503,6 +502,10 @@ public class PrimeEvents
                     {
                         System.out.println("Phone number only have digits involved! ALTERNATIVELY, hit enter to skip this step! Please enter again: ");
                         phone = input.nextLine();
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
                 System.out.println("Please enter your address (press enter to skip):");
@@ -811,7 +814,7 @@ public class PrimeEvents
     /**
      * #27
      */
-    private void owner(String firstName, String lastName)
+    private void owner(String hallOwnerEmail)
     {           
         Scanner input = new Scanner(System.in);
         while(ownerOption != 7)
@@ -824,7 +827,7 @@ public class PrimeEvents
                 switch(ownerOption)
                 {
                     case 1: System.out.println("Manage hall");
-                            manageHall(firstName, lastName);
+                            manageHall(hallOwnerEmail);
                             break;
                     case 2: System.out.println("Manage Booking");
                             break;
@@ -864,7 +867,7 @@ public class PrimeEvents
     /**
      * #29
      */
-    private void manageHall(String firstName, String lastName)
+    private void manageHall(String hallOwnerEmail)
     {
         Scanner input = new Scanner(System.in);
         while(manageHallOption != 6)
@@ -878,24 +881,23 @@ public class PrimeEvents
                 {
                     case 1: System.out.println("Create Hall");
                             index = getHallIndex();
-                            createHall("c",index, firstName, lastName);
+                            createHall("c",index, hallOwnerEmail);
                             break;
                     case 2: System.out.println("Search Hall");
                             System.out.println("Please Enter the hall name you want to search");
-                            search = input.nextLine();
-                            searchHall(firstName, lastName, search);
+                            searchHall(hallOwnerEmail);
                             //no search validation here such as if there is no match
                             break;
                     case 3: System.out.println("Update Hall");
                             System.out.println("Plesase chose the hall you want to edit(by hall number)");
                             index = input.nextInt() - 1;
-                            createHall("e",index , firstName, lastName);
+                            createHall("e",index , hallOwnerEmail);
                             break;
                     case 4: System.out.println("Delete Hall");
                             break;
                     case 5: resetPage();
                             System.out.println("View Hall");
-                            getOwnerHall(firstName, lastName);
+                            getOwnerHall(hallOwnerEmail);
                             input.nextLine();
                             break;
                     case 6: 
@@ -909,16 +911,34 @@ public class PrimeEvents
     /**
      * #30
      */
-    public void searchHall(String firstName, String lastName, String searchName)
+    public void searchHall(String hallOwnerEmail)
     {
+        Scanner input = new Scanner(System.in);
         int index = 0;
+        boolean returnHall = false;
+        int hallID = -1;
+        
+        String searchName = input.nextLine();
         for(index = 0; index < owner.getAllHalls().length; index++)
         {
-            if(owner.getHalls(index).getHallOwnerFirstName().equals(firstName) && owner.getHalls(index).getHallOwnerLastName().equals(lastName))
+            if(owner.getHalls(index).getHallOwnerEmail().equals(hallOwnerEmail))
             {
                 if(owner.getHalls(index).getHallName().equals(searchName))
-                    owner.displayHalls(index);
+                {
+                    returnHall = true;
+                    hallID = index;
+                    break;
+                }
             }
+        }
+        
+        if(returnHall == true)
+        {
+            owner.displayHalls(hallID);
+        }
+        else
+        {
+            System.out.println("There is no hall named '" + searchName +"'!");
         }
     }
     
@@ -953,7 +973,7 @@ public class PrimeEvents
     /**
      * #33
      */
-    public void createHall(String type, int index, String hallOwnerFirstName, String hallOwnerLastName)
+    public void createHall(String type, int index, String hallOwnerEmail)
     {
         Scanner input = new Scanner(System.in);
         boolean validation = true;
@@ -1042,13 +1062,13 @@ public class PrimeEvents
         if(confirm.toLowerCase().equals("y") && type.equals("c"))
         {
             System.out.println("Hall has been added in successfully! ");
-            owner.setHall(index, hallOwnerFirstName, hallOwnerLastName, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
+            owner.setHall(index, hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
         }
         
         if(confirm.toLowerCase().equals("y") && type.equals("e"))
         {
             System.out.println("Hall has been edited successfully! ");
-            owner.setHall(index, hallOwnerFirstName, hallOwnerLastName, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
+            owner.setHall(index, hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
         }
         
         if(confirm.toLowerCase().equals("n"))
@@ -1077,12 +1097,12 @@ public class PrimeEvents
     /**
      * #35
      */
-    public void getOwnerHall(String firstName, String lastName)
+    public void getOwnerHall(String email)
     {
         int index = 0;
         for(index = 0; index < owner.getAllHalls().length; index++)
         {
-            if(owner.getHalls(index).getHallOwnerFirstName().equals(firstName) && owner.getHalls(index).getHallOwnerLastName().equals(lastName))
+            if(owner.getHalls(index).getHallOwnerEmail().equals(email))
             {
                 owner.displayHalls(index);
             }

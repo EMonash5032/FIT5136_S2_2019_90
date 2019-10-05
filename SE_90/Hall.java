@@ -2,14 +2,13 @@
 /**
  * Write a description of class Hall here.
  *
- * @author (Yuekai Huang)
+ * @author Team 90
  * @version (10.09.2019)
  */
 public class Hall
 {
     // instance variables - replace the example below with your own
-    private String hallOwnerFirstName;
-    private String hallOwnerLastName;
+    private String hallOwnerEmail;
     private String hallName;
     private String hallAddress;
     private int hallCapacity;
@@ -22,8 +21,7 @@ public class Hall
     public Hall()
     {
         // initialise instance variables
-        hallOwnerFirstName = "????";
-        hallOwnerLastName = "????";
+        hallOwnerEmail = "????";
         hallName = "????";
         hallAddress = "????";
         hallCapacity = -1;
@@ -31,10 +29,9 @@ public class Hall
         hallEvents = "????";
     }
     
-    public Hall(String hallOwnerFirstName, String hallOwnerLastName, String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
+    public Hall(String hallOwnerEmail, String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
     {
-        this.hallOwnerFirstName = hallOwnerFirstName;
-        this.hallOwnerLastName = hallOwnerLastName;
+        this.hallOwnerEmail = hallOwnerEmail;
         this.hallName = hallName;
         this.hallAddress = hallAddress;
         this.hallCapacity = hallCapacity;
@@ -56,19 +53,11 @@ public class Hall
     }
     
     /**
-     * #2
-     */
-    public String getHallOwnerFirstName()
-    {
-        return hallOwnerFirstName;
-    }
-    
-    /**
      * #3
      */
-    public String getHallOwnerLastName()
+    public String getHallOwnerEmail()
     {
-        return hallOwnerLastName;
+        return hallOwnerEmail;
     }
     
     /**
@@ -110,21 +99,13 @@ public class Hall
     {
         return hallEvents;
     }
-    
-    /**
-     * #9
-     */
-    public void setHallOwnerFirstName()
-    {
-        this.hallOwnerFirstName = hallOwnerFirstName;
-    }
-    
+
     /**
      * #10
      */
-    public void setHallOwnerLastName()
+    public void setHallOwnerEmail(String hallOwnerEmail)
     {
-        this.hallOwnerLastName = hallOwnerLastName;
+        this.hallOwnerEmail = hallOwnerEmail;
     }
     
     /**

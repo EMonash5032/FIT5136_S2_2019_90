@@ -3,7 +3,7 @@
 /**
  * Write a description of class Customer here.
  *
- * @author Jialiang Wu, Yuekai Huang
+ * @author Team 90
  * @version 09 September 2019
  */
 public class Customer
@@ -20,8 +20,7 @@ public class Customer
     private String question2;
     private String answer2;
     private boolean isConcession;
-    private Quotation quota;
-    private Quotation[] quotas;
+    private QuotationList quotations;
     
     private Booking[] book;
     
@@ -243,10 +242,11 @@ public class Customer
     }
     
     /**
-     * #23
+     * #23  hall list
      */
     public void quotationInfo(int index)
     {
+        Quotation quota = new Quotation();
         String hallName = quota.getHalls(index).getHallName();
         String hallAddress = quota.getHalls(index).getHallAddress();
         int hallCapacity = quota.getHalls(index).getHallCapacity();
