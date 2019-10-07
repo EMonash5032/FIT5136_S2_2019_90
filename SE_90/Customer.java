@@ -9,20 +9,18 @@
 public class Customer
 {
     // instance variables - replace the example below with your own
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String address;
-    private String password;
-    private String phone;
-    private String question1;
-    private String answer1;
-    private String question2;
-    private String answer2;
-    private boolean isConcession;
-    private QuotationList quotations;
-    
-    private Booking[] book;
+    private String cusFirstName;
+    private String cusLastName;
+    private String cusEmail;
+    private String cusAddress;
+    private String cusPassword;
+    private String cusPhone;
+    private String cusQuestion1;
+    private String cusAnswer1;
+    private String cusQuestion2;
+    private String cusAnswer2;
+    private boolean cusIsConcession;
+
     
     /**
      * Constructor for objects of class Customer
@@ -30,288 +28,211 @@ public class Customer
     public Customer()
     {
         // initialise instance variables
-        firstName = "????";
-        lastName = "????";
-        email = "????";
-        address = "????";
-        password = "????";
-        phone = "????";
-        question1 = "????";
-        answer1 = "????";
-        question2 = "????";
-        answer2 = "????";
-        isConcession = false;
+        cusFirstName = "????";
+        cusLastName = "????";
+        cusEmail = "????";
+        cusAddress = "????";
+        cusPassword = "????";
+        cusPhone = "????";
+        cusQuestion1 = "????";
+        cusAnswer1 = "????";
+        cusQuestion2 = "????";
+        cusAnswer2 = "????";
+        cusIsConcession = false;
         
-        int bookingID = 99999;
-        book = new Booking[bookingID];
-        for(int index = 0; index < bookingID; index++)
-        {
-            book[index] = new Booking("????","????","????","????","????", -0.01, -0.01, -0.01);
-        }
+
     }
     
-    public Customer(String firstName, String lastName, String email, String address, String password, String phone, String question1, String answer1, String question2, String answer2, boolean isConcession)
+    public Customer(String cusFirstName, String cusLastName, String cusEmail, String cusAddress, String cusPassword, String cusPhone, String cusQuestion1, String cusAnswer1, String cusQuestion2, String cusAnswer2, boolean cusIsConcession)
     {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.password = password;
-        this.phone = phone;
-        this.question1 = question1;
-        this.answer1 = answer1;
-        this.question2 = question2;
-        this.answer2 = answer2;
-        this.isConcession = isConcession;
+        this.cusFirstName = cusFirstName;
+        this.cusLastName = cusLastName;
+        this.cusEmail = cusEmail;
+        this.cusAddress = cusAddress;
+        this.cusPassword = cusPassword;
+        this.cusPhone = cusPhone;
+        this.cusQuestion1 = cusQuestion1;
+        this.cusAnswer1 = cusAnswer1;
+        this.cusQuestion2 = cusQuestion2;
+        this.cusAnswer2 = cusAnswer2;
+        this.cusIsConcession = cusIsConcession;
     }
     
     /**
      * #1
      */
-    public void setFirstName(String firstName)
+    public void setCusFirstName(String cusFirstName)
     {
-        this.firstName = firstName;
+        this.cusFirstName = cusFirstName;
     }
     
     /**
      * #2
      */
-    public void setLastName(String lastName)
+    public void setCusLastName(String cusLastName)
     {
-        this.lastName = lastName;
+        this.cusLastName = cusLastName;
     }
     
     /**
      * #3
      */
-    public void setEmail(String email)
+    public void setCusEmail(String cusEmail)
     {
-        this.email = email;
+        this.cusEmail = cusEmail;
     }
     
     /**
      * #4
      */
-    public void setAddress(String address)
+    public void setCusAddress(String cusAddress)
     {
-        this.address = address;
+        this.cusAddress = cusAddress;
     }
     
     /**
      * #5
      */
-    public void setPassword(String password)
+    public void setCusPassword(String cusPassword)
     {
-        this.password = password;
+        this.cusPassword = cusPassword;
     }
     
     /**
      * #6
      */
-    public void setPhone(String phone)
+    public void setCusPhone(String cusPhone)
     {
-        this.phone = phone;
+        this.cusPhone = cusPhone;
     }
     
     /**
      * #7
      */
-    public void setQuestion1(String question1)
+    public void setCusQuestion1(String cusQuestion1)
     {
-        this.question1 = question1;
+        this.cusQuestion1 = cusQuestion1;
     }
     
     /**
      * #8
      */
-    public void setAnswer1(String answer1)
+    public void setCusAnswer1(String cusAnswer1)
     {
-        this.answer1 = answer1;
+        this.cusAnswer1 = cusAnswer1;
     }
     
     /**
      * #9
      */
-    public void setQuestion2(String question2)
+    public void setCusQuestion2(String cusQuestion2)
     {
-        this.question2 = question2;
+        this.cusQuestion2 = cusQuestion2;
     }
     
     /**
      * #10
      */
-    public void setAnswer2(String answer2)
+    public void setCusAnswer2(String cusAnswer2)
     {
-        this.answer2 = answer2;
+        this.cusAnswer2 = cusAnswer2;
     }
     
     /**
      * #11
      */
-    public void setIsConcession(boolean isConcession)
+    public void setCusIsConcession(boolean cusIsConcession)
     {
-        this.isConcession = isConcession;
+        this.cusIsConcession = cusIsConcession;
     }
     
     /**
      * #12
      */
-    public String getFirstName()
+    public String getCusFirstName()
     {
-        return firstName;
+        return cusFirstName;
     }
     
     /**
      * #13
      */
-    public String getLastName()
+    public String getCusLastName()
     {
-        return lastName;
+        return cusLastName;
     }
     
     /**
      * #14
      */
-    public String getEmail()
+    public String getCusEmail()
     {
-        return email;
+        return cusEmail;
     }
     
     /**
      * #15
      */
-    public String getAddress()
+    public String getCusAddress()
     {
-        return address;
+        return cusAddress;
     }
     
     /**
      * #16
      */
-    public String getPassword()
+    public String getCusPassword()
     {
-        return password;
+        return cusPassword;
     }
     
     /**
      * #17
      */
-    public String getPhone()
+    public String getCusPhone()
     {
-        return phone;
+        return cusPhone;
     }
     
     /**
      * #18
      */
-    public String getQuestion1()
+    public String getCusQuestion1()
     {
-        return question1;
+        return cusQuestion1;
     }
     
     /**
      * #19
      */
-    public String getAnswer1()
+    public String getCusAnswer1()
     {
-        return answer1;
+        return cusAnswer1;
     }
     
     /**
      * #20
      */
-    public String getQuestion2()
+    public String getCusQuestion2()
     {
-        return question2;
+        return cusQuestion2;
     }
     
     /**
      * #21
      */
-    public String getAnswer2()
+    public String getCusAnswer2()
     {
-        return answer2;
+        return cusAnswer2;
     }
     
     /**
      * #22
      */
-    public boolean getIsConcession()
+    public boolean getCusIsConcession()
     {
-        return isConcession;
+        return cusIsConcession;
     }
     
-    /**
-     * #23  hall list
-     */
-    public void quotationInfo(int index)
-    {
-        Quotation quota = new Quotation();
-        String hallName = quota.getHalls(index).getHallName();
-        String hallAddress = quota.getHalls(index).getHallAddress();
-        int hallCapacity = quota.getHalls(index).getHallCapacity();
-        double hallPrice = quota.getHalls(index).getHallPrice();
-        String hallEvents = quota.getHalls(index).getHallEvents();
-        
-        System.out.println("Your Quotation is");
-        System.out.println("Hall Name: " + hallName);
-        System.out.println(" Address: " + hallAddress);
-        System.out.println(" Capacity: " + hallCapacity);
-        System.out.println(" Price: $" + hallPrice);
-        System.out.println(" Events Type: " + hallEvents + "\r\n");
-    }
-    
-    /**
-     * #24
-     */
-    public void view(int inputIndex)
-    {
-        System.out.println("This is View Halls");
-        
-        //System.out.println("Select the hall number " + (inputIndex + 1) + ": ");
-        //System.out.println("Hall Name: " + halls[inputIndex].getHallName());
-        //System.out.println(" Address: " + halls[inputIndex].getHallAddress());
-        //System.out.println(" Capacity: " + halls[inputIndex].getHallCapacity());
-        //System.out.println(" Pirce: " + halls[inputIndex].getHallPrice());
-        //System.out.println(" Events Type: " + halls[inputIndex].getHallEvents() + "\r\n");
-        
-        System.out.println("Please Enter 'y' or 'n'");
-    }
-    
-    /**
-     * #25
-     */
-    public Booking[] getAllBook()
-    {
-        return book;
-    }
-    
-    /**
-     * #26
-     */
-    public Booking getBook(int index)
-    {
-        return book[index];
-    }
-    
-    /**
-     * #27
-     */
-    public void setBook(int index, String firstName, String lastName, String hallName, String eventType, String date, double price, double actualFee, double deposit)
-    {
-        book[index] = new Booking(firstName, lastName, hallName, eventType, date, price, actualFee, deposit);
-    }
-    
-    /**
-     * #28
-     */
-    public void displayBook(int inputIndex)
-    {
-        System.out.println("The Booking reference " + (inputIndex + 1) + ": ");
-        System.out.println("Hall Name: " + book[inputIndex].getHallName());
-        System.out.println("  Event Types: " + book[inputIndex].getEventType());
-        System.out.println("  Hall Price: " + book[inputIndex].getPrice());
-        System.out.println("  Acutal Cost: " + book[inputIndex].getActualFee());
-        System.out.println("  Deposit: " + book[inputIndex].getDeposit() + "\r\n");
-    }
+
 }

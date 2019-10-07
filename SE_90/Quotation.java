@@ -8,7 +8,6 @@
 public class Quotation
 {
     // instance variables - replace the example below with your own
-    private Hall[] halls;
     private String quotationNo;   //display
     private String customerFirstName;  //display
     private String customerLastName;  //display
@@ -40,14 +39,7 @@ public class Quotation
         catering = false; 
         caterChoice = -1;
         photo = false;  
-        totalPrice = -0.01;
-                
-        int totalHalls = 99999;
-        halls = new Hall[totalHalls];
-        for(int index = 0; index < totalHalls; index++)
-        {
-            halls[index] = new Hall("????","????","????", -1, -0.01, "????");
-        }
+        totalPrice = -0.01;                
         
     }
     
@@ -186,12 +178,5 @@ public class Quotation
     {
         return totalPrice;
     }    
-    
-    /**
-     * #3
-     */
-    public Hall getHalls(int index)
-    {
-        return halls[index];
-    }
+   
 }

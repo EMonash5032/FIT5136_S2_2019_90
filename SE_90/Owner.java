@@ -19,7 +19,6 @@ public class Owner
     private String question2;
     private String answer2;
     
-    private Hall[] halls;
     
     /**
      * Constructor for objects of class Owner
@@ -37,12 +36,7 @@ public class Owner
         answer1 = "????";
         question2 = "????";
         answer2 = "????";
-        int totalNumHalls = 99999;
-        halls = new Hall[totalNumHalls];
-        for(int index = 0; index < totalNumHalls; index++)
-        {
-            halls[index] = new Hall("????","????","????", -1, -0.01, "????");
-        }
+
     }
 
     public Owner(String firstName, String lastName, String email, String address, String password, String phone, String question1, String answer1, String question2, String answer2)
@@ -219,72 +213,5 @@ public class Owner
         return answer2;
     }
     
-    /**
-     * #21
-     */
-    public Hall getHalls(int index)
-    {
-        return halls[index];
-    }
-    
-    /**
-     * #22
-     */
-    public Hall[] getAllHalls()
-    {
-        return halls;
-    }
-    
-    /**
-     * #23
-     */
-    public void setHalls(Hall[] halls)
-    {
-        this.halls = halls;
-    }
-    
-    /**
-     * #24
-     */
-    public void setHall(int index, String hallOwnerEmail, String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
-    {
-        halls[index] = new Hall(hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
-    }
-    
-    /**
-     * #25
-     */
-    public void remove()
-    {
-        System.out.println("Please select from the following halls that you wish to remove: ");
-        for(int x = 0; x < halls.length; x++)
-        {
-            if(!halls[x].getHallName().equals("????"))
-            {
-                System.out.println("Select the hall number " + (x + 1) + ": ");
-                System.out.println("Hall Name: " + halls[x].getHallName());
-                System.out.println(" Address: " + halls[x].getHallAddress());
-                System.out.println(" Capacity: " + halls[x].getHallCapacity());
-                System.out.println(" Price: " + halls[x].getHallPrice());
-                System.out.println(" Event Type: " + halls[x].getHallEvents() + "\r\n");
-                
-            }
-        }
-        System.out.println("Enter Number 0 to exit remove menu");
-        System.out.println("Please Enter Hall Number You wish To Remove: ");
-    }
 
-    /**
-     * #26
-     */
-    public void displayHalls(int inputIndex)
-    {
-        System.out.println("The hall number " + (inputIndex + 1) + ": ");
-        System.out.println("Hall Name: " + halls[inputIndex].getHallName());
-        System.out.println("  Address: " + halls[inputIndex].getHallAddress());
-        System.out.println("  Capacity: " + halls[inputIndex].getHallCapacity());
-        System.out.println("  Price: " + halls[inputIndex].getHallPrice());
-        System.out.println("  Events Type: " + halls[inputIndex].getHallEvents() + "\r\n");
-    }
-    
 }

@@ -18,11 +18,6 @@ public class ListOfAdmins
         admin[0] = new Administrator("admin@gmail.com", "admin");
     }
     
-    public ListOfAdmins(Administrator admin[])
-    {
-        
-    }
-    
     /**
      * #1
      */

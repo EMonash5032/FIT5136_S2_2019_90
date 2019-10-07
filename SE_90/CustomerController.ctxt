@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.target=ListOfCustomers
-comment0.text=\n\ Class\ ListOfCustomers\n\ \n\ @author\ Team\ 90\n\ @version\ 10\ September\ 2019\n
+comment0.target=CustomerController
+comment0.text=\n\ Class\ CustomerController\n\ \n\ @author\ Team\ 90\n\ @version\ 10\ September\ 2019\n
 comment1.params=
-comment1.target=ListOfCustomers()
+comment1.target=CustomerController()
 comment1.text=\n\ \n
 comment2.params=
 comment2.target=Customer[]\ getAllCus()

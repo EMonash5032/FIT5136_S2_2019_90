@@ -1,18 +1,18 @@
 
 /**
- * Class ListOfCustomers
+ * Class CustomerController
  * 
  * @author Team 90
  * @version 10 September 2019
  */
-public class ListOfCustomers
+public class CustomerController
 {
     private Customer[] customer;
 
     /**
      * 
      */
-    public ListOfCustomers()
+    public CustomerController()
     {
         int totalNumCus = 99999;
         customer = new Customer[totalNumCus];

@@ -2,14 +2,14 @@
 /**
  * Write a description of class Administrator here.
  *
- * @author Jialiang Wu && Yuekai Huang
+ * @author Team 90
  * @version 10 September 2019
  */
 public class Administrator
 {
     // instance variables - replace the example below with your own
-    private String email;
-    private String password;
+    private String adminEmail;
+    private String adminPassword;
 
     /**
      * Constructor for objects of class Administrator
@@ -17,38 +17,38 @@ public class Administrator
     public Administrator()
     {
         // initialise instance variables
-        email = "admin@gmail.com";
-        password = "admin";
+        adminEmail = "admin@gmail.com";
+        adminPassword = "admin";
     }
     
-    public Administrator(String email, String password)
+    public Administrator(String adminEmail, String adminPassword)
     {
-        this.email = email;
-        this.password = password;
+        this.adminEmail = adminEmail;
+        this.adminPassword = adminPassword;
     }
     
     /**
      * #1
      */
-    public String getEmail()
+    public String getAdminEmail()
     {
-        return email;
+        return adminEmail;
     }
     
     /**
      * #2
      */
-    public String getPassword()
+    public String getAdminPassword()
     {
-        return password;
+        return adminPassword;
     }
     
     /**
      * #3
      */
-    public void setEmail()
+    public void setAdminEmail()
     {
-        this.email = email;
+        this.adminEmail = adminEmail;
     }
     
     /**
@@ -56,6 +56,6 @@ public class Administrator
      */
     public void setPassword()
     {
-        this.password = password;
+        this.adminPassword = adminPassword;
     }
 }
