@@ -35,12 +35,12 @@ public class PrimeEvents
     /**
      * #1
      */
-    private int getOwnerIndex()
+    private int ownerIndex()
     {
         int index = 0;
         while(index < owners.getAllOwner().length)
         {
-            if(owners.getOwner(index).getPassword().equals("????"))
+            if(owners.getOwner(index).getOwnerPassword().equals("????"))
                 return index;
             index++;
         }
@@ -50,12 +50,12 @@ public class PrimeEvents
     /**
      * #2
      */
-    public int getCheckOwner(String email)
+    public int checkOwner(String email)
     {
 
         for(int index = 0 ; index < owners.getAllOwner().length; index++)
         {
-            if(owners.getOwner(index).getEmail().equals(email))
+            if(owners.getOwner(index).getOwnerEmail().equals(email))
                 return index;
         }
         return -1;
@@ -64,7 +64,7 @@ public class PrimeEvents
     /**
      * #3
      */
-    private int getCustIndex()
+    private int custIndex()
     {
         int index = 0;
         while(index < customers.getAllCus().length)
@@ -79,7 +79,7 @@ public class PrimeEvents
     /**
      * #4
      */
-    public int getCheckCust(String email)
+    public int checkCust(String email)
     {
 
         for(int index = 0 ; index < customers.getAllCus().length; index++)
@@ -273,7 +273,7 @@ public class PrimeEvents
                 switch(searchOption)
                 {
                     case 1: System.out.println("Function Search Hall by Name");
-                            userSearchHall(searchName);
+                            searchHallName(searchName);
                             break;
                     case 2: System.out.println("Function Search Hall by Event Type");
                             break;
@@ -348,7 +348,7 @@ public class PrimeEvents
         
         System.out.println("Please enter Owner Email Address: ");
         ownerEmail = input.nextLine();
-        int ownerId = getCheckOwner(ownerEmail);
+        int ownerId = checkOwner(ownerEmail);
         if(ownerId == -1)
         {
             System.out.println("Account: " + ownerEmail + " is not registered yet! Press any key to back!");
@@ -366,12 +366,12 @@ public class PrimeEvents
                 
                 for(index = 0; index < owners.getAllOwner().length; index++)
                 {
-                    if(owners.getOwner(index).getEmail().equals(ownerEmail) && owners.getOwner(index).getPassword().equals(password) && !owners.getOwner(index).getEmail().equals("????"))
+                    if(owners.getOwner(index).getOwnerEmail().equals(ownerEmail) && owners.getOwner(index).getOwnerPassword().equals(password) && !owners.getOwner(index).getOwnerEmail().equals("????"))
                     {
-                        ownerEmail = owners.getOwner(index).getEmail();
+                        ownerEmail = owners.getOwner(index).getOwnerEmail();
                         status = false;
                     }
-                    if(owners.getOwner(index).getEmail().equals(ownerEmail) && !owners.getOwner(index).getPassword().equals(password))
+                    if(owners.getOwner(index).getOwnerEmail().equals(ownerEmail) && !owners.getOwner(index).getOwnerPassword().equals(password))
                     {
                         System.out.println("Password is incorrect for specified email! Please enter your password again(if your forgotten, choose F/f): ");
                         password = input.nextLine();
@@ -524,7 +524,7 @@ public class PrimeEvents
                     isConcession = false;
                 }
                 
-                int custId = getCustIndex();
+                int custId = custIndex();
                 customers.setCustomer(custId, firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2, isConcession);
             }
             
@@ -546,7 +546,7 @@ public class PrimeEvents
                     address = input.nextLine();
                 }
                 
-                int ownerId = getOwnerIndex();
+                int ownerId = ownerIndex();
                 owners.setOwner(ownerId, firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2);
             }
             resetPage();
@@ -569,7 +569,7 @@ public class PrimeEvents
         
         System.out.println("Please enter a Customer email: ");
         String userName = input.nextLine();
-        int custID = getCheckCust(userName);
+        int custID = checkCust(userName);
         if(custID == -1)
         {
             System.out.println("Account: " + userName + " is not registered yet! Press any key to back!");
@@ -695,23 +695,7 @@ public class PrimeEvents
                             default: System.out.println("You can only choose a number between 1 and 8!");
                 }
         }
-    }
-    
-    /**
-     * #22
-     */
-    public void getCusBookHistory(String firstName, String lastName)
-    {
-        int index = 0;
-        for(index = 0; index < bookCont.getAllBook().length; index++)
-        {
-            if(bookCont.getBook(index).getFirstName().equals(firstName) && bookCont.getBook(index).getLastName().equals(lastName))
-            {
-                bookCont.displayBook(index);
-            }
-        }
-        
-    }
+    }    
     
     /**
      * #23
@@ -719,8 +703,16 @@ public class PrimeEvents
     private void bookHistroy(String firstName, String lastName)
     {
         Scanner input = new Scanner(System.in);
+        int index = 0;
         System.out.println("Your booking history is: \r\n");
-        getCusBookHistory(firstName, lastName);
+        
+        for(index = 0; index < bookCont.getAllBook().length; index++)
+        {
+            if(bookCont.getBook(index).getFirstName().equals(firstName) && bookCont.getBook(index).getLastName().equals(lastName))
+            {
+                bookCont.displayBook(index);
+            }
+        }
         System.out.println("Press any to continue...");
         input.nextLine();
     }
@@ -747,7 +739,7 @@ public class PrimeEvents
         boolean validation = true;
         int hallChoice = -1;
         listHall();
-        int checkHall = checkBook();
+        int checkHall = checkHallList();
         
         if(checkHall == 1)
         {
@@ -778,7 +770,7 @@ public class PrimeEvents
             double hallDeposit = hallPrice * 0.5;
             double acutalFee = hallPrice * 1; //hall price times discount rate, now set as 1
             
-            int bookID = getBookID();
+            int bookID = bookID();
             bookCont.setBook(bookID, firstName, lastName, hallName, hallEvents, date, hallPrice, acutalFee, hallDeposit);
             System.out.println("Congratulations! Booking Successful!");
             System.out.println("Press any to continue...");
@@ -795,7 +787,7 @@ public class PrimeEvents
     /**
      * #26
      */
-    private int getBookID()
+    private int bookID()
     {
         int index = 0;
         while(index < bookCont.getAllBook().length)
@@ -871,17 +863,17 @@ public class PrimeEvents
             manageHallMenu();
             manageHallOption = input.nextInt();
             resetPage();
-            int index;
+            int index ;
             String search = "?";
                 switch(manageHallOption)
                 {
                     case 1: System.out.println("Create Hall");
-                            index = getHallIndex();
+                            index = hallIndex();
                             createHall("c",index, hallOwnerEmail);
                             break;
                     case 2: System.out.println("Search Hall");
                             System.out.println("Please Enter the hall name you want to search");
-                            searchHall(hallOwnerEmail);
+                            ownerSearchHall(hallOwnerEmail);
                             //no search validation here such as if there is no match
                             break;
                     case 3: System.out.println("Update Hall");
@@ -893,7 +885,7 @@ public class PrimeEvents
                             break;
                     case 5: resetPage();
                             System.out.println("View Hall");
-                            getOwnerHall(hallOwnerEmail);
+                            displayOwnerHall(hallOwnerEmail);
                             input.nextLine();
                             break;
                     case 6: 
@@ -907,7 +899,7 @@ public class PrimeEvents
     /**
      * #30
      */
-    public void searchHall(String hallOwnerEmail)
+    public void ownerSearchHall(String hallOwnerEmail)
     {
         Scanner input = new Scanner(System.in);
         int index = 0;
@@ -939,9 +931,9 @@ public class PrimeEvents
     }
     
     /**
-     * #31
+     * #31  String type with "n" name search  "d" date search "e" event type
      */
-    public void userSearchHall(String searchName)
+    private void searchHallName(String searchName)
     {
         int index = 0;
         for(index = 0; index < bookCont.getAllHalls().length; index++)
@@ -954,7 +946,7 @@ public class PrimeEvents
     /**
      * #32
      */
-    private int getHallIndex()
+    private int hallIndex()
     {
         int index = 0;
         while(index < bookCont.getAllHalls().length)
@@ -967,7 +959,7 @@ public class PrimeEvents
     }
     
     /**
-     * #33
+     * #33 type "e" means edit  type "c" means create
      */
     public void createHall(String type, int index, String hallOwnerEmail)
     {
@@ -1075,25 +1067,9 @@ public class PrimeEvents
     }
     
     /**
-     * #34
-     * method of get halls Index(ID, unique)
-     */   
-    private int getHallsNumb()
-    {
-        int i = 0;
-        while(i < bookCont.getAllHalls().length)
-        {
-            if(bookCont.getHalls(i).getHallCapacity() == -1)
-                return i;
-            i++;
-        }
-        return -1;// result -1 means there is no space another hall
-    }
-    
-    /**
      * #35
      */
-    public void getOwnerHall(String email)
+    private void displayOwnerHall(String email)
     {
         int index = 0;
         for(index = 0; index < bookCont.getAllHalls().length; index++)
