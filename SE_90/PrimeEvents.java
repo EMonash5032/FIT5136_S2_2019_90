@@ -268,7 +268,9 @@ public class PrimeEvents
         while(searchOption != 4)
         {
             searchMenu();
-            searchOption = input.nextInt();
+            
+            searchOption = inputNumber();
+
             String searchName = "?";
                 switch(searchOption)
                 {
@@ -296,7 +298,8 @@ public class PrimeEvents
         while(viewOption != 3)
         {
             viewMenu();
-            viewOption = input.nextInt();
+            
+            viewOption = inputNumber();
                 switch(viewOption)
                 {
                     case 1: listHall();
@@ -320,7 +323,9 @@ public class PrimeEvents
         while(loginOption != 4)
         {
             loginMenu();
-            loginOption = input.nextInt();
+            
+            loginOption = inputNumber();
+            
             resetPage();
                 switch(loginOption)
                 {
@@ -343,8 +348,6 @@ public class PrimeEvents
     {
         Scanner input = new Scanner(System.in);
         String ownerEmail = "????";
-        
-        
         
         System.out.println("Please enter Owner Email Address: ");
         ownerEmail = input.nextLine();
@@ -667,9 +670,9 @@ public class PrimeEvents
         while(customerOption != 8)
         {
             resetOption();
-            
             customerMenu();
-            customerOption = input.nextInt();
+            customerOption = inputNumber();
+
             resetPage();
                 switch(customerOption)
                 {
@@ -808,9 +811,23 @@ public class PrimeEvents
         while(ownerOption != 7)
         {
             resetOption();
-            
             ownerMenu();
-            ownerOption = input.nextInt();
+            
+            boolean validation = true;
+            do
+            {
+                try
+                {
+                    ownerOption = Integer.parseInt(input.nextLine());
+                    validation = false;
+                }
+                catch(Exception e)
+                {
+                    System.out.println("You are ONLY ALLOW input a NUMBER here!");
+                    System.out.println("Please Enter Your Choice:");
+                }
+            }while(validation == true);
+            
             resetPage();
                 switch(ownerOption)
                 {
@@ -861,7 +878,7 @@ public class PrimeEvents
         while(manageHallOption != 6)
         {
             manageHallMenu();
-            manageHallOption = input.nextInt();
+            manageHallOption = inputNumber();
             resetPage();
             int index ;
             String search = "?";
@@ -1088,13 +1105,13 @@ public class PrimeEvents
      */      
     public void start()
     {
-        Scanner input = new Scanner(System.in);
         while(mainOption != 4)
         {
             resetOption();
             
             mainMenu();
-            mainOption = input.nextInt();
+            mainOption = inputNumber();
+
             resetPage();
                 switch(mainOption)
                 {
@@ -1108,6 +1125,28 @@ public class PrimeEvents
                             default: System.out.println("Please select an option between 1 and 4!");
                 }
         }
+    }
+    
+    private int inputNumber()
+    {
+        Scanner input = new Scanner(System.in);
+        boolean validation = true;
+        int option = -1;
+        do
+        {
+            try
+            {
+                option = Integer.parseInt(input.nextLine());
+                validation = false;
+            }
+            catch(Exception e)
+            {
+                System.out.println("You are ONLY ALLOW input a NUMBER here!");
+                System.out.println("Please Enter Your Choice:");
+            }
+        }while(validation == true);
+        
+        return option;
     }
     
     /**
