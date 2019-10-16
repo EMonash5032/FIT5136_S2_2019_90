@@ -11,6 +11,7 @@ public class BookingController
     private Booking[] book;
     private Hall[] halls;
     private Quotation[] quotas;
+    private Review[] reviews;
     
     /**
      * Constructor for objects of class BookingController
@@ -21,6 +22,7 @@ public class BookingController
         int bookingID = 99999;
         int totalNumHalls = 99999;
         int totalQuot = 99999;        
+        int totalReview = 99999;
         
         halls = new Hall[totalNumHalls];
         for(int index = 0; index < totalNumHalls; index++)
@@ -39,6 +41,12 @@ public class BookingController
         for(int index = 0; index < totalQuot; index++)
         {
             quotas[index] = new Quotation("????", "????", "????", "????", -1, -1, -1, "????", false, -1, false,  -0.01);
+        }
+        
+        reviews = new Review[totalReview];
+        for(int index = 0; index < totalReview; index++)
+        {
+            reviews[index] = new Review(-1, -1, "????", -0.01, -0.01, -0.01, "????");
         }
     }
     
@@ -184,5 +192,20 @@ public class BookingController
         System.out.println("  Events Type: " + halls[inputIndex].getHallEvents() + "\r\n");
     }
     
-
+    public Review[] getAllReview()
+    {
+        return reviews;
+    }
+    
+    public Review getReview(int index)
+    {
+        return reviews[index];
+    }
+    
+    public void setReview(int index, int bookingNo, int hallNo, String cusEmail, double decorationRating,
+                          double serviceRating, double overallRating, String reviewDesc)
+    {
+        reviews[index] = new Review(bookingNo, hallNo, cusEmail, decorationRating,
+                                    serviceRating, overallRating, reviewDesc);
+    }
 }
