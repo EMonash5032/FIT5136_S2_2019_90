@@ -222,11 +222,12 @@ public class BookingController
             for(Booking booking: bookings)
             {
                 if(booking.getCusEmail().equals(cusEmail) && 
-                   booking.getStatus().equals("F"))
+                   booking.getBookingStatus().equals("F"))
                 {
                     
                     completedBookings[index] = booking;
-                    System.out.println((index + 1) + "." + booking.displayBooking());
+                    System.out.print((index + 1) + ".");
+                    booking.displayBooking();
                     index++;
                 }
             }
@@ -269,5 +270,18 @@ public class BookingController
             }
             double avgRating = sumRating/index;
             return avgRating;
+        }
+        
+        public void setReview(int hallNo,String cusEmail,
+                            double decorationRating,double serviceRating,
+                            double overallRating,String reviewDesc, Booking booking)
+        {
+            Review review = new Review();
+            review.setReviewDesc(reviewDesc);
+            review.setDecorationRating(decorationRating);
+            review.setServiceRating(serviceRating);
+            review.setOverallRating(overallRating);
+            review.setHallNo(hallNo);
+            booking.setReviewStatus(true);            
         }
 }
