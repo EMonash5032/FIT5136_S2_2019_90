@@ -8,12 +8,17 @@
 public class Booking
 {
     // instance variables - replace the example below with your own
-    private String firstName;
-    private String lastName;
-    private String hallName;
-    private String eventType;
-    private String date;
-    private double price;
+    //private String firstName;
+    //private String lastName;
+    //private String hallName;
+    //private String eventType;
+    //private String date;
+    //private double price;
+    private int hallNo;
+    private String cusEmail;
+    private date startDate;
+    private date endDate;
+    
     private double actualFee;
     private double deposit;
     
@@ -23,12 +28,12 @@ public class Booking
     public Booking()
     {
         // initialise instance variables
-        firstName = "????";
-        lastName = "????";
-        hallName = "????";
-        eventType = "????";
-        date = "????";
-        price = -0.01;
+        //firstName = "????";
+        //lastName = "????";
+        //hallName = "????";
+        //eventType = "????";
+        //date = "????";
+        //price = -0.01;
         actualFee = -0.01;
         deposit = -0.01;
     }
@@ -36,12 +41,12 @@ public class Booking
     public Booking(String firstName, String lastName, String hallName, String eventType, String date, double price, double actualFee, double deposit)
     {
         // initialise instance variables
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.hallName = hallName;
-        this.eventType = eventType;
-        this.date = date;
-        this.price = price;
+        //this.firstName = firstName;
+        //this.lastName = lastName;
+        //this.hallName = hallName;
+        //this.eventType = eventType;
+        //this.date = date;
+        //this.price = price;
         this.actualFee = actualFee;
         this.deposit = deposit;
     }
@@ -173,4 +178,9 @@ public class Booking
     {
         this.deposit = deposit;
     }    
+    
+    public int getHallNo()
+    {
+        return hallNo;
+    }
 }
