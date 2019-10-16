@@ -44,28 +44,6 @@
             this.reviewDesc = reviewDesc;
         }
         
-        /**
-         *
-         * "F" means Finished
-         * 
-         */
-        public void displayCompletedBooking()
-        {
-            Booking[] bookings = new Booking[99999];
-            Booking[] completedBookings = new Booking[99999];
-            int index = 0;
-            for(Booking booking: bookings)
-            {
-                if(booking.getCusEmail() == cusEmail && 
-                   booking.getStatus().equals("F"))
-                {
-                    completedBookings[index] = booking;
-                    System.out.println(booking.displayBooking());
-                    index++;
-                }
-            }
-        }
-        
         public void displayReview()
         {
             System.out.println("Booking No: " + bookingNo);

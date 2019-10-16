@@ -10,8 +10,8 @@ public class PrimeEvents
     // instance variables - replace the example below with your own
     private BookingController bookCont;
     private CustomerController customers;
-    private ListOfAdmins admin;
-    private ListOfOwners owners;
+    private AdminController admin;
+    private OwnerController owners;
     
     private int viewOption;
     private int searchOption;
@@ -28,8 +28,8 @@ public class PrimeEvents
         // initialise instance variables
         bookCont = new BookingController();
         customers = new CustomerController();
-        admin = new ListOfAdmins();
-        owners = new ListOfOwners();
+        admin = new AdminController();
+        owners = new OwnerController();
     }
 
     /**
@@ -701,7 +701,7 @@ public class PrimeEvents
     /**
      * #21
      */
-    public void customer(String firstName, String lastName)
+    public void customer(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         while(customerOption != 8)
@@ -717,16 +717,17 @@ public class PrimeEvents
                             listHall();
                             break;
                     case 2: System.out.println("View Booking History");
-                            bookHistroy(firstName, lastName);
+                            bookHistroy(cusEmail);
                             break;
                     case 3: System.out.println("View Receipt");
                             break;
                     case 4: System.out.println("Manage Booking");
                             break;
                     case 5: System.out.println("Book Hall");
-                            bookHall(firstName, lastName);
+                            bookHall(cusEmail);
                             break;
                     case 6: System.out.println("Rate service");
+                            rateService(cusEmail);
                             break;
                     case 7: System.out.println("Manage Profile");
                             break;
@@ -737,10 +738,88 @@ public class PrimeEvents
         }
     }    
     
+    public void rateService(String cusEmail)
+    {
+        if(bookCont.displayCompletedBooking(cusEmail) == null)
+        {
+            System.out.println("You don't have any finished booking. Press enter to return to previous page.");
+            Scanner input = new Scanner(System.in);
+            input.nextLine();
+        }
+        else
+        {
+            System.out.println("Select 1 to continue and review your booking(s) or 2 to return to previous page: ");
+            customerOption = inputNumber();
+            switch(customerOption)
+                {
+                    case 1: System.out.println("Return to customer home page");
+                            break;
+                    case 2: System.out.println("Please select a booking that hasn't been reviewed before to start: ");
+                            reviewSelectedBooking(cusEmail, bookCont.displayCompletedBooking(cusEmail));
+                            
+                            break;
+                            default: System.out.println("You can only choose 1 or 2!");
+                }
+            
+        }
+    }
+    
+    public void reviewSelectedBooking(String cusEmail, Booking[] completedBookings)
+        {
+            int size = 0;
+            for(Booking booking : completedBookings)
+            {
+                if(booking != null)
+                {
+                    size++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            Scanner input = new Scanner(System.in);
+            int selection = inputNumber();
+            while(selection < 1 || selection > size || completedBookings[selection - 1].getReviewStatus() == true)
+            {
+                System.out.println("Invalid selection, please reselect a booking to review from the list: ");
+                selection = input.nextInt();
+            }
+                       
+            System.out.println("Please rate the decoration of the hall (rating from 1 - 5): ");
+            double dR = input.nextDouble();
+            while(dR < 1 || dR > 5)
+            {
+                System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                dR = input.nextDouble();
+            }
+            
+            System.out.println("Please rate the service of the hall (rating from 1 - 5): ");
+            double sR = input.nextDouble();
+            while(sR < 1 || sR > 5)
+            {
+                System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                sR = input.nextDouble();
+            }
+            
+            System.out.println("Please rate the overall performance of the hall (rating from 1 - 5): ");
+            double oR = input.nextDouble();
+            while(oR < 1 || oR > 5)
+            {
+                System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                oR = input.nextDouble();
+            }
+            
+            System.out.println("Please leave a comment to the hall: ");
+            String description = input.nextLine();
+            bookCont.setReview(completedBookings[selection - 1].getHallNo(), cusEmail,
+                              dR, sR,oR, description, completedBookings[selection - 1]);
+        }
+    
     /**
      * #23
      */
-    private void bookHistroy(String firstName, String lastName)
+    private void bookHistroy(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         int index = 0;
@@ -773,7 +852,7 @@ public class PrimeEvents
     /**
      * #25
      */
-    private void bookHall(String firstName, String lastName)
+    private void bookHall(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         boolean validation = true;

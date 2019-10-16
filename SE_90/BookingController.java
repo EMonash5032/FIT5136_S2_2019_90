@@ -1,4 +1,4 @@
-
+import java.util.*;
 /**
  * Write a description of class BookingController here.
  *
@@ -208,4 +208,80 @@ public class BookingController
         reviews[index] = new Review(bookingNo, hallNo, cusEmail, decorationRating,
                                     serviceRating, overallRating, reviewDesc);
     }
+    
+    /**
+         *
+         * "F" means Finished
+         * 
+         */
+        public Booking[] displayCompletedBooking(String cusEmail)
+        {
+            Booking[] bookings = new Booking[99999];
+            Booking[] completedBookings = new Booking[99999];
+            int index = 0;
+            for(Booking booking: bookings)
+            {
+                if(booking.getCusEmail().equals(cusEmail) && 
+                   booking.getBookingStatus().equals("F"))
+                {
+                    
+                    completedBookings[index] = booking;
+                    System.out.print((index + 1) + ".");
+                    booking.displayBooking();
+                    index++;
+                }
+            }
+            
+            if(index == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return completedBookings;
+            }
+        }
+        
+        
+    
+    public double getAverageRating(int hallNo)
+        {
+            Review[] hallReviews = new Review[9999];
+            int index = 0;
+            for(Review review : reviews)
+            {
+                if(review.getHallNo() == hallNo)
+                {
+                    hallReviews[index] = review;
+                    index++;
+                }
+            }
+            double sumRating = 0.0;
+            if(index == 0)
+            {
+                System.out.println("This hall hasn't been booked by now.");
+            }
+            else
+            {
+                for(int i = 0; i < index; i++)
+                {
+                    sumRating += hallReviews[i].getOverallRating();
+                }
+            }
+            double avgRating = sumRating/index;
+            return avgRating;
+        }
+        
+        public void setReview(int hallNo,String cusEmail,
+                            double decorationRating,double serviceRating,
+                            double overallRating,String reviewDesc, Booking booking)
+        {
+            Review review = new Review();
+            review.setReviewDesc(reviewDesc);
+            review.setDecorationRating(decorationRating);
+            review.setServiceRating(serviceRating);
+            review.setOverallRating(overallRating);
+            review.setHallNo(hallNo);
+            booking.setReviewStatus(true);            
+        }
 }

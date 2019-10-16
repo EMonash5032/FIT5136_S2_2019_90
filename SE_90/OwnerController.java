@@ -5,14 +5,14 @@
  * @author Team 90
  * @version 10 September 2019
  */
-public class ListOfOwners
+public class OwnerController
 {
     private Owner[] owner;
 
     /**
      * 
      */
-    public ListOfOwners()
+    public OwnerController()
     {
         int totalNumOwners = 99999;
         owner = new Owner[totalNumOwners];

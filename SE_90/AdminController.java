@@ -5,14 +5,14 @@
  * @author Jialiang Wu && Yuekai Huang
  * @version 10 September 2019
  */
-public class ListOfAdmins
+public class AdminController
 {
     private Administrator[] admin;
 
     /**
      * 
      */
-    public ListOfAdmins()
+    public AdminController()
     {
         admin = new Administrator[1];
         admin[0] = new Administrator("admin@gmail.com", "admin");
