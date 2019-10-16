@@ -448,7 +448,7 @@ public class PrimeEvents
             
             System.out.println("Please enter your email address(account name): ");
             String email = input.nextLine();
-            while(!email.contains("@"))
+            while(!email.contains("@") || !email.contains("."))
             {
                 System.out.println("Invalid email address. Please re-enter your email address:");
                 email = input.nextLine();
@@ -456,18 +456,13 @@ public class PrimeEvents
             
             System.out.println("Please enter your password: ");
             String password = input.nextLine();
-            while(password.length() < 8 || password.length() > 15)// || password.matches(".*[A-Z]+.*")) wrong code with case check
+            while(password.length() < 8 || password.length() > 15)
             {
                 if(password.length() < 8 || password.length() > 15 )
                 {
                     System.out.println("Password Must contain 8 to 15 character! Please re-enter:");
                     password = input.nextLine();
                 }
-                //if(password.matches(".*[A-Z]+.*"))
-                //{
-                //    System.out.println("Password Must contain at least one upper or lower case! Please re-enter: ");
-                //    password = input.nextLine();
-                //}
             }
             
             System.out.println("Please re-enter password to confrim: ");
@@ -480,12 +475,48 @@ public class PrimeEvents
             
             System.out.println("Please enter your first security question");
             String question1 = input.nextLine();
+            while(question1.trim().length() < 5 || question1.trim().length() > 50)
+            {
+                System.out.println("Must be between 5 and 50 character long!");
+                System.out.println("Please enter your first security question again: ");
+                question1 = input.nextLine();
+            }
+            
             System.out.println("Please type the answer to your first security question");
             String answer1 = input.nextLine();
+            while(answer1.trim().length() < 5 || answer1.trim().length() > 50)
+            {
+                System.out.println("Must be between 5 and 50 character long!");
+                System.out.println("Please enter your first security answer again: ");
+                answer1 = input.nextLine();
+            }
+            
             System.out.println("Please enter your second security question");
             String question2 = input.nextLine();
+            while(question2.trim().length() < 5 || question2.trim().length() > 50 || question2.equals(question1))
+            {
+                if(question2.equals(question1))
+                {
+                    System.out.println("You cannot enter same question as first question");
+                    System.out.println("Please enter your second security question again: ");
+                    question2 = input.nextLine();
+                }
+                if(question2.trim().length() < 5 || question2.trim().length() > 50)
+                {
+                    System.out.println("Must be between 5 and 50 character long!");
+                    System.out.println("Please enter your second security question again: ");
+                    question2 = input.nextLine();
+                }
+            }
+            
             System.out.println("Please type the answer to your second security question");
             String answer2 = input.nextLine();
+            while(answer2.trim().length() < 5 || answer2.trim().length() > 50)
+            {
+                System.out.println("Must be between 5 and 50 character long!");
+                System.out.println("Please enter your second security answer again: ");
+                answer2 = input.nextLine();
+            }
             
             boolean isConcession;
             String phone;
@@ -495,11 +526,17 @@ public class PrimeEvents
             {
                 System.out.println("Please enter your phone number (press enter to skip):");
                 phone = input.nextLine();
-                while(!phone.isEmpty())
+                System.out.println(phone.length());
+                while(!phone.isEmpty() || (!phone.isEmpty() && phone.length() != 10))
                 {
                     if(!phone.matches("[0-9]+"))
                     {
                         System.out.println("Phone number only have digits involved! ALTERNATIVELY, hit enter to skip this step! Please enter again: ");
+                        phone = input.nextLine();
+                    }
+                    if(!phone.isEmpty() && phone.length() != 10)
+                    {
+                        System.out.println("A phone number Must contain 10 digital Number, please enter again or hit enter to skip: ");
                         phone = input.nextLine();
                     }
                     else
@@ -813,21 +850,8 @@ public class PrimeEvents
             resetOption();
             ownerMenu();
             
-            boolean validation = true;
-            do
-            {
-                try
-                {
-                    ownerOption = Integer.parseInt(input.nextLine());
-                    validation = false;
-                }
-                catch(Exception e)
-                {
-                    System.out.println("You are ONLY ALLOW input a NUMBER here!");
-                    System.out.println("Please Enter Your Choice:");
-                }
-            }while(validation == true);
-            
+            ownerOption = inputNumber();
+
             resetPage();
                 switch(ownerOption)
                 {
