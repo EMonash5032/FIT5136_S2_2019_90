@@ -1,16 +1,16 @@
 #BlueJ class context
 comment0.target=CustomerController
-comment0.text=\n\ Class\ CustomerController\n\ \n\ @author\ Team\ 90\n\ @version\ 10\ September\ 2019\n
+comment0.text=\r\n\ Class\ CustomerController\r\n\ \r\n\ @author\ Team\ 90\r\n\ @version\ 10\ September\ 2019\r\n
 comment1.params=
 comment1.target=CustomerController()
-comment1.text=\n\ \n
+comment1.text=\r\n\ \r\n
 comment2.params=
 comment2.target=Customer[]\ getAllCus()
-comment2.text=\n\#1\n
+comment2.text=\r\n\#1\r\n
 comment3.params=index
 comment3.target=Customer\ getCustomer(int)
-comment3.text=\n\ \#2\n
+comment3.text=\r\n\ \#2\r\n
 comment4.params=index\ firstName\ lastName\ email\ address\ password\ phone\ question1\ answer1\ question2\ answer2\ isConcession
 comment4.target=void\ setCustomer(int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
-comment4.text=\n\ \#3\n
+comment4.text=\r\n\ \#3\r\n
 numComments=5
