@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=OwnerController
+comment0.text=\r\n\ Class\ ListOfOwners\r\n\ \r\n\ @author\ Team\ 90\r\n\ @version\ 10\ September\ 2019\r\n
+comment1.params=
+comment1.target=OwnerController()
+comment1.text=\r\n\ \r\n
+comment2.params=
+comment2.target=Owner[]\ getAllOwner()
+comment2.text=\r\n\ \#1\r\n
+comment3.params=index
+comment3.target=Owner\ getOwner(int)
+comment3.text=\r\n\ \#2\r\n
+comment4.params=index\ firstName\ lastName\ email\ address\ password\ phone\ question1\ answer1\ question2\ answer2
+comment4.target=void\ setOwner(int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment4.text=\r\n\ \#3\r\n
+numComments=5

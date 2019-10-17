@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=AdminController
+comment0.text=\r\n\ Class\ ListOfAdmins\r\n\ \r\n\ @author\ Jialiang\ Wu\ &&\ Yuekai\ Huang\r\n\ @version\ 10\ September\ 2019\r\n
+comment1.params=
+comment1.target=AdminController()
+comment1.text=\r\n\ \r\n
+comment2.params=index
+comment2.target=Administrator\ getAdmin(int)
+comment2.text=\r\n\ \#1\r\n
+comment3.params=admin
+comment3.target=void\ setAdmin(Administrator[])
+comment3.text=\r\n\ \#2\r\n
+numComments=4
