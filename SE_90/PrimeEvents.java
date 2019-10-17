@@ -701,7 +701,7 @@ public class PrimeEvents
     /**
      * #21
      */
-    public void customer(String firstName, String lastName)
+    public void customer(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         while(customerOption != 8)
@@ -717,17 +717,16 @@ public class PrimeEvents
                             listHall();
                             break;
                     case 2: System.out.println("View Booking History");
-                            bookHistroy(firstName, lastName);
+                            bookHistroy(cusEmail);
                             break;
                     case 3: System.out.println("View Receipt");
                             break;
                     case 4: System.out.println("Manage Booking");
                             break;
                     case 5: System.out.println("Book Hall");
-                            bookHall(firstName, lastName);
+                            bookHall(cusEmail);
                             break;
                     case 6: System.out.println("Rate service");
-                            String cusEmail;
                             rateService(cusEmail);
                             break;
                     case 7: System.out.println("Manage Profile");
@@ -746,7 +745,6 @@ public class PrimeEvents
             System.out.println("You don't have any finished booking. Press enter to return to previous page.");
             Scanner input = new Scanner(System.in);
             input.nextLine();
-            //return to customer menu
         }
         else
         {
@@ -755,10 +753,10 @@ public class PrimeEvents
             switch(customerOption)
                 {
                     case 1: System.out.println("Return to customer home page");
-                            //return to customer menu
                             break;
                     case 2: System.out.println("Please select a booking that hasn't been reviewed before to start: ");
-                            reviewSelectedBooking(bookCont.displayCompletedBooking(cusEmail));
+                            reviewSelectedBooking(cusEmail, bookCont.displayCompletedBooking(cusEmail));
+                            
                             break;
                             default: System.out.println("You can only choose 1 or 2!");
                 }
@@ -766,7 +764,7 @@ public class PrimeEvents
         }
     }
     
-    public void reviewSelectedBooking(Booking[] completedBookings)
+    public void reviewSelectedBooking(String cusEmail, Booking[] completedBookings)
         {
             int size = 0;
             for(Booking booking : completedBookings)
@@ -813,19 +811,15 @@ public class PrimeEvents
             }
             
             System.out.println("Please leave a comment to the hall: ");
-            Review review = new Review();
-            review.setReviewDesc(input.nextLine());
-            review.setDecorationRating(dR);
-            review.setServiceRating(sR);
-            review.setOverallRating(oR);
-            review.setHallNo(completedBookings[selection - 1].getHallNo());
-            completedBookings[selection - 1].setReviewStatus(true);
+            String description = input.nextLine();
+            bookCont.setReview(completedBookings[selection - 1].getHallNo(), cusEmail,
+                              dR, sR,oR, description, completedBookings[selection - 1]);
         }
     
     /**
      * #23
      */
-    private void bookHistroy(String firstName, String lastName)
+    private void bookHistroy(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         int index = 0;
@@ -858,7 +852,7 @@ public class PrimeEvents
     /**
      * #25
      */
-    private void bookHall(String firstName, String lastName)
+    private void bookHall(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         boolean validation = true;
