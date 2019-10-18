@@ -122,7 +122,7 @@ public class Hall
         this.hallPrice = hallPrice;
     }
 
-    public boolean isAnniversary() {
+    public boolean getAnniversary() {
         return anniversary;
     }
 

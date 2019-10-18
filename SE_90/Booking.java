@@ -31,11 +31,11 @@ public class Booking
         // initialise instance variables
         reviewStatus = false;
         bookingStatus = "????";
-        hallNo = 0;
-        customerNo = 0;
+        hallNo = -1;
+        customerNo = -1;
         ownerEmail= "????";
         customerEmail = "????";
-        quotationIndex = 0;
+        quotationIndex = -1;
         startDate = "????";
         endDate = "????";
         cardholderName = "????";
@@ -49,8 +49,9 @@ public class Booking
      * Constructor for objects of class Bookinging
      */
     public Booking(boolean reviewStatus, String bookingStatus, int hallNo, int customerNo, String ownerEmail, 
-    String customerEmail, int quotationIndex, String startDate, String endDate, String cardholderName, 
-    int cardNumber, String expiryDate, int CVV, double deposit) {
+                   String customerEmail, int quotationIndex, String startDate, String endDate, String cardholderName, 
+                   int cardNumber, String expiryDate, int CVV, double deposit) 
+    {
         this.reviewStatus = reviewStatus;
         this.bookingStatus = bookingStatus;
         this.hallNo = hallNo;

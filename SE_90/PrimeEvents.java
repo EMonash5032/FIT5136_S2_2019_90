@@ -1,4 +1,7 @@
 import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat; 
+
 /**
  * Write a description of class PrimeEvents here.
  *
@@ -604,8 +607,7 @@ public class PrimeEvents
     private void customerLogin()
     {
         Scanner input = new Scanner(System.in);
-        String firstName = "????";
-        String lastName = "????";
+        String custEmail = "????";
         
         System.out.println("Please enter a Customer email: ");
         String userName = input.nextLine();
@@ -629,8 +631,7 @@ public class PrimeEvents
                 {
                     if(customers.getCustomer(index).getCusEmail().equals(userName) && customers.getCustomer(index).getCusPassword().equals(password) && !customers.getCustomer(index).getCusEmail().equals("????"))
                     {
-                        firstName = customers.getCustomer(index).getCusFirstName();
-                        lastName = customers.getCustomer(index).getCusLastName();
+                        custEmail = customers.getCustomer(index).getCusEmail();
                         status = false;
                     }
                     if(customers.getCustomer(index).getCusEmail().equals(userName) && !customers.getCustomer(index).getCusPassword().equals(password))
@@ -659,7 +660,7 @@ public class PrimeEvents
                 System.out.println("Press any key to continue...");
                 input.nextLine();
                 resetPage();
-                customer(firstName, lastName);
+                customer(custEmail);
             }
         }
     }
@@ -724,7 +725,7 @@ public class PrimeEvents
                     case 4: System.out.println("Manage Booking");
                             break;
                     case 5: System.out.println("Book Hall");
-                            bookHall(cusEmail);
+                            makeQuota(cusEmail);
                             break;
                     case 6: System.out.println("Rate service");
                             rateService(cusEmail);
@@ -827,7 +828,7 @@ public class PrimeEvents
         
         for(index = 0; index < bookCont.getAllBook().length; index++)
         {
-            if(bookCont.getBook(index).getFirstName().equals(firstName) && bookCont.getBook(index).getLastName().equals(lastName))
+            if(bookCont.getBook(index).getCustomerEmail().equals(cusEmail)) //&& and booking status is finished
             {
                 bookCont.displayBook(index);
             }
@@ -843,22 +844,22 @@ public class PrimeEvents
     {
         for(int i = 0; i < bookCont.getAllBook().length; i++)
         {
-            if(bookCont.getBook(i).getPrice() != -1)
+            if(bookCont.getBook(i).getQuotationIndex() != -1)
                 return 1;
         }
-        return 0;
+        return 0; 
     }
     
     /**
      * #25
      */
-    private void bookHall(String cusEmail)
+    private void makeQuota(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         boolean validation = true;
         int hallChoice = -1;
         listHall();
-        int checkHall = checkHallList();
+        int checkHall = bookCont.checkHallList();
         
         if(checkHall == 1)
         {
@@ -882,15 +883,213 @@ public class PrimeEvents
                 }
             }while(validation == true);
     
-            String hallName = bookCont.getHalls(hallChoice - 1).getHallName();
-            String hallEvents = bookCont.getHalls(hallChoice - 1).getHallEvents();
-            String date = "this need input date";
-            double hallPrice = bookCont.getHalls(hallChoice - 1).getHallPrice();
-            double hallDeposit = hallPrice * 0.5;
-            double acutalFee = hallPrice * 1; //hall price times discount rate, now set as 1
+            boolean reviewStatus = false;
+            //There are three difference type of  booking Status: O "on going" means during the time the 
+            //hall still use by customer; F "Finish book" means finished book after end date and success 
+            //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
+            //the customer book; N "Not Start" means the booking process not start yet.
+            String bookingStatus = "N";
+            int hallNo = hallChoice - 1;
             
-            int bookID = bookID();
-            bookCont.setBook(bookID, firstName, lastName, hallName, hallEvents, date, hallPrice, acutalFee, hallDeposit);
+            String startDate = "????";
+            String endDate = "????";
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            int checkDate = -1;
+            Date sDate = new Date();
+            Date eDate = new Date();
+            while(checkDate == -1)
+            {
+                validation = true;
+                do
+                {
+                    try
+                    {
+                        System.out.println("Please enter the start date (format 'dd/MM/yyyy', must include '/'): ");
+                        String inputDate = input.nextLine();
+                    
+                        sDate = formatter.parse(inputDate);
+                    
+                        startDate = formatter.format(sDate);
+                        System.out.println("Start date is : " + startDate);
+                        validation = false;
+                    }
+                    catch(ParseException e)
+                    {
+                        System.out.print("Invalid date format! You can only Enter format within 'dd/MM/yyyy' by number");
+                    }
+                }while(validation == true);
+                
+                validation = true;
+                do
+                {
+                    try
+                    {
+                        System.out.println("Please enter the date with format 'dd/MM/yyyy': ");
+                        String inputDate = input.nextLine();
+                    
+                        eDate = formatter.parse(inputDate);
+                    
+                        endDate = formatter.format(eDate);
+                        System.out.println("End date is : " + endDate);
+                        validation = false;
+                    }
+                    catch(ParseException e)
+                    {
+                        System.out.println("Invalid date format! You can only Enter format within 'dd/MM/yyyy' by number");
+                    }
+                }while(validation == true);
+            
+                checkDate = bookCont.checkDate(sDate, eDate);
+            }
+            
+            System.out.println("Please Enter Type of Event that this book contain with, Anniversary(a), Birthday(b), Wedding Ceremony(c) or Wedding Reception(r):");
+            String typeChoice = input.nextLine();
+            String bookEventType = "????";
+            
+            while(bookEventType.equals("????"))
+            {
+                while(!typeChoice.toLowerCase().matches("[abcr]"))
+                {
+                    System.out.println("Error! you can only type in ");
+                    typeChoice = input.nextLine();
+                }
+                if(typeChoice.toLowerCase().equals("a") && 
+                    bookCont.getHalls(hallNo).getAnniversary() == true)
+                {
+                    bookEventType = "Anniversary";
+                }
+                
+                else if(typeChoice.toLowerCase().equals("b") && 
+                    bookCont.getHalls(hallNo).getBirthday() == true)
+                {
+                    bookEventType = "Birthday";
+                }
+                
+                else if(typeChoice.toLowerCase().equals("c") && 
+                    bookCont.getHalls(hallNo).getWeddingCeremony() == true)
+                {
+                    bookEventType = "Wedding Ceremony";
+                }
+                
+                else if(typeChoice.toLowerCase().equals("r") && 
+                    bookCont.getHalls(hallNo).getWeddingReception() == true)
+                {
+                    bookEventType = "Wedding Reception";
+                }
+                
+                else
+                {
+                    System.out.println("You can only pick one type that the hall contain with Event Type");
+                    System.out.println("Please make a choice Anniversary(a), Birthday(b), Wedding Ceremony(c) or Wedding Reception(r):");
+                    System.out.println("The hall you looking for has following event types: ");
+                    bookCont.displayEventType(hallNo);
+                    typeChoice = input.nextLine();
+                }
+            }
+
+            int numberPeople = -1;
+            do
+            {
+                validation = true;//set loop into while true
+                try
+                {
+                    System.out.println("Please enter number of people going to attend: ");
+                    numberPeople = Integer.parseInt(input.nextLine());//transfer the input value from String into int
+                    int hallCapacity = bookCont.getHalls(hallNo).getHallCapacity();
+                    while(numberPeople < 10 && numberPeople > hallCapacity)//validate the input range
+                    {
+                        System.out.println("There must be at least 10 people and no more than " + hallCapacity + "!");
+                        System.out.println("Please enter again:");
+                        numberPeople = Integer.parseInt(input.nextLine());
+                    }
+                    validation = false;
+                }
+                catch(Exception e)//if input not a string, then it cant transfer from string to int
+                {
+                    System.out.println("You can only Enter a number here!");
+                }
+            }while(validation == true);
+            
+            boolean catering = false;
+            String menuOption = "????";
+            if(bookCont.getHalls(hallNo).getCatering() == true)
+            {
+                System.out.println("Would you like catering services? Y/y for Yes, N/n for No");
+                String cateringOption = input.nextLine();
+                while(!cateringOption.toLowerCase().matches("[yn]"))
+                {
+                    System.out.println("Error! you can only type in Y/y to Catering or N/n for No Catering");
+                    cateringOption = input.nextLine();
+                }
+                
+                if(cateringOption.toLowerCase().equals("y"))
+                {
+                    catering = true;
+                    System.out.println("Please Enter the menu that you want to service as: ");
+                    menuOption = input.nextLine();
+                    while(menuOption.isEmpty())
+                    {
+                        System.out.println("You cannot leave it as blank. Please Enter it again");
+                        menuOption = input.nextLine();
+                    }
+                }
+            }
+            
+            boolean photography = false;
+            if(bookCont.getHalls(hallNo).getPhotography() == true)
+            {
+                System.out.println("Would you like catering services? Y/y for Yes, N/n for No");
+                String photographyOption = input.nextLine();
+                while(!photographyOption.toLowerCase().matches("[yn]"))
+                {
+                    System.out.println("Error! you can only type in Y/y to Photography or N/n for No Photography");
+                    photographyOption = input.nextLine();
+                }
+                
+                if(photographyOption.toLowerCase().equals("y"))
+                {
+                    photography = true;
+                }
+            }
+            
+            
+            System.out.println("Please enter your contact email address: ");
+            String contactEmail = input.nextLine();
+            while(!contactEmail.contains("@") || !contactEmail.contains("."))
+            {
+                System.out.println("Invalid email address. Please re-enter your email address:");
+                contactEmail = input.nextLine();
+            }
+            
+            String contactPhone = "????";
+            System.out.println("Please enter your phone number (press enter to skip):");
+            contactPhone = input.nextLine();
+            while(contactPhone.length() != 10 || !contactPhone.matches("[0-9]+"))
+            {
+                if(!contactPhone.matches("[0-9]+"))
+                {
+                    System.out.println("Phone number only have digits involved! Please enter again: ");
+                    contactPhone = input.nextLine();
+                }
+                if(contactPhone.length() != 10)
+                {
+                    System.out.println("A phone number Must contain 10 digital Number, please enter again: ");
+                    contactPhone = input.nextLine();
+                }
+            }
+            
+            int bookID = bookCont.bookID();
+            String ownerEmail = bookCont.getHalls(hallNo).getHallOwnerEmail();
+            double additionalFee = -0.01;
+            double totalPrice = -0.01;
+            double totalPriceAfterDiscount = -0.01;
+            boolean ownerConfirmation = false;
+            
+            bookCont.setQuotation(bookID, hallNo, ownerEmail, cusEmail, startDate, endDate, bookEventType, numberPeople, catering, 
+                                      menuOption, photography, contactEmail, contactPhone, additionalFee, totalPrice, totalPriceAfterDiscount,
+                                      ownerConfirmation);
+            resetPage();
             System.out.println("Congratulations! Booking Successful!");
             System.out.println("Press any to continue...");
             input.nextLine();
@@ -902,22 +1101,7 @@ public class PrimeEvents
             input.nextLine();
         }
     }
-    
-    /**
-     * #26
-     */
-    private int bookID()
-    {
-        int index = 0;
-        while(index < bookCont.getAllBook().length)
-        {
-            if(bookCont.getBook(index).getPrice() == -0.01)
-                return index;
-            index++;
-        }
-        return -1;
-    }
-    
+
     /**
      * #27
      */
@@ -1005,7 +1189,7 @@ public class PrimeEvents
                             break;
                     case 5: resetPage();
                             System.out.println("View Hall");
-                            displayOwnerHall(hallOwnerEmail);
+                            bookCont.displayOwnerHall(hallOwnerEmail);
                             input.nextLine();
                             break;
                     case 6: 
@@ -1091,16 +1275,26 @@ public class PrimeEvents
         
         System.out.println("Pleas enter a Hall Name: ");
         String hallName = input.nextLine();
-        while(hallName.trim().length() < 3 || hallName.trim().length() > 25)
+        int checkName = bookCont.checkHallName(hallOwnerEmail, hallName);
+        while(hallName.trim().length() < 5 || hallName.trim().length() > 25 || checkName != -1)
         {
-            System.out.println("Must be between 3 and 25 characters long!");
-            System.out.println("Please enter your hall name again: ");
-            hallName = input.nextLine();
-        }
+            if(hallName.trim().length() < 5 || hallName.trim().length() > 25 )
+            {
+                System.out.println("Must be between 5 and 25 characters long!");
+                System.out.println("Please enter your hall name again: ");
+                hallName = input.nextLine();
+            }
+            if(checkName != -1)
+            {
+                System.out.println("Name " + "'" + hallName + "'" + " already exist, Please try another one:");
+                hallName = input.nextLine();
+                checkName = bookCont.checkHallName(hallOwnerEmail, hallName);
+            }
+        }        
         
         System.out.println("Pleas enter the Hall Address: ");
         String hallAddress = input.nextLine();
-        while(hallAddress.trim().length() < 5 || hallAddress.trim().length() > 505)
+        while(hallAddress.trim().length() < 5 || hallAddress.trim().length() > 50)
         {
             System.out.println("Must be between 5 and 50 characters long!");
             System.out.println("Please enter your hall address again: ");
@@ -1114,9 +1308,9 @@ public class PrimeEvents
             {
                 System.out.println("Please enter the Hall Capacity: ");
                 hallCapacity = Integer.parseInt(input.nextLine());//transfer the input value from String into int
-                while(hallCapacity < 10 || hallCapacity > 100)//validate the input range
+                while(hallCapacity < 10 )//validate the input range
                 {
-                    System.out.println("Hall capacity Must Be between 10 and 100");
+                    System.out.println("Hall capacity Must Be at least avaliable for 10 people");
                     System.out.println("Please enter again:");
                     hallCapacity = Integer.parseInt(input.nextLine());
                 }
@@ -1149,14 +1343,115 @@ public class PrimeEvents
             }
         }while(validation == true);   
         
+        System.out.println("Pleas enter event type you want to host. If yes please enter Y/y, N/n for No. ");
+        //String hallEvents = input.nextLine();
+        boolean anniversary = false;
+        boolean birthday = false;
+        boolean weddingCeremony = false;
+        boolean weddingReception = false;
+        validation = true;
         
-        System.out.println("Pleas enter event type you want to host: ");
-        String hallEvents = input.nextLine();
-        while(hallEvents.trim().length() < 0)
+        while(validation == true)
         {
-            System.out.println("Hall must be available for at least one event!");
-            System.out.println("Please enter the event type again: ");
-            hallEvents = input.nextLine();
+            System.out.println("The hall with event type anniversary? (y/n)");
+            String a = input.nextLine();
+            while(!a.toLowerCase().matches("[yn]"))
+            {
+                System.out.println("Error! you can only type in Y/y to add anniversary or N/n to no anniversary event");
+                System.out.println("Please enter again:");
+                a = input.nextLine();
+            }
+            
+            System.out.println("The hall with event type birthday? (y/n)");
+            String b = input.nextLine();
+            while(!b.toLowerCase().matches("[yn]"))
+            {
+                System.out.println("Error! you can only type in Y/y to add birthday or N/n to no birthday event");
+                System.out.println("Please enter again:");
+                b = input.nextLine();
+            }
+            
+            System.out.println("The hall with event type Wedding Ceremony? (y/n)");
+            String c = input.nextLine();
+            while(!c.toLowerCase().matches("[yn]"))
+            {
+                System.out.println("Error! you can only type in Y/y to add Wedding Ceremony or N/n to no Wedding Ceremony event");
+                System.out.println("Please enter again:");
+                c = input.nextLine();
+            }
+            
+            System.out.println("The hall with event type Wedding Reception? (y/n)");
+            String r = input.nextLine();
+            while(!r.toLowerCase().matches("[yn]"))
+            {
+                System.out.println("Error! you can only type in Y/y to add Wedding Reception or N/n to no Wedding Reception event");
+                System.out.println("Please enter again:");
+                r = input.nextLine();
+            }
+            
+            if(a.toLowerCase().equals("y"))
+            {
+                anniversary = true;
+            }
+            
+            if(b.toLowerCase().equals("y"))
+            {
+                birthday = true;
+            }
+            
+            if(c.toLowerCase().equals("y"))
+            {
+                weddingCeremony = true;
+            }
+            
+            if(r.toLowerCase().equals("y"))
+            {
+                weddingReception = true;
+            }
+            validation = false;
+            if(a.toLowerCase().equals("n") && b.toLowerCase().equals("n") && c.toLowerCase().equals("n") && r.toLowerCase().equals("n"))
+            {
+                System.out.println("Error! you need at least one event type! Please add the event types again:");
+                validation = true;
+            }
+        }
+        
+        boolean catering = false;
+        String menuDesc = "";
+        System.out.println("Do you want to add catering service to the hall?(y/n)");
+        String cateringOption = input.nextLine();
+        while(!cateringOption.toLowerCase().matches("[yn]"))
+        {
+            System.out.println("Error! you can only type in Y/y to add catering service to hall or N/n for no");
+            System.out.println("Please enter again:");
+            cateringOption = input.nextLine();
+        }
+        
+        if(cateringOption.toLowerCase().equals("y"))
+        {
+            catering = true;
+            System.out.println("Please enter the menu information into next line:");
+            menuDesc = input.nextLine();
+            while(menuDesc.trim().length() < 10)
+            {
+                System.out.println("You must enter something for the menu! Please enter again");
+                menuDesc = input.nextLine();
+            }
+        }
+        
+        boolean photography = false;
+        System.out.println("Do you want to add photography service to the hall?(y/n)");
+        String photoOption = input.nextLine();
+        while(!photoOption.toLowerCase().matches("[yn]"))
+        {
+            System.out.println("Error! you can only type in Y/y to add photography service to hall or N/n for no");
+            System.out.println("Please enter again:");
+            photoOption = input.nextLine();
+        }
+        
+        if(photoOption.toLowerCase().equals("y"))
+        {
+            photography = true;
         }
         
         System.out.println("Are you sure you want to add this hall information? Please enter Y/y for yes, N/n for No");
@@ -1165,39 +1460,27 @@ public class PrimeEvents
         while(!confirm.toLowerCase().matches("[yn]"))
         {
             System.out.println("Error! you can only type in Y/y to confirm or N/n to go back");
+            confirm = input.nextLine();
         }
         
         if(confirm.toLowerCase().equals("y") && type.equals("c"))
         {
             System.out.println("Hall has been added in successfully! ");
-            bookCont.setHall(index, hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
+            bookCont.setHall(index,hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, anniversary, birthday, weddingCeremony,
+                                weddingReception, catering, menuDesc, photography);
         }
         
+        //need create new edit function
         if(confirm.toLowerCase().equals("y") && type.equals("e"))
         {
             System.out.println("Hall has been edited successfully! ");
-            bookCont.setHall(index, hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
+            bookCont.setHall(index,hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, anniversary, birthday, weddingCeremony,
+                                weddingReception, catering, menuDesc, photography);
         }
         
         if(confirm.toLowerCase().equals("n"))
         {
             resetPage();
-        }
-        
-    }
-    
-    /**
-     * #35
-     */
-    private void displayOwnerHall(String email)
-    {
-        int index = 0;
-        for(index = 0; index < bookCont.getAllHalls().length; index++)
-        {
-            if(bookCont.getHalls(index).getHallOwnerEmail().equals(email))
-            {
-                bookCont.displayHalls(index);
-            }
         }
         
     }

@@ -9,12 +9,11 @@ public class Quotation
 {
     // instance variables - replace the example below with your own
     private int hallNo;
-    private int customerNo;
     private String ownerEmail;
     private String customerEmail;
     private String startDate;
     private String endDate;
-    private int bookEventType;   //display event type
+    private String bookEventType;   //display event type
     private int numberPeople;  //display
     private boolean catering;  //boolean display if true for Yes &...
     private String menuOption;// there is a list that customer could make option on the catering
@@ -32,13 +31,12 @@ public class Quotation
     public Quotation()
     {
         // initialise instance variables
-        hallNo = 0;  
-        customerNo = 0;  
+        hallNo = -1;  
         ownerEmail = "????";  
         customerEmail = "????";  
         startDate = "????";  
         endDate = "????";  
-        bookEventType = -1;
+        bookEventType = "????";
         numberPeople = -1; 
         catering = false; 
         menuOption = "????";
@@ -51,9 +49,12 @@ public class Quotation
         ownerConfirmation = false; 
     }
 
-    public Quotation(int hallNo, int customerNo, String ownerEmail, String customerEmail, String startDate, String endDate, int bookEventType, int numberPeople, boolean catering, String menuOption, boolean photography, String contactEmail, String contactPhone, double additionalFee, double totalPrice, double totalPriceAfterDiscount, boolean ownerConfirmation) {
+    public Quotation(int hallNo, String ownerEmail, String customerEmail, String startDate, 
+                     String endDate, String bookEventType, int numberPeople, boolean catering, String menuOption, 
+                     boolean photography, String contactEmail, String contactPhone, double additionalFee, double 
+                     totalPrice, double totalPriceAfterDiscount, boolean ownerConfirmation) 
+    {
         this.hallNo = hallNo;
-        this.customerNo = customerNo;
         this.ownerEmail = ownerEmail;
         this.customerEmail = customerEmail;
         this.startDate = startDate;
@@ -74,7 +75,6 @@ public class Quotation
     public void displayQuotation()
     {
         System.out.println("hall No: " + hallNo);
-        System.out.println("customer No: " + customerNo);
         System.out.println("owner Email: " + ownerEmail);
         System.out.println("customer Email: " + customerEmail);
         System.out.println("start Date: " + startDate);
@@ -99,14 +99,6 @@ public class Quotation
 
     public void setHallNo(int hallNo) {
         this.hallNo = hallNo;
-    }
-
-    public int getCustomerNo() {
-        return customerNo;
-    }
-
-    public void setCustomerNo(int customerNo) {
-        this.customerNo = customerNo;
     }
 
     public String getOwnerEmail() {
@@ -141,11 +133,11 @@ public class Quotation
         this.endDate = endDate;
     }
 
-    public int getBookEventType() {
+    public String getBookEventType() {
         return bookEventType;
     }
 
-    public void setBookEventType(int bookEventType) {
+    public void setBookEventType(String bookEventType) {
         this.bookEventType = bookEventType;
     }
 

@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=Discount
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Discount\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=discountName\ discountDesc\ discountRate
+comment1.target=Discount(java.lang.String,\ java.lang.String,\ double)
+comment2.params=
+comment2.target=void\ displayDiscount()
+comment3.params=
+comment3.target=java.lang.String\ getDiscountName()
+comment4.params=discountName
+comment4.target=void\ setDiscountName(java.lang.String)
+comment5.params=
+comment5.target=java.lang.String\ getDiscountDesc()
+comment6.params=discountDesc
+comment6.target=void\ setDiscountDesc(java.lang.String)
+comment7.params=
+comment7.target=double\ getDiscountRate()
+comment8.params=discountRate
+comment8.target=void\ setDiscountRate(double)
+numComments=9

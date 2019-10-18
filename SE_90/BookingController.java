@@ -27,20 +27,21 @@ public class BookingController
         halls = new Hall[totalNumHalls];
         for(int index = 0; index < totalNumHalls; index++)
         {
-            halls[index] = new Hall("????","????","????", -1, -0.01, "????");
+            halls[index] = new Hall("????","????","????", -1, -0.01,false,false,false,false,false,"????",false);
         }
         
         book = new Booking[bookingID];
         for(int index = 0; index < bookingID; index++)
         {
-            book[index] = new Booking("????","????","????","????","????", -0.01, -0.01, -0.01);
+            book[index] = new Booking(false,"????",-1,-1,"????","????",-1,"????","????","????",-1,"????",-1,-0.01);
         }
         
 
         quotas = new Quotation[totalQuot];
         for(int index = 0; index < totalQuot; index++)
         {
-            quotas[index] = new Quotation("????", "????", "????", "????", -1, -1, -1, "????", false, -1, false,  -0.01);
+            quotas[index] = new Quotation(-1,"????","????","????", "????","????", -1,false,"????",false,
+                                            "????","????",-0.01,-0.01,-0.01,false);
         }
         
         reviews = new Review[totalReview];
@@ -87,6 +88,26 @@ public class BookingController
         System.out.println("Please Enter 'y' or 'n'");
     }
     
+    public Quotation[] getAllQuota()
+    {
+        return quotas;
+    }
+    
+    public Quotation getQuota(int index)
+    {
+        return quotas[index];
+    }
+    
+    public void setQuotation(int index, int hallNo, String ownerEmail, String customerEmail, String startDate, String endDate, 
+                             String bookEventType, int numberPeople, boolean catering, String menuOption, boolean photography, String contactEmail, 
+                             String contactPhone, double additionalFee, double totalPrice, double totalPriceAfterDiscount,
+                             boolean ownerConfirmation)
+    {
+        quotas[index] = new Quotation(hallNo, ownerEmail, customerEmail, startDate, endDate, bookEventType, numberPeople, catering, 
+                                      menuOption, photography, contactEmail, contactPhone, additionalFee, totalPrice, totalPriceAfterDiscount,
+                                      ownerConfirmation);
+    }
+    
     /**
      * #25
      */
@@ -106,9 +127,12 @@ public class BookingController
     /**
      * #27
      */
-    public void setBook(int index, String firstName, String lastName, String hallName, String eventType, String date, double price, double actualFee, double deposit)
+    public void setBook(int index, boolean reviewStatus, String bookingStatus, int hallNo, int customerNo, String ownerEmail, 
+                         String customerEmail, int quotationIndex, String startDate, String endDate, String cardholderName, 
+                         int cardNumber, String expiryDate, int CVV, double deposit)
     {
-        book[index] = new Booking(firstName, lastName, hallName, eventType, date, price, actualFee, deposit);
+        book[index] = new Booking(reviewStatus, bookingStatus, hallNo, customerNo, ownerEmail, customerEmail, quotationIndex, startDate, endDate,
+                                  cardholderName, cardNumber, expiryDate, CVV, deposit);
     }
     
     /**
@@ -117,11 +141,11 @@ public class BookingController
     public void displayBook(int inputIndex)
     {
         System.out.println("The Booking reference " + (inputIndex + 1) + ": ");
-        System.out.println("Hall Name: " + book[inputIndex].getHallName());
-        System.out.println("  Event Types: " + book[inputIndex].getEventType());
-        System.out.println("  Hall Price: " + book[inputIndex].getPrice());
-        System.out.println("  Acutal Cost: " + book[inputIndex].getActualFee());
-        System.out.println("  Deposit: " + book[inputIndex].getDeposit() + "\r\n");
+        //System.out.println("Hall Name: " + book[inputIndex].getHallName());
+        //System.out.println("  Event Types: " + book[inputIndex].getEventType());
+        //System.out.println("  Hall Price: " + book[inputIndex].getPrice());
+       // System.out.println("  Acutal Cost: " + book[inputIndex].getActualFee());
+       // System.out.println("  Deposit: " + book[inputIndex].getDeposit() + "\r\n");
     }
 
      /**
@@ -149,11 +173,28 @@ public class BookingController
     }
     
     /**
+     *  Check the hall name in same owner's hall exist or not. If exist return the hall index, if Not return -1
+     */
+    public int checkHallName(String email, String hallName)
+    {
+
+        for(int index = 0 ; index < getAllHalls().length; index++)
+        {
+            if(getHalls(index).getHallOwnerEmail().equals(email) && getHalls(index).getHallName().equals(hallName))
+                return index;
+        }
+        return -1;
+    }
+    
+    /**
      * #24
      */
-    public void setHall(int index, String hallOwnerEmail, String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
+    public void setHall(int index, String hallOwnerEmail, String hallName, String hallAddress, int hallCapacity, double hallPrice, 
+                        boolean anniversary, boolean birthday, boolean weddingCeremony, boolean weddingReception, boolean catering, 
+                        String menuDesc, boolean photography)
     {
-        halls[index] = new Hall(hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, hallEvents);
+        halls[index] = new Hall(hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, anniversary, birthday, weddingCeremony,
+                                weddingReception, catering, menuDesc, photography);
     }
     
     /**
@@ -171,25 +212,89 @@ public class BookingController
                 System.out.println(" Address: " + halls[x].getHallAddress());
                 System.out.println(" Capacity: " + halls[x].getHallCapacity());
                 System.out.println(" Price: " + halls[x].getHallPrice());
-                System.out.println(" Event Type: " + halls[x].getHallEvents() + "\r\n");
+                //           System.out.println(" Event Type: " + halls[x].getHallEvents() + "\r\n");
                 
             }
         }
         System.out.println("Enter Number 0 to exit remove menu");
         System.out.println("Please Enter Hall Number You wish To Remove: ");
     }
-
+    
+    public void displayEventType(int index)
+    {
+        String a = "";
+        String b = "";
+        String c = "";
+        String r = "";
+        
+        if(halls[index].getAnniversary() == true)
+        {
+            a = "Anniversary, ";
+        }
+        if(halls[index].getBirthday() == true)
+        {      
+            b = "Birthday, ";
+        }
+        if(halls[index].getWeddingCeremony() == true)
+        {   
+            c = "Wedding Ceremony, ";
+        }
+        if(halls[index].getWeddingReception() == true)
+        {   
+            r = "Wedding Reception,";
+        }
+        System.out.println("    " + a + b + c + r);
+    }
+    
     /**
      * #26
      */
-    public void displayHalls(int inputIndex)
+    public void displayHalls(int index)
     {
-        System.out.println("The hall number " + (inputIndex + 1) + ": ");
-        System.out.println("Hall Name: " + halls[inputIndex].getHallName());
-        System.out.println("  Address: " + halls[inputIndex].getHallAddress());
-        System.out.println("  Capacity: " + halls[inputIndex].getHallCapacity());
-        System.out.println("  Price: " + halls[inputIndex].getHallPrice());
-        System.out.println("  Events Type: " + halls[inputIndex].getHallEvents() + "\r\n");
+        System.out.println("The hall number " + (index + 1) + ": ");
+        System.out.println("Hall Name: " + halls[index].getHallName());
+        System.out.println("  Address: " + halls[index].getHallAddress());
+        System.out.println("  Capacity: " + halls[index].getHallCapacity());
+        System.out.println("  Price: " + halls[index].getHallPrice());
+        System.out.println("  Events Type: " );
+        
+        displayEventType(index);
+        
+        String catering = "";
+        String photo = "";
+        if(halls[index].getCatering() == true)
+        {
+            catering = "Catering, ";
+        }
+        if(halls[index].getPhotography() == true)
+        {      
+            photo = "Photography ";
+        }
+        if(halls[index].getCatering() == true || halls[index].getPhotography() == true)
+        {
+            System.out.println("  Service Type: " + catering + photo + "\r\n");
+        }
+        if(halls[index].getCatering() == false || halls[index].getPhotography() == false)
+        {
+            System.out.println("\r\n");
+        }
+        
+    }
+    
+    /**
+     * print all hall which relative the login owner by email address, email address is unique
+     */
+    public void displayOwnerHall(String email)
+    {
+        int index = 0;
+        for(index = 0; index < getAllHalls().length; index++)
+        {
+            if(getHalls(index).getHallOwnerEmail().equals(email))
+            {
+                displayHalls(index);
+            }
+        }
+        
     }
     
     public Review[] getAllReview()
@@ -210,10 +315,10 @@ public class BookingController
     }
     
     /**
-         *
-         * "F" means Finished
-         * 
-         */
+     *
+     * "F" means Finished
+     * 
+     */
         public Booking[] displayCompletedBooking(String cusEmail)
         {
             Booking[] bookings = new Booking[99999];
@@ -221,10 +326,9 @@ public class BookingController
             int index = 0;
             for(Booking booking: bookings)
             {
-                if(booking.getCusEmail().equals(cusEmail) && 
+                if(//booking.getCusEmail().equals(cusEmail) && 
                    booking.getBookingStatus().equals("F"))
                 {
-                    
                     completedBookings[index] = booking;
                     System.out.print((index + 1) + ".");
                     booking.displayBooking();
@@ -272,16 +376,79 @@ public class BookingController
             return avgRating;
         }
         
-        public void setReview(int hallNo,String cusEmail,
+    public void setReview(int hallNo,String cusEmail,
                             double decorationRating,double serviceRating,
                             double overallRating,String reviewDesc, Booking booking)
+    {
+        Review review = new Review();
+        review.setReviewDesc(reviewDesc);
+        review.setDecorationRating(decorationRating);
+        review.setServiceRating(serviceRating);
+        review.setOverallRating(overallRating);
+        review.setHallNo(hallNo);
+        booking.setReviewStatus(true);            
+    }
+    
+    public int checkDate(Date startDate, Date endDate)
+    {
+        if(startDate.compareTo(endDate) == 0)
         {
-            Review review = new Review();
-            review.setReviewDesc(reviewDesc);
-            review.setDecorationRating(decorationRating);
-            review.setServiceRating(serviceRating);
-            review.setOverallRating(overallRating);
-            review.setHallNo(hallNo);
-            booking.setReviewStatus(true);            
+            System.out.println("Book success with 1 day");
+            return 0;
         }
+        else if(startDate.compareTo(endDate) < 0)
+        {
+            System.out.println("Book success with multi days!");
+            return 1;
+        }
+        else if(startDate.compareTo(endDate)> 0)
+        {
+            System.out.println("Book fail!");
+            return -1;
+        }
+        
+        System.out.println("Impossible!");
+        return -1;
+    }
+    
+    /**
+     *  return an empty book Index
+     */
+    public int bookID()
+    {
+        int index = 0;
+        while(index < getAllBook().length)
+        {
+            if(getBook(index).getHallNo() == -1)
+                return index;
+            index++;
+        }
+        return -1;
+    }
+    
+    /**
+     *  check customer exist book or not if exist book return 1, no return 0
+     */
+    public int checkBook()
+    {
+        for(int i = 0; i < getAllBook().length; i++)
+        {
+            if(getBook(i).getHallNo() != -1)
+                return 1;
+        }
+        return 0;
+    }
+    
+    /**
+     *  check hall list exist at least one hall or not if Yes return 1, no return 0
+     */
+    public int checkHallList()
+    {
+        for(int i = 0; i < getAllHalls().length; i++)
+        {
+            if(getHalls(i).getHallCapacity() != -1)
+                return 1;
+        }
+        return 0;
+    }
 }
