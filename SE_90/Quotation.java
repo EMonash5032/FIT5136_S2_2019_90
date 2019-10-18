@@ -8,175 +8,224 @@
 public class Quotation
 {
     // instance variables - replace the example below with your own
-    private String quotationNo;   //display
-    private String customerFirstName;  //display
-    private String customerLastName;  //display
-    private String hallName;  //display
-    private int hallNumber;
-    private int eventChoice;   //display event type
+    private int hallNo;
+    private int customerNo;
+    private String ownerEmail;
+    private String customerEmail;
+    private String startDate;
+    private String endDate;
+    private int bookEventType;   //display event type
     private int numberPeople;  //display
-    private String date;    //display
     private boolean catering;  //boolean display if true for Yes &...
-    private int caterChoice;// there is a list that customer could make option on the catering
-    private boolean photo;     //boolean display if true for Yes &...
+    private String menuOption;// there is a list that customer could make option on the catering
+    private boolean photography;     //boolean display if true for Yes &...
+    private String contactEmail;
+    private String contactPhone; 
+    private double additionalFee;
     private double totalPrice; //display
-    
-    
+    private double totalPriceAfterDiscount;
+    private boolean ownerConfirmation;
+
     /**
      * Constructor for objects of class Quotation
      */
     public Quotation()
     {
         // initialise instance variables
-        quotationNo = "????";  
-        customerFirstName = "????";  
-        customerLastName = "????";  
-        hallName = "????";  
-        hallNumber = -1;
-        eventChoice = -1; 
+        hallNo = 0;  
+        customerNo = 0;  
+        ownerEmail = "????";  
+        customerEmail = "????";  
+        startDate = "????";  
+        endDate = "????";  
+        bookEventType = -1;
         numberPeople = -1; 
-        date = "????";
         catering = false; 
-        caterChoice = -1;
-        photo = false;  
-        totalPrice = -0.01;                
-        
+        menuOption = "????";
+        photography = false;
+        contactEmail = "????";
+        contactPhone = "????";
+        additionalFee = -0.01;  
+        totalPrice = -0.01;  
+        totalPriceAfterDiscount = -0.01;  
+        ownerConfirmation = false; 
     }
-    
-    public Quotation(String quotationNo,String customerFirstName, String customerLastName, String hallName, int hallNumber, int eventChoice, int numberPeople, String date, boolean catering, int caterChoice, boolean photo, double totalPrice)
-    {
-        this.quotationNo = quotationNo;
-        this.customerFirstName = customerFirstName;
-        this.customerLastName = customerLastName;
-        this.hallName = hallName;
-        this.hallNumber = hallNumber;
-        this.eventChoice = eventChoice;  
-        this.numberPeople = numberPeople; 
-        this.date = date;   
+
+    public Quotation(int hallNo, int customerNo, String ownerEmail, String customerEmail, String startDate, String endDate, int bookEventType, int numberPeople, boolean catering, String menuOption, boolean photography, String contactEmail, String contactPhone, double additionalFee, double totalPrice, double totalPriceAfterDiscount, boolean ownerConfirmation) {
+        this.hallNo = hallNo;
+        this.customerNo = customerNo;
+        this.ownerEmail = ownerEmail;
+        this.customerEmail = customerEmail;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.bookEventType = bookEventType;
+        this.numberPeople = numberPeople;
         this.catering = catering;
-        this.caterChoice = caterChoice;
-        this.photo = photo;     
+        this.menuOption = menuOption;
+        this.photography = photography;
+        this.contactEmail = contactEmail;
+        this.contactPhone = contactPhone;
+        this.additionalFee = additionalFee;
         this.totalPrice = totalPrice;
+        this.totalPriceAfterDiscount = totalPriceAfterDiscount;
+        this.ownerConfirmation = ownerConfirmation;
     }
 
-    public void setQuotationNo(String quotationNo)
+    public void displayQuotation()
     {
-        this.quotationNo = quotationNo;
+        System.out.println("hall No: " + hallNo);
+        System.out.println("customer No: " + customerNo);
+        System.out.println("owner Email: " + ownerEmail);
+        System.out.println("customer Email: " + customerEmail);
+        System.out.println("start Date: " + startDate);
+        System.out.println("end Date: " + endDate);
+        System.out.println("photography: " + photography);
+        System.out.println("book Event Type: " + bookEventType);
+        System.out.println("number of people: " + numberPeople);
+        System.out.println("catering: " + catering);
+        System.out.println("menu option: " + menuOption);
+        System.out.println("photography: " + photography);
+        System.out.println("contact email: " + contactEmail);
+        System.out.println("contact phone: " + contactPhone);
+        System.out.println("additional fee: " + additionalFee);
+        System.out.println("total price: " + totalPrice);
+        System.out.println("total price after discount: " + totalPriceAfterDiscount);
+        System.out.println("owner confirmation: " + ownerConfirmation);
     }
 
-    public void setCustomerLastName(String customerLastName)
-    {
-        this.customerLastName = customerLastName;
-    }
-    
-    public void setCustomerFirstName(String customerFirstName)
-    {
-        this.customerFirstName = customerFirstName;
+    public int getHallNo() {
+        return hallNo;
     }
 
-    public void setHallName(String hallName)
-    {
-        this.hallName = hallName;
-    }
-    
-    public void setHallNumber(int hallNumber)
-    {
-        this.hallNumber = hallNumber;
+    public void setHallNo(int hallNo) {
+        this.hallNo = hallNo;
     }
 
-    public void setEventChoice(int eventChoice)
-    {
-        this.eventChoice = eventChoice;
+    public int getCustomerNo() {
+        return customerNo;
     }
 
-    public void setNumberPeople(int numberPeople)
-    {
-        this.numberPeople = numberPeople; 
-    }
-    
-    public void setDate(String date)
-    {
-        this.date = date;  
+    public void setCustomerNo(int customerNo) {
+        this.customerNo = customerNo;
     }
 
-    public void setCatering(boolean catering)
-    {
-        this.catering = catering;
-    }
-    
-    public void setCaterChoice(int caterChoice)
-    {
-        this.caterChoice = caterChoice;
+    public String getOwnerEmail() {
+        return ownerEmail;
     }
 
-    public void setPhote(boolean photo)
-    {
-        this.photo = photo; 
-    }
-    
-    public void setTotalPrice(double totalPrice)
-    {
-        this.totalPrice = totalPrice;
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
     }
 
-    public String getQuotationNo()
-    {
-        return quotationNo;
-    }
-    
-    public String getCustomerLastName()
-    {
-        return customerLastName;
-    }
-    
-    public String getCustomerFirstName()
-    {
-        return customerFirstName;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public String getHallName()
-    {
-        return hallName;
-    }
-    
-    public int getHallNumber()
-    {
-        return hallNumber;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
-    public int setEventChoice()
-    {
-        return eventChoice;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public int setNumberPeople()
-    {
-        return numberPeople; 
-    }
-    
-    public String getDate()
-    {
-        return date;  
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public boolean getCatering()
-    {
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getBookEventType() {
+        return bookEventType;
+    }
+
+    public void setBookEventType(int bookEventType) {
+        this.bookEventType = bookEventType;
+    }
+
+    public int getNumberPeople() {
+        return numberPeople;
+    }
+
+    public void setNumberPeople(int numberPeople) {
+        this.numberPeople = numberPeople;
+    }
+
+    public boolean getCatering() {
         return catering;
     }
-    
-    public int getCaterChoice()
-    {
-        return caterChoice;
+
+    public void setCatering(boolean catering) {
+        this.catering = catering;
     }
 
-    public boolean getPhote()
-    {
-        return photo; 
+    public String getMenuOption() {
+        return menuOption;
     }
-    
-    public double setTotalPrice()
-    {
+
+    public void setMenuOption(String menuOption) {
+        this.menuOption = menuOption;
+    }
+
+    public boolean getPhotography() {
+        return photography;
+    }
+
+    public void setPhotography(boolean photography) {
+        this.photography = photography;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public double getAdditionalFee() {
+        return additionalFee;
+    }
+
+    public void setAdditionalFee(double additionalFee) {
+        this.additionalFee = additionalFee;
+    }
+
+    public double getTotalPrice() {
         return totalPrice;
-    }    
-   
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public double getTotalPriceAfterDiscount() {
+        return totalPriceAfterDiscount;
+    }
+
+    public void setTotalPriceAfterDiscount(double totalPriceAfterDiscount) {
+        this.totalPriceAfterDiscount = totalPriceAfterDiscount;
+    }
+
+    public boolean getOwnerConfirmation() {
+        return ownerConfirmation;
+    }
+
+    public void setOwnerConfirmation(boolean ownerConfirmation) {
+        this.ownerConfirmation = ownerConfirmation;
+    }
 }

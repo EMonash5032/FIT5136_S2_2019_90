@@ -13,7 +13,13 @@ public class Hall
     private String hallAddress;
     private int hallCapacity;
     private double hallPrice;
-    private String hallEvents;
+    private boolean anniversary;
+    private boolean birthday;
+    private boolean weddingCeremony;
+    private boolean weddingReception;
+    private boolean catering;
+    private String menuDesc;
+    private boolean photography;
 
     /**
      * Constructor for objects of class Hall
@@ -26,17 +32,30 @@ public class Hall
         hallAddress = "????";
         hallCapacity = -1;
         hallPrice = -0.01;
-        hallEvents = "????";
+        anniversary = false;
+        birthday = false;
+        weddingCeremony = false;
+        weddingReception = false;
+        catering = false;
+        menuDesc = "????";
+        photography = false;
     }
-    
-    public Hall(String hallOwnerEmail, String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
-    {
+
+    public Hall(String hallOwnerEmail, String hallName, String hallAddress, int hallCapacity, double hallPrice, 
+    boolean anniversary, boolean birthday, boolean weddingCeremony, boolean weddingReception, boolean catering, 
+    String menuDesc, boolean photography) {
         this.hallOwnerEmail = hallOwnerEmail;
         this.hallName = hallName;
         this.hallAddress = hallAddress;
         this.hallCapacity = hallCapacity;
         this.hallPrice = hallPrice;
-        this.hallEvents = hallEvents;
+        this.anniversary = anniversary;
+        this.birthday = birthday;
+        this.weddingCeremony = weddingCeremony;
+        this.weddingReception = weddingReception;
+        this.catering = catering;
+        this.menuDesc = menuDesc;
+        this.photography = photography;
     }
 
     /**
@@ -45,107 +64,117 @@ public class Hall
      */
     public void display(String hallName, String hallAddress, int hallCapacity, double hallPrice, String hallEvents)
     {
-         System.out.println("Hall Name: " + hallName);
-         System.out.println("Hall Address: " + hallAddress);
-         System.out.println("Hall Capacity: " + hallCapacity);
-         System.out.println("Hall Price: " + hallPrice);
-         System.out.println("Hall Events Type: " + hallEvents);
-    }
-    
-    /**
-     * #3
-     */
-    public String getHallOwnerEmail()
-    {
-        return hallOwnerEmail;
-    }
-    
-    /**
-     * #4
-     */
-    public String getHallName()
-    {
-        return hallName;
-    }
-    
-    /**
-     * #5
-     */
-    public String getHallAddress()
-    {
-        return hallAddress;
-    }
-    
-    /**
-     * #6
-     */
-    public int getHallCapacity()
-    {
-        return hallCapacity;
-    }
-    
-    /**
-     * #7
-     */
-    public double getHallPrice()
-    {
-        return hallPrice;
-    }
-    
-    /**
-     * #8
-     */
-    public String getHallEvents()
-    {
-        return hallEvents;
+        System.out.println("Hall Name: " + hallName);
+        System.out.println("Hall Address: " + hallAddress);
+        System.out.println("Hall Capacity: " + hallCapacity);
+        System.out.println("Hall Price: " + hallPrice);
+        System.out.println("Hall Events Type: " + hallEvents);
     }
 
-    /**
-     * #10
-     */
-    public void setHallOwnerEmail(String hallOwnerEmail)
+    public void displayHall()
     {
+        System.out.println("Hall Name: " + hallName);
+        System.out.println("Hall Address: " + hallAddress);
+        System.out.println("Hall Capacity: " + hallCapacity);
+        System.out.println("Hall Price: " + hallPrice);
+        System.out.println("Hall Events Type: " + anniversary + birthday + weddingCeremony + weddingReception);
+        System.out.println("menuDesc: " + menuDesc);
+        System.out.println("photography: " + photography);
+    }
+
+    public String getHallOwnerEmail() {
+        return hallOwnerEmail;
+    }
+
+    public void setHallOwnerEmail(String hallOwnerEmail) {
         this.hallOwnerEmail = hallOwnerEmail;
     }
-    
-    /**
-     * #11
-     */
-    public void setHallName(String name)
-    {
+
+    public String getHallName() {
+        return hallName;
+    }
+
+    public void setHallName(String hallName) {
         this.hallName = hallName;
     }
-    
-    /**
-     * #12
-     */
-    public void setHallAddress(String hallAddress)
-    {
+
+    public String getHallAddress() {
+        return hallAddress;
+    }
+
+    public void setHallAddress(String hallAddress) {
         this.hallAddress = hallAddress;
     }
-    
-    /**
-     * #13
-     */
-    public void setHallCapacity(int hallCapacity)
-    {
+
+    public int getHallCapacity() {
+        return hallCapacity;
+    }
+
+    public void setHallCapacity(int hallCapacity) {
         this.hallCapacity = hallCapacity;
     }
-    
-    /**
-     * #14
-     */
-    public void setHallPrice(double hallPrice)
-    {
+
+    public double getHallPrice() {
+        return hallPrice;
+    }
+
+    public void setHallPrice(double hallPrice) {
         this.hallPrice = hallPrice;
     }
-    
-    /**
-     * #15
-     */
-    public void setHallEvents(String hallEvents)
-    {
-        this.hallEvents = hallEvents;
+
+    public boolean isAnniversary() {
+        return anniversary;
     }
-    
+
+    public void setAnniversary(boolean anniversary) {
+        this.anniversary = anniversary;
+    }
+
+    public boolean getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(boolean birthday) {
+        this.birthday = birthday;
+    }
+
+    public boolean getWeddingCeremony() {
+        return weddingCeremony;
+    }
+
+    public void setWeddingCeremony(boolean weddingCeremony) {
+        this.weddingCeremony = weddingCeremony;
+    }
+
+    public boolean getWeddingReception() {
+        return weddingReception;
+    }
+
+    public void setWeddingReception(boolean weddingReception) {
+        this.weddingReception = weddingReception;
+    }
+
+    public boolean getCatering() {
+        return catering;
+    }
+
+    public void setCatering(boolean catering) {
+        this.catering = catering;
+    }
+
+    public String getMenuDesc() {
+        return menuDesc;
+    }
+
+    public void setMenuDesc(String menuDesc) {
+        this.menuDesc = menuDesc;
+    }
+
+    public boolean getPhotography() {
+        return photography;
+    }
+
+    public void setPhotography(boolean photography) {
+        this.photography = photography;
+    }
 }
