@@ -145,7 +145,7 @@ public class PrimeEvents
     private void listHall()
     {
         Scanner input = new Scanner(System.in);
-        int check = checkHallList();
+        int check = bookCont.checkHallList();
         
         if(check == 0)
         {
@@ -529,7 +529,6 @@ public class PrimeEvents
             {
                 System.out.println("Please enter your phone number (press enter to skip):");
                 phone = input.nextLine();
-                System.out.println(phone.length());
                 while(!phone.isEmpty() || (!phone.isEmpty() && phone.length() != 10))
                 {
                     if(!phone.matches("[0-9]+"))
@@ -850,6 +849,15 @@ public class PrimeEvents
         return 0; 
     }
     
+    private void booking()
+    {
+        //There are three difference type of  booking Status: O "on going" means during the time the 
+            //hall still use by customer; F "Finish book" means finished book after end date and success 
+            //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
+            //the customer book; N "Not Start" means the booking process not start yet.
+            String bookingStatus = "N";
+    }
+    
     /**
      * #25
      */
@@ -883,12 +891,6 @@ public class PrimeEvents
                 }
             }while(validation == true);
     
-            boolean reviewStatus = false;
-            //There are three difference type of  booking Status: O "on going" means during the time the 
-            //hall still use by customer; F "Finish book" means finished book after end date and success 
-            //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
-            //the customer book; N "Not Start" means the booking process not start yet.
-            String bookingStatus = "N";
             int hallNo = hallChoice - 1;
             
             String startDate = "????";

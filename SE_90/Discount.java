@@ -8,11 +8,12 @@
 public class Discount
 {
     // instance variables - replace the example below with your own
-        private String discountName;
+    private String discountName;
     private String discountDesc;
     private double discountRate;
 
- public Discount(String discountName, String discountDesc, double discountRate) {
+    public Discount(String discountName, String discountDesc, double discountRate) 
+    {
         this.discountName = discountName;
         this.discountDesc = discountDesc;
         this.discountRate = discountRate;
