@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 /**
  * Write a description of class PrimeEvents here.
  *
- * @author Yuekai Huang, Jialiang Wu
+ * @author Team90
  * @version 10 SEP, 2019
  */
 public class PrimeEvents
@@ -270,6 +270,7 @@ public class PrimeEvents
         Scanner input = new Scanner(System.in);
         while(searchOption != 4)
         {
+            resetPage();
             searchMenu();
             
             searchOption = inputNumber();
@@ -277,8 +278,12 @@ public class PrimeEvents
             String searchName = "?";
                 switch(searchOption)
                 {
-                    case 1: System.out.println("Function Search Hall by Name");
-                            searchHallName(searchName);
+                    case 1: System.out.println("Please Enter the hall name you want to search");
+                            searchName = input.nextLine();
+                            bookCont.searchHallName(searchName);
+                            System.out.println("Enter any to continue");
+                            input.nextLine();
+                            resetPage();
                             break;
                     case 2: System.out.println("Function Search Hall by Event Type");
                             break;
@@ -300,6 +305,7 @@ public class PrimeEvents
         Scanner input = new Scanner(System.in);
         while(viewOption != 3)
         {
+            resetPage();
             viewMenu();
             
             viewOption = inputNumber();
@@ -357,9 +363,10 @@ public class PrimeEvents
         int ownerId = checkOwner(ownerEmail);
         if(ownerId == -1)
         {
-            System.out.println("Account: " + ownerEmail + " is not registered yet! Press any key to back!");
+            System.out.println("Account: " + ownerEmail + " is not registered yet! Press any key to go register!");
             input.nextLine();
             resetPage();
+            register();
         }
         else
         {
@@ -613,9 +620,10 @@ public class PrimeEvents
         int custID = checkCust(userName);
         if(custID == -1)
         {
-            System.out.println("Account: " + userName + " is not registered yet! Press any key to back!");
+            System.out.println("Account: " + userName + " is not registered yet! Press any key to register!");
             input.nextLine();
             resetPage();
+            register();
         }
         else
         {
@@ -1233,19 +1241,6 @@ public class PrimeEvents
         else
         {
             System.out.println("There is no hall named '" + searchName +"'!");
-        }
-    }
-    
-    /**
-     * #31  String type with "n" name search  "d" date search "e" event type
-     */
-    private void searchHallName(String searchName)
-    {
-        int index = 0;
-        for(index = 0; index < bookCont.getAllHalls().length; index++)
-        {
-            if(bookCont.getHalls(index).getHallName().equals(searchName))
-                bookCont.displayHalls(index);
         }
     }
     

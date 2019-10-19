@@ -451,4 +451,41 @@ public class BookingController
         }
         return 0;
     }
+    
+    /**
+     * #31  String type with "n" name search  "d" date search "e" event type
+     */
+    public void searchHallName(String searchName)
+    {
+        int index = 0;
+        for(index = 0; index < getAllHalls().length; index++)
+        {
+            if(getHalls(index).getHallName().equals(searchName))
+                displayHalls(index);
+        }
+    }
+    
+    public void customerSearchHall(String hallName)
+    {
+        Scanner input = new Scanner(System.in);
+        int index = 0;
+        boolean returnHall = false;
+        int hallID = -1;
+        
+        String searchName = input.nextLine();
+        for(index = 0; index < getAllHalls().length; index++)
+        {
+            if(getHalls(index).getHallName().equals(searchName))
+            {
+                returnHall = true;
+                displayHalls(index);
+                break;
+            }
+        }
+        
+        if(returnHall == false)
+        {
+            System.out.println("There is no hall named '" + searchName +"'!");
+        }
+    }
 }
