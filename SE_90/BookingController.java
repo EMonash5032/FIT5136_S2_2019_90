@@ -41,7 +41,7 @@ public class BookingController
         for(int index = 0; index < totalQuot; index++)
         {
             quotas[index] = new Quotation(-1,"????","????","????", "????","????", -1,false,"????",false,
-                                            "????","????",-0.01,-0.01,-0.01,false);
+                                            "????","????",-0.01,-0.01,-0.01,false,false,false);
         }
         
         reviews = new Review[totalReview];
@@ -81,11 +81,11 @@ public class BookingController
     public void setQuotation(int index, int hallNo, String ownerEmail, String customerEmail, String startDate, String endDate, 
                              String bookEventType, int numberPeople, boolean catering, String menuOption, boolean photography, String contactEmail, 
                              String contactPhone, double additionalFee, double totalPrice, double totalPriceAfterDiscount,
-                             boolean ownerConfirmation)
+                             boolean ownerConfirmation, boolean cusIsConcession, boolean isBook)
     {
         quotas[index] = new Quotation(hallNo, ownerEmail, customerEmail, startDate, endDate, bookEventType, numberPeople, catering, 
                                       menuOption, photography, contactEmail, contactPhone, additionalFee, totalPrice, totalPriceAfterDiscount,
-                                      ownerConfirmation);
+                                      ownerConfirmation,cusIsConcession,isBook);
     }
     
     /**
@@ -457,7 +457,7 @@ public class BookingController
         }
     }
     
-    public void customerSearchHall(String hallName)
+    public void customerSearchHall()
     {
         Scanner input = new Scanner(System.in);
         int index = 0;
@@ -533,23 +533,64 @@ public class BookingController
         }
     }
     
+    
     /**
      * #23  hall list
      */
-    public void quotationInfo(int index)
+    public void quotationInfo(String cusEmail)
     {
-        
-        //String hallName = quota.getHalls(index).getHallName();
-        //String hallAddress = quota.getHalls(index).getHallAddress();
-        //int hallCapacity = quota.getHalls(index).getHallCapacity();
-        //double hallPrice = quota.getHalls(index).getHallPrice();
-        //String hallEvents = quota.getHalls(index).getHallEvents();
-        
-        //System.out.println("Your Quotation is");
-        //System.out.println("Hall Name: " + hallName);
-        //System.out.println(" Address: " + hallAddress);
-        //System.out.println(" Capacity: " + hallCapacity);
-        //System.out.println(" Price: $" + hallPrice);
-        //System.out.println(" Events Type: " + hallEvents + "\r\n");
+        for(int index = 0; index < getAllQuota().length; index++)
+        {
+            if(getQuota(index).getCustomerEmail().equals(cusEmail))
+            {
+                int hallNo = getQuota(index).getHallNo();
+                System.out.println("Quotation number: " + index);
+                System.out.println("  Hall Name: " + halls[hallNo].getHallName());
+                System.out.println("  Address: " + halls[hallNo].getHallAddress());
+                System.out.println("  Number of People: " + getQuota(index).getNumberPeople());
+                System.out.println("  Events Type: "  + getQuota(index).getBookEventType());
+                if(getQuota(index).getCatering() == true)
+                {
+                    System.out.println("  Catering: Yes");
+                }
+                if(getQuota(index).getPhotography() == true)
+                {
+                    System.out.println("  Photography: Yes");
+                }
+                System.out.println("  Date: " + getQuota(index).getStartDate() + " to " + getQuota(index).getEndDate());
+                
+                if(getQuota(index).getOwnerConfirmation() == false)
+                {
+                    System.out.println("Your Confirmation Status of Quotation is Not confirm");
+                }
+                if(getQuota(index).getOwnerConfirmation() == true)
+                {
+                    System.out.println("Your Confirmation Status of Quotation is Confirmed");
+                    System.out.println("Cost:");
+                    double hallPrice = halls[hallNo].getHallPrice();
+                    double addFee = getQuota(index).getAdditionalFee();
+                    double total = hallPrice + addFee;
+                    
+                    System.out.println("  Hall Price: $" + hallPrice);
+                    System.out.println("  Additional fee: $" + addFee);
+                    System.out.println("  Total: $" + total);
+                    getQuota(index).setTotalPrice(total);
+                    
+                    if(getQuota(index).getCusIsConcession() == true)
+                    {
+                        double discountRate = 1 - 0.05;
+                        double afterTotal = total * discountRate;
+                        System.out.println("  Total after Discout: $" + afterTotal);
+                        getQuota(index).setTotalPriceAfterDiscount(afterTotal);
+                    }
+                    if(getQuota(index).getIsBook() == true)
+                    {
+                        System.out.println("This Quotation is Booked, you cannot use it again");
+                    }
+                }
+                System.out.println("\r\n");
+            }
+        }
+
     }
 }

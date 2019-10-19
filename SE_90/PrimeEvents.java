@@ -211,7 +211,7 @@ public class PrimeEvents
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
         System.out.println("Press 1 to Manage Hall");
-        System.out.println("Press 2 to Manage Booking");
+        System.out.println("Press 2 to Reply Quotation");
         System.out.println("Press 3 to Manage Discounts");
         System.out.println("Press 4 to View Halls Booking History");
         System.out.println("Press 5 to Manage Receipt");
@@ -231,8 +231,8 @@ public class PrimeEvents
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
         System.out.println("Press 1 to View Hall");
-        System.out.println("Press 2 to View Booking History");
-        System.out.println("Press 3 to View Receipt");
+        System.out.println("Press 2 to Search Hall");
+        System.out.println("Press 3 to View Quotation");
         System.out.println("Press 4 to Manage Booking");
         System.out.println("Press 5 to Book Hall");
         System.out.println("Press 6 to Rate service");
@@ -748,6 +748,28 @@ public class PrimeEvents
         resetPage();
     }
     
+    public void confrimQuotation(String cusEmail)
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Would you want to make Quotation?(y/n) If you want please record the hall No to further steps");
+        String choice = input.nextLine();
+        while(!choice.toLowerCase().matches("[yn]"))
+        {
+            System.out.println("Error! you can only type in Y/y to confirm or N/n to go back");
+            choice = input.nextLine();
+        }
+        if(choice.toLowerCase().equals("y"))
+        {
+            resetPage();
+            cusMakeQuota(cusEmail);
+        }
+        if(choice.toLowerCase().equals("n"))
+        {
+            System.out.println("Enter any to continue!");
+            input.nextLine();
+            resetPage();
+        }
+    }
     /**
      * #21
      */
@@ -759,22 +781,28 @@ public class PrimeEvents
             resetOption();
             customerMenu();
             customerOption = inputNumber();
-
+            
+            String searchName = "";
             resetPage();
                 switch(customerOption)
                 {
                     case 1: System.out.println("View Hall");
                             listHall();
+                            confrimQuotation(cusEmail);
                             break;
-                    case 2: System.out.println("View Booking History");
-                            bookHistroy(cusEmail);
+                    case 2: System.out.println("Search Hall");
+                            bookCont.customerSearchHall();
+                            confrimQuotation(cusEmail);
                             break;
-                    case 3: System.out.println("View Receipt");
+                            
+                    case 3: System.out.println("View Quotation");
+                            bookCont.quotationInfo(cusEmail);
                             break;
                     case 4: System.out.println("Manage Booking");
+                            //bookHistroy(cusEmail);
                             break;
                     case 5: System.out.println("Book Hall");
-                            cusMakeQuota(cusEmail);
+                            
                             break;
                     case 6: System.out.println("Rate service");
                             rateService(cusEmail);
@@ -1049,7 +1077,7 @@ public class PrimeEvents
                     System.out.println("Please enter number of people going to attend: ");
                     numberPeople = Integer.parseInt(input.nextLine());//transfer the input value from String into int
                     int hallCapacity = bookCont.getHalls(hallNo).getHallCapacity();
-                    while(numberPeople < 10 && numberPeople > hallCapacity)//validate the input range
+                    while(numberPeople < 10 || numberPeople > hallCapacity)//validate the input range
                     {
                         System.out.println("There must be at least 10 people and no more than " + hallCapacity + "!");
                         System.out.println("Please enter again:");
@@ -1115,7 +1143,7 @@ public class PrimeEvents
             }
             
             String contactPhone = "????";
-            System.out.println("Please enter your phone number (press enter to skip):");
+            System.out.println("Please enter your phone number:");
             contactPhone = input.nextLine();
             while(contactPhone.length() != 10 || !contactPhone.matches("[0-9]+"))
             {
@@ -1137,10 +1165,13 @@ public class PrimeEvents
             double totalPrice = -0.01;
             double totalPriceAfterDiscount = -0.01;
             boolean ownerConfirmation = false;
-            
+            int cusIndex = customers.checkCusIndex(cusEmail);
+            boolean cusIsConcession = false;
+            cusIsConcession = customers.getCustomer(cusIndex).getCusIsConcession();
+            boolean isBook = false;
             bookCont.setQuotation(quotaIndex, hallNo, ownerEmail, cusEmail, startDate, endDate, bookEventType, numberPeople, catering, 
                                       menuOption, photography, contactEmail, contactPhone, additionalFee, totalPrice, totalPriceAfterDiscount,
-                                      ownerConfirmation);
+                                      ownerConfirmation, cusIsConcession,isBook);
             resetPage();
             System.out.println("Congratulations! Booking Successful!");
             System.out.println("Press any to continue...");
@@ -1261,7 +1292,8 @@ public class PrimeEvents
                     case 1: System.out.println("Manage hall");
                             manageHall(hallOwnerEmail);
                             break;
-                    case 2: System.out.println("Manage Booking");
+                    case 2: System.out.println("Reply Quotation");
+                            replyQuota(hallOwnerEmail);
                             break;
                     case 3: System.out.println("Manage discounts");
                             break;
@@ -1660,6 +1692,11 @@ public class PrimeEvents
         }while(validation == true);
         
         return option;
+    }
+    
+    private void viewQuotation()
+    {
+        
     }
     
     /**
