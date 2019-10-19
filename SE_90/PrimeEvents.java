@@ -732,7 +732,7 @@ public class PrimeEvents
                     case 4: System.out.println("Manage Booking");
                             break;
                     case 5: System.out.println("Book Hall");
-                            makeQuota(cusEmail);
+                            cusMakeQuota(cusEmail);
                             break;
                     case 6: System.out.println("Rate service");
                             rateService(cusEmail);
@@ -869,7 +869,7 @@ public class PrimeEvents
     /**
      * #25
      */
-    private void makeQuota(String cusEmail)
+    private void cusMakeQuota(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         boolean validation = true;
@@ -884,7 +884,7 @@ public class PrimeEvents
                 validation = true;//set loop into while true
                 try
                 {
-                    System.out.println("Please make a choice for the hall you want to book with(by hall number)");
+                    System.out.println("Please make a choice for the hall you want to book with(by hall number) for quotation");
                     hallChoice = Integer.parseInt(input.nextLine());//transfer the input value from String into int
                     while(bookCont.getHalls(hallChoice - 1).getHallCapacity() == -1)
                     {
@@ -1089,14 +1089,14 @@ public class PrimeEvents
                 }
             }
             
-            int bookID = bookCont.bookID();
+            int quotaIndex = bookCont.blankQuota();
             String ownerEmail = bookCont.getHalls(hallNo).getHallOwnerEmail();
             double additionalFee = -0.01;
             double totalPrice = -0.01;
             double totalPriceAfterDiscount = -0.01;
             boolean ownerConfirmation = false;
             
-            bookCont.setQuotation(bookID, hallNo, ownerEmail, cusEmail, startDate, endDate, bookEventType, numberPeople, catering, 
+            bookCont.setQuotation(quotaIndex, hallNo, ownerEmail, cusEmail, startDate, endDate, bookEventType, numberPeople, catering, 
                                       menuOption, photography, contactEmail, contactPhone, additionalFee, totalPrice, totalPriceAfterDiscount,
                                       ownerConfirmation);
             resetPage();
@@ -1107,6 +1107,94 @@ public class PrimeEvents
         else
         {
             System.out.println("There is no hall could book");
+            System.out.println("Press any to continue...");
+            input.nextLine();
+        }
+    }
+    
+    public void replyQuota(String ownerEmail)
+    {
+        Scanner input = new Scanner(System.in);
+        boolean validation;
+        int quotaChoice = -1;
+        if(bookCont.checkQuotation(ownerEmail) == 1)
+        {
+            bookCont.displayOwnerQuotation(ownerEmail);
+            
+            do
+            {
+                validation = true;//set loop into while true
+                try
+                {
+                    System.out.println("Please enter the quotation number to further comfirm: ");
+                    quotaChoice = Integer.parseInt(input.nextLine());//transfer the input value from String into int
+                    while(!bookCont.getQuota(quotaChoice).getOwnerEmail().equals(ownerEmail) 
+                            || bookCont.getQuota(quotaChoice).getOwnerConfirmation() == true)
+                    {
+                        System.out.println("There is no option of " + quotaChoice  + "! Please enter again:");
+                        quotaChoice = Integer.parseInt(input.nextLine());
+                    }
+                    validation = false;
+                }
+                catch(Exception e)//if input not a string, then it cant transfer from string to int
+                {
+                    System.out.println("You can only enter Number here!");
+                }
+            }while(validation == true);
+            
+            double addFee = 0;
+            if(bookCont.getQuota(quotaChoice).getCatering() == true || bookCont.getQuota(quotaChoice).getPhotography() == true)
+            {
+                do
+                {
+                    validation = true;//set loop into while true
+                    try
+                    {
+                        System.out.println("Please enter addition cost for catering or photography services:");
+                        addFee = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                        while(addFee < 0)//validate the input range
+                        {
+                            System.out.println("Price of hall cannot be lower than 0");
+                            System.out.println("Please enter again:");
+                            addFee = Double.parseDouble(input.nextLine());
+                        }
+                        validation = false;
+                    }
+                    catch(Exception e)//if input not a string, then it cant transfer from string to int
+                    {
+                        System.out.println("You can only Enter a number here! Please Enter again:");
+                    }
+                }while(validation == true); 
+            }
+            
+            System.out.println("Are you sure you want to confirm this information? Please enter Y/y for yes, N/n for No");
+            String confirm = input.nextLine();
+        
+            while(!confirm.toLowerCase().matches("[yn]"))
+            {
+                System.out.println("Error! you can only type in Y/y to confirm or N/n to go back");
+                confirm = input.nextLine();
+            }
+        
+            if(confirm.toLowerCase().equals("y"))
+            {
+                bookCont.getQuota(quotaChoice).setAdditionalFee(addFee);
+                bookCont.getQuota(quotaChoice).setOwnerConfirmation(true);
+                System.out.println("Quotation confirm successful!");
+                System.out.println("Press any to continue...");
+                input.nextLine();
+            }
+            if(confirm.toLowerCase().equals("n"))
+            {
+                System.out.println("You are not comfirm this quotation");
+                System.out.println("Press any to continue...");
+                input.nextLine();
+            }
+            
+        }
+        else
+        {
+            System.out.println("There is no customer make the Quotation ");
             System.out.println("Press any to continue...");
             input.nextLine();
         }

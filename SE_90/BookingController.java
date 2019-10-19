@@ -50,27 +50,7 @@ public class BookingController
             reviews[index] = new Review(-1, -1, "????", -0.01, -0.01, -0.01, "????");
         }
     }
-    
-    /**
-     * #23  hall list
-     */
-    public void quotationInfo(int index)
-    {
-        Quotation quota = new Quotation();
-        //String hallName = quota.getHalls(index).getHallName();
-        //String hallAddress = quota.getHalls(index).getHallAddress();
-        //int hallCapacity = quota.getHalls(index).getHallCapacity();
-        //double hallPrice = quota.getHalls(index).getHallPrice();
-        //String hallEvents = quota.getHalls(index).getHallEvents();
         
-        //System.out.println("Your Quotation is");
-        //System.out.println("Hall Name: " + hallName);
-        //System.out.println(" Address: " + hallAddress);
-        //System.out.println(" Capacity: " + hallCapacity);
-        //System.out.println(" Price: $" + hallPrice);
-        //System.out.println(" Events Type: " + hallEvents + "\r\n");
-    }
-    
     /**
      * #24
      */
@@ -411,6 +391,18 @@ public class BookingController
         return -1;
     }
     
+    public int blankQuota()
+    {
+        int index = 0;
+        while(index < getAllQuota().length)
+        {
+            if(getBook(index).getHallNo() == -1)
+                return index;
+            index++;
+        }
+        return -1;
+    }
+    
     /**
      *  return an empty book Index
      */
@@ -487,5 +479,77 @@ public class BookingController
         {
             System.out.println("There is no hall named '" + searchName +"'!");
         }
+    }
+    
+    public int checkQuotation(String ownerEmail)
+    {
+        for(int index = 0; index < getAllQuota().length; index++)
+        {
+            if(getQuota(index).getHallNo() != -1 && getQuota(index).getOwnerEmail().equals(ownerEmail)
+               && getQuota(index).getOwnerConfirmation() == false)
+                return 1;
+        }
+        return 0;
+    }
+    
+    /**
+     * display the quotation list refer to owner 
+     */
+    public void displayOwnerQuotation(String ownerEmail)
+    {
+        for(int index = 0; index < getAllQuota().length; index++)
+        {
+            if(getQuota(index).getOwnerEmail().equals(ownerEmail) && getQuota(index).getOwnerConfirmation() == false)
+            {
+                int hallNo = getQuota(index).getHallNo();
+                System.out.println("Quotation number is: " + index);
+                System.out.println("  Hall Name: " + halls[hallNo].getHallName());
+                System.out.println("  Address: " + halls[hallNo].getHallAddress());
+                System.out.println("  Price: " + halls[hallNo].getHallPrice());
+                System.out.println("  Number of People: " + getQuota(index).getNumberPeople());
+                System.out.println("  Events Type: "  + getQuota(index).getBookEventType());
+                System.out.println("  Date: " + getQuota(index).getStartDate() + " to " + getQuota(index).getEndDate());
+                String cater = "";
+                if(getQuota(index).getCatering() == true)
+                {
+                    cater = "Yes! and customer option is: " + getQuota(index).getMenuOption();
+                }
+                else
+                {
+                    cater = "No";
+                }
+                System.out.println("  Catering request: " + cater);
+                String photo = "";
+                if(getQuota(index).getPhotography() == true)
+                {
+                    photo = "Yes";
+                }
+                else
+                {
+                    photo = "No";
+                }
+                System.out.println("  photography request: "+ photo + "\r\n");
+            }
+        }
+    }
+    
+    /**
+     * #23  hall list
+     */
+    public void quotationInfo(int index)
+    {
+        
+        //String hallName = quota.getHalls(index).getHallName();
+        //String hallAddress = quota.getHalls(index).getHallAddress();
+        //int hallCapacity = quota.getHalls(index).getHallCapacity();
+        //double hallPrice = quota.getHalls(index).getHallPrice();
+        //String hallEvents = quota.getHalls(index).getHallEvents();
+        
+        //System.out.println("Your Quotation is");
+        //System.out.println("Hall Name: " + hallName);
+        //System.out.println(" Address: " + hallAddress);
+        //System.out.println(" Capacity: " + hallCapacity);
+        //System.out.println(" Price: $" + hallPrice);
+        //System.out.println(" Events Type: " + hallEvents + "\r\n");
     }
 }
