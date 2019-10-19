@@ -46,5 +46,14 @@ public class OwnerController
         owner[index] = new Owner(firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2);
     }
     
-
+    public int checkOwnerEmail(String email)
+    {
+        for(int index = 0; index < getAllOwner().length; index++)
+        {
+            if(getOwner(index).getOwnerEmail().equals(email))
+                return 1;
+        }
+        
+        return 0;
+    }
 }

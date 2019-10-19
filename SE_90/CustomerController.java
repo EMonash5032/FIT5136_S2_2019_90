@@ -45,4 +45,15 @@ public class CustomerController
     {
         customer[index] = new Customer(firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2, isConcession);
     }
+    
+    public int checkEmail(String email)
+    {
+        for(int index = 0; index < getAllCus().length; index++)
+        {
+            if(getCustomer(index).getCusEmail().equals(email))
+                return 1;
+        }
+        
+        return 0;
+    }
 }

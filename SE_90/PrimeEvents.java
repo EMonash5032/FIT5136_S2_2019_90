@@ -458,10 +458,43 @@ public class PrimeEvents
             
             System.out.println("Please enter your email address(account name): ");
             String email = input.nextLine();
-            while(!email.contains("@") || !email.contains("."))
+            if(usertype.toLowerCase().equals("c"))
             {
-                System.out.println("Invalid email address. Please re-enter your email address:");
-                email = input.nextLine();
+                int validCus = customers.checkEmail(email);
+                while(!email.contains("@") || !email.contains(".") || validCus == 1)
+                {
+                    if(!email.contains("@") || !email.contains(".") )
+                    {
+                        System.out.println("Invalid email address. Please re-enter your email address:");
+                        email = input.nextLine();
+                        validCus = customers.checkEmail(email);
+                    }
+                    if(validCus == 1)
+                    {
+                        System.out.println("Email " + "'"+ email + "' already registerd by others. Please re-enter a new email address:");
+                        email = input.nextLine();
+                        validCus = customers.checkEmail(email);
+                    }
+                }
+            }
+            if(usertype.toLowerCase().equals("o"))
+            {
+                int validOwn = owners.checkOwnerEmail(email);
+                while(!email.contains("@") || !email.contains(".") || validOwn == 1)
+                {
+                    if(!email.contains("@") || !email.contains(".") )
+                    {
+                        System.out.println("Invalid email address. Please re-enter your email address:");
+                        email = input.nextLine();
+                        validOwn = owners.checkOwnerEmail(email);
+                    }
+                    if(validOwn == 1)
+                    {
+                        System.out.println("Email " + "'"+ email + "' already registerd by others. Please re-enter a new email address:");
+                        email = input.nextLine();
+                        validOwn = customers.checkEmail(email);
+                    }
+                }
             }
             
             System.out.println("Please enter your password: ");
@@ -574,17 +607,26 @@ public class PrimeEvents
                 }
                 
                 int custId = custIndex();
-                customers.setCustomer(custId, firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2, isConcession);
+                customers.setCustomer(custId, firstName, lastName, email, address, password, phone, question1, answer1, 
+                                      question2, answer2, isConcession);
             }
             
             if(usertype.toLowerCase().equals("o"))
             {
                 System.out.println("Please enter your phone number:");
                 phone = input.nextLine();
-                while(!phone.matches("[0-9]+"))
+                while(!phone.matches("[0-9]+")|| phone.length() != 10)
                 {
-                    System.out.println("Phone number may only have digits! Please enter again: ");
-                    phone = input.nextLine();
+                    if(!phone.matches("[0-9]+"))
+                    {
+                        System.out.println("Phone number only have digits involved! Please enter again: ");
+                        phone = input.nextLine();
+                    }
+                    if(phone.length() != 10)
+                    {
+                        System.out.println("A phone number Must contain 10 digital Number, please enter again: ");
+                        phone = input.nextLine();
+                    }
                 }
                 
                 System.out.println("Please enter your address:");

@@ -13,4 +13,6 @@ comment3.text=\r\n\ \#2\r\n
 comment4.params=index\ firstName\ lastName\ email\ address\ password\ phone\ question1\ answer1\ question2\ answer2
 comment4.target=void\ setOwner(int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
 comment4.text=\r\n\ \#3\r\n
-numComments=5
+comment5.params=email
+comment5.target=int\ checkOwnerEmail(java.lang.String)
+numComments=6
