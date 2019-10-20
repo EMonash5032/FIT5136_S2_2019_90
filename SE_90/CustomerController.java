@@ -50,7 +50,7 @@ public class CustomerController
     {
         for(int index = 0; index < getAllCus().length; index++)
         {
-            if(getCustomer(index).getCusEmail().equals(email))
+            if(getCustomer(index).getCusEmail().toLowerCase().equals(email))
                 return 1;
         }
         
@@ -61,7 +61,7 @@ public class CustomerController
     {
         for(int index = 0; index < getAllCus().length; index++)
         {
-            if(getCustomer(index).getCusEmail().equals(email))
+            if(getCustomer(index).getCusEmail().toLowerCase().equals(email))
                 return index;
         }
         return 0;

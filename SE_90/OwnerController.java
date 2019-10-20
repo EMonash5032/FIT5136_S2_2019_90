@@ -50,7 +50,7 @@ public class OwnerController
     {
         for(int index = 0; index < getAllOwner().length; index++)
         {
-            if(getOwner(index).getOwnerEmail().equals(email))
+            if(getOwner(index).getOwnerEmail().toLowerCase().equals(email))
                 return 1;
         }
         
@@ -77,7 +77,7 @@ public class OwnerController
 
         for(int index = 0 ; index < getAllOwner().length; index++)
         {
-            if(getOwner(index).getOwnerEmail().equals(email))
+            if(getOwner(index).getOwnerEmail().toLowerCase().equals(email))
                 return index;
         }
         return -1;
