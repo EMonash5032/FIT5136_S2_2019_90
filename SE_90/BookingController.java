@@ -628,7 +628,10 @@ public class BookingController
             for(int index = 0; index < getAllDiscount().length; index++)
             {
                 if(getDiscount(index).getDiscountName().equals("????"))
+                {
                     break;
+                }
+                    
                 message = getDiscount(index).getDiscountName()+ "," 
                           + getDiscount(index).getDiscountDesc() + "," 
                           + getDiscount(index).getDiscountRate() + ";";
@@ -684,7 +687,9 @@ public class BookingController
             for(int index = 0; index < getAllReview().length; index++)
             {
                 if(getReview(index).getCusEmail().equals("????"))
+                {
                     break;
+                }
                 message = getReview(index).getBookingNo() + "," 
                           + getReview(index).getHallNo() + "," 
                           + getReview(index).getCusEmail() + ","
@@ -748,7 +753,9 @@ public class BookingController
             for(int index = 0; index < getAllQuota().length; index++)
             {
                 if(getQuota(index).getCustomerEmail().equals("????"))
+                {
                     break;
+                }
                 message = getQuota(index).getHallNo() + "," 
                           + getQuota(index).getOwnerEmail() + "," 
                           + getQuota(index).getCustomerEmail() + ","
@@ -836,7 +843,9 @@ public class BookingController
             for(int index = 0; index < getAllHalls().length; index++)
             {
                 if(getHalls(index).getHallName().equals("????"))
+                {
                     break;
+                }
                 message = getHalls(index).getHallOwnerEmail() + "," 
                           + getHalls(index).getHallName() + "," 
                           + getHalls(index).getHallAddress() + ","
@@ -911,7 +920,9 @@ public class BookingController
             for(int index = 0; index < getAllBook().length; index++)
             {
                 if(getBook(index).getCustomerEmail().equals("????"))
+                {
                     break;
+                }
                 message = getBook(index).getReviewStatus() + "," 
                           + getBook(index).getBookingStatus() + "," 
                           + getBook(index).getHallNo() + ","

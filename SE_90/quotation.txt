@@ -1,0 +1,1 @@
+0,owner@owner.com,cus@cus.com,03/09/2020,04/10/2020,Wedding Ceremony,999,false,????,true,customer@gmail.com,0432145678,90000.0,95000.0,90250.0,true,true,true;

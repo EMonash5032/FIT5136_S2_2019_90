@@ -312,6 +312,7 @@ public class PrimeEvents
                         input.nextLine();
                         resetPage();
                         owner(ownerEmail);
+                        break;
                     }
                     if(owners.getOwner(index).getOwnerEmail().equals(ownerEmail) && !owners.getOwner(index).getOwnerPassword().equals(password))
                     {
@@ -607,6 +608,7 @@ public class PrimeEvents
                         input.nextLine();
                         resetPage();
                         customer(custEmail);
+                        break;
                     }
                     if(customers.getCustomer(index).getCusEmail().equals(userName) && !customers.getCustomer(index).getCusPassword().equals(password))
                     {
@@ -921,6 +923,13 @@ public class PrimeEvents
         String choice;
         boolean validation;
         int bookNo = -1;
+        
+        if(bookCont.checkReview(cusEmail) == 0)
+        {
+            System.out.println("There is no Finished booked could have a rate!");
+            System.out.println("Press any to continue...");
+            input.nextLine();
+        }
         if(bookCont.checkReview(cusEmail) == 1)
         {
             choice = input.nextLine();
@@ -1024,15 +1033,11 @@ public class PrimeEvents
             bookCont.setReview(reviewIndex, bookNo,hallNo,cusEmail,dR,sR,oR,reviewDesc);
             bookCont.getBook(bookNo).setReviewStatus(true);
             
-            System.out.println("Reveiw Successfully added! Thank You!");
+            System.out.println("Review Successfully added! Thank You!");
             System.out.println("Press any to continue...");
             input.nextLine();
         }
-        if(bookCont.checkReview(cusEmail) == 0)
-        {
-            System.out.println("Press any to continue...");
-            input.nextLine();
-        }
+        
     }
     
     /**
@@ -1853,7 +1858,7 @@ public class PrimeEvents
      */
     public void test()
     {
-        
+         
     }
     
     public void loading()

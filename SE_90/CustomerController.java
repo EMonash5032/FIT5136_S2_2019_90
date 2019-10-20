@@ -152,7 +152,9 @@ public class CustomerController
             for(int index = 0; index < getAllCus().length; index++)
             {
                 if(getCustomer(index).getCusFirstName().equals("????"))
+                {
                     break;
+                }
                 message = getCustomer(index).getCusFirstName() + "," 
                           + getCustomer(index).getCusLastName() + "," 
                           + getCustomer(index).getCusEmail() + "," 
