@@ -56,4 +56,14 @@ public class CustomerController
         
         return 0;
     }
+    
+    public int checkCusIndex(String email)
+    {
+        for(int index = 0; index < getAllCus().length; index++)
+        {
+            if(getCustomer(index).getCusEmail().equals(email))
+                return index;
+        }
+        return 0;
+    }
 }

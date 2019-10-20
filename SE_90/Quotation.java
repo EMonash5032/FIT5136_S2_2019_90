@@ -24,6 +24,8 @@ public class Quotation
     private double totalPrice; //display
     private double totalPriceAfterDiscount;
     private boolean ownerConfirmation;
+    private boolean cusIsConcession;
+    private boolean isBook;
 
     /**
      * Constructor for objects of class Quotation
@@ -47,12 +49,15 @@ public class Quotation
         totalPrice = -0.01;  
         totalPriceAfterDiscount = -0.01;  
         ownerConfirmation = false; 
+        cusIsConcession = false;
+        isBook = false;
     }
 
     public Quotation(int hallNo, String ownerEmail, String customerEmail, String startDate, 
                      String endDate, String bookEventType, int numberPeople, boolean catering, String menuOption, 
                      boolean photography, String contactEmail, String contactPhone, double additionalFee, double 
-                     totalPrice, double totalPriceAfterDiscount, boolean ownerConfirmation) 
+                     totalPrice, double totalPriceAfterDiscount, boolean ownerConfirmation, boolean cusIsConcession,
+                     boolean isBook) 
     {
         this.hallNo = hallNo;
         this.ownerEmail = ownerEmail;
@@ -70,6 +75,8 @@ public class Quotation
         this.totalPrice = totalPrice;
         this.totalPriceAfterDiscount = totalPriceAfterDiscount;
         this.ownerConfirmation = ownerConfirmation;
+        this.cusIsConcession = cusIsConcession;
+        this.isBook = isBook;
     }
 
     public void displayQuotation()
@@ -219,5 +226,25 @@ public class Quotation
 
     public void setOwnerConfirmation(boolean ownerConfirmation) {
         this.ownerConfirmation = ownerConfirmation;
+    }
+    
+    public boolean getCusIsConcession()
+    {
+        return cusIsConcession;
+    }
+    
+    public void setCusIsConcession(boolean cusIsConcession)
+    {
+        this.cusIsConcession = cusIsConcession;
+    }
+    
+    public boolean getIsBook()
+    {
+        return isBook;
+    }
+    
+    public void setIsBook(boolean isBook)
+    {
+        this.isBook = isBook;
     }
 }

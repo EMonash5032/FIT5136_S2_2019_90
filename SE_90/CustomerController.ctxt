@@ -15,4 +15,6 @@ comment4.target=void\ setCustomer(int,\ java.lang.String,\ java.lang.String,\ ja
 comment4.text=\r\n\ \#3\r\n
 comment5.params=email
 comment5.target=int\ checkEmail(java.lang.String)
-numComments=6
+comment6.params=email
+comment6.target=int\ checkCusIndex(java.lang.String)
+numComments=7
