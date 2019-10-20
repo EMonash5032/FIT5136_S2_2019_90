@@ -3,10 +3,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat; 
 
 /**
- * Write a description of class PrimeEvents here.
+/**
+ * The PrimeEvents class brings together all the classes of the PrimeEvents System. 
+ * This Class specifically interacts with the user whereby the information provided 
+ * by the user is sent to the controller classes.
  *
- * @author Team90
- * @version 10 SEP, 2019
+ * @author Team 90
+ * @since 10 September 2019
+ * @version 21 October 2019
+ * 
  */
 public class PrimeEvents
 {
@@ -14,8 +19,7 @@ public class PrimeEvents
     private BookingController bookCont;
     private CustomerController customers;
     private AdminController admin;
-    private OwnerController owners;
-    
+    private OwnerController owners;    
     private int viewOption;
     private int searchOption;
     private int mainOption;
@@ -36,8 +40,7 @@ public class PrimeEvents
     }
 
     /**
-     *#5
-     *Home page Menu list
+     *Display for system homepage
      */
     private void mainMenu()
     {
@@ -53,7 +56,6 @@ public class PrimeEvents
     }
     
     /**
-     * #6
      * View Hall page Menu list
      */
     private void viewMenu()
@@ -69,7 +71,7 @@ public class PrimeEvents
     }
 
     /**
-     * #8
+     * Display for all halls available (listhall)
      */
     private void listHall()
     {
@@ -78,7 +80,7 @@ public class PrimeEvents
         
         if(check == 0)
         {
-            System.out.println("There is no hall until Owner has added a hall!");
+            System.out.println("There is no hall to display until Owner has added a hall!");
         }
         else
         {
@@ -97,8 +99,7 @@ public class PrimeEvents
     }
     
     /**
-     * #9
-     * Searching option Menu list
+     * Display for Searching options Menu list
      */
     private void searchMenu()
     {
@@ -114,8 +115,7 @@ public class PrimeEvents
     }
     
     /**
-     * #10
-     * login page Menu list
+     * Display for login page Menu list
      */
     private void loginMenu()
     {
@@ -131,8 +131,7 @@ public class PrimeEvents
     }
 
     /**
-     * #11
-     * Owner page Menu list
+     * Display for Owner page Menu list
      */
     private void ownerMenu()
     {
@@ -151,8 +150,7 @@ public class PrimeEvents
     }
     
     /**
-     * #12
-     * Customer page Menu list
+     * Display for Customer page Menu list
      */    
     private void customerMenu()
     {
@@ -172,8 +170,7 @@ public class PrimeEvents
     }
     
     /**
-     * #13
-     * administrator page Menu list
+     * Display for administrator page Menu list
      */
     private void administratorMenu()
     {
@@ -192,8 +189,7 @@ public class PrimeEvents
     }
     
     /**
-     * #14
-     * option of Search page
+     * Options of Search page
      */    
     private void searchHall()
     {
@@ -208,7 +204,7 @@ public class PrimeEvents
             String searchName = "?";
                 switch(searchOption)
                 {
-                    case 1: System.out.println("Please Enter the hall name you want to search");
+                    case 1: System.out.println("Please Enter the exact hall name you want to search");
                             searchName = input.nextLine();
                             bookCont.searchHallName(searchName);
                             System.out.println("Enter any to continue");
@@ -227,8 +223,7 @@ public class PrimeEvents
     }
     
     /**
-     * #15
-     * option of view hall
+     * Options for view hall
      */      
     private void viewHall()
     {
@@ -253,8 +248,7 @@ public class PrimeEvents
     }
 
     /**
-     * #16
-     * option of login
+     * Login options
      */  
     private void login()
     {
@@ -281,7 +275,7 @@ public class PrimeEvents
     }
     
     /**
-     * #17
+     * Method for owner login
      */
     private void ownerLogin()
     {
@@ -300,7 +294,7 @@ public class PrimeEvents
         }
         else
         {
-            System.out.println("Please enter Owner Password: ");
+            System.out.println("Please enter the corresponding Owner Password: ");
             String password = input.nextLine();
             boolean status = true;
             while(status == true)
@@ -326,7 +320,7 @@ public class PrimeEvents
                     }
                     if(password.toLowerCase().equals("f"))
                     {
-                        System.out.println("Please contact administrator or recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
+                        System.out.println("Please contact administrator or recall security questions!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
                         status = false;
                         System.out.println("Press any key to continue");
                         input.nextLine();
@@ -341,7 +335,7 @@ public class PrimeEvents
     }
     
     /**
-     * #18
+     * Method for account registration for Customer and Owner 
      */
     private void register()
     {
@@ -497,12 +491,12 @@ public class PrimeEvents
                 {
                     if(!phone.matches("[0-9]+"))
                     {
-                        System.out.println("Phone number only have digits involved! ALTERNATIVELY, hit enter to skip this step! Please enter again: ");
+                        System.out.println("Phone number only contain digits! ALTERNATIVELY, hit enter to skip this step! Please enter again: ");
                         phone = input.nextLine();
                     }
                     if(!phone.isEmpty() && phone.length() != 10)
                     {
-                        System.out.println("A phone number Must contain 10 digital Number, please enter again or hit enter to skip: ");
+                        System.out.println("A phone number must contain 10 digits (Australian Mobile Number), please enter again or hit enter to skip: ");
                         phone = input.nextLine();
                     }
                     else
@@ -548,7 +542,7 @@ public class PrimeEvents
                     }
                     if(phone.length() != 10)
                     {
-                        System.out.println("A phone number Must contain 10 digital Number, please enter again: ");
+                        System.out.println("A phone number Must contain 10 digit Number (Australian Mobile Number), please enter again: ");
                         phone = input.nextLine();
                     }
                 }
@@ -574,7 +568,7 @@ public class PrimeEvents
     }
     
     /**
-     * #19
+     * Method for Customer Login
      */
     private void customerLogin()
     {
@@ -608,7 +602,7 @@ public class PrimeEvents
                     {
                         custEmail = customers.getCustomer(index).getCusEmail();
                         status = false;
-                        System.out.println("Welcome! You are successfully login");
+                        System.out.println("Welcome! You have successfully logged in");
                         System.out.println("Press any key to continue...");
                         input.nextLine();
                         resetPage();
@@ -616,12 +610,12 @@ public class PrimeEvents
                     }
                     if(customers.getCustomer(index).getCusEmail().equals(userName) && !customers.getCustomer(index).getCusPassword().equals(password))
                     {
-                        System.out.println("You have a wrong password! Please Enter your password again(if your forgot just type F/f): ");
+                        System.out.println("You entered a wrong password! Please Enter your password again(if your forgot just type F/f): ");
                         password = input.nextLine();
                     }
                     if(password.toLowerCase().equals("f"))
                     {
-                        System.out.println("Please contact administrator or recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
+                        System.out.println("Please contact administrator or recall security questions!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
                         status = false;
                         System.out.println("Press any key to continue");
                         input.nextLine();
@@ -637,13 +631,12 @@ public class PrimeEvents
    
     
     /**
-     * #20
-     * Administrator Login
+     * Method for administrator Login functionality
      */
     private void administratorLogin()
     {
         Scanner input = new Scanner(System.in);
-        System.out.println("Please enter admin user account: ");
+        System.out.println("Please enter admin email account: ");
         String userName = input.nextLine();
         System.out.println("Please enter admin password: ");
         String password = input.nextLine();
@@ -663,16 +656,21 @@ public class PrimeEvents
             }
         }
         resetPage();
-        System.out.println("Welcome! You are successfully login");
+        System.out.println("Welcome! You have successfully logged in");
         System.out.println("Press any key to continue...");
         input.nextLine();
         resetPage();
     }
     
+    /**
+     * Method to send confirmation a quotation
+     * 
+     * @param customer Email must be specified
+     */
     private void confrimQuotation(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
-        System.out.println("Would you want to make Quotation?(y/n) If you want please record the hall No to further steps");
+        System.out.println("Do you want to make a Quotation?(y/n) If you want, please record the hall number for further steps");
         String choice = input.nextLine();
         while(!choice.toLowerCase().matches("[yn]"))
         {
@@ -692,10 +690,15 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * Method to choose a quotation to confirm a booking
+     * 
+     * @param Customer email must be specified
+     */
     private void chooseQuotaToBook(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
-        System.out.println("Do You want to Chooice your quotation to further booking?(y/n)");
+        System.out.println("Do You want to choose your quotation and confirm a booking?(y/n)");
         String choice = input.nextLine();
         boolean validation;
         int quotaChoice = -1;
@@ -734,7 +737,7 @@ public class PrimeEvents
                 }
                 catch(Exception e)//if input not a string, then it cant transfer from string to int
                 {
-                    System.out.println("You can only enter Number here!");
+                    System.out.println("You can only enter a Number here!");
                 }
             }while(validation == true);
             
@@ -827,7 +830,7 @@ public class PrimeEvents
                                  startDate, endDate, cardholderName, cardNumber, expiredDate, cvv, deposit);
                 bookCont.getQuota(quotaChoice).setIsBook(true);
                 
-                System.out.println("You have successful book! Enjoy the hall! You need pay the rest fee on date "+ 
+                System.out.println("You have successfully booked! Enjoy the hall! You need pay the remaining fee on date "+ 
                                     startDate + " with amount $" + deposit);
                 System.out.println("Enter any to continue!");
                 input.nextLine();
@@ -850,7 +853,7 @@ public class PrimeEvents
     }
     
     /**
-     * #21
+     * Method to take in customer choice for customer menu options
      */
     private void customer(String cusEmail)
     {
@@ -873,7 +876,7 @@ public class PrimeEvents
                             }
                             break;
                     case 2: System.out.println("Search Hall");
-                            System.out.println("Please enter the hall name you want to search: ");
+                            System.out.println("Please enter the exact hall name you want to search for: ");
                             searchName = input.nextLine();
                             bookCont.customerSearchHall(searchName);
                             if(bookCont.customerSearchHallValid(searchName) == 1)
@@ -906,6 +909,11 @@ public class PrimeEvents
         }
     }    
     
+    /**
+     * Method to rate a service (once the service has been used)
+     * 
+     * @param A customer email must be specified 
+     */
     private void rateService(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
@@ -919,7 +927,7 @@ public class PrimeEvents
             
             while(!choice.toLowerCase().matches("[yn]"))
             {
-                System.out.println("Error! you can only type in Y/y to rate or N/n for not rate");
+                System.out.println("Error! you can only type in Y/y to rate or N/n if you don't wish to rate");
                 choice = input.nextLine();
             }
                 
@@ -930,7 +938,7 @@ public class PrimeEvents
                     validation = true;//set loop into while true
                     try
                     {
-                        System.out.println("You can pick the hall to rate by Your booking References: ");
+                        System.out.println("You can pick the hall to rate by your booking References: ");
                         bookNo = Integer.parseInt(input.nextLine());//transfer the input value from String into int
                         while(bookCont.getBook(bookNo).getReviewStatus() == true || 
                               !bookCont.getBook(bookNo).getBookingStatus().equals("F"))
@@ -942,7 +950,7 @@ public class PrimeEvents
                     }
                     catch(Exception e)//if input not a string, then it cant transfer from string to int
                     {
-                        System.out.println("You can only enter Number here!");
+                        System.out.println("You can only enter a number here!");
                     }
                 }while(validation == true);
             }
@@ -1016,7 +1024,7 @@ public class PrimeEvents
             bookCont.setReview(reviewIndex, bookNo,hallNo,cusEmail,dR,sR,oR,reviewDesc);
             bookCont.getBook(bookNo).setReviewStatus(true);
             
-            System.out.println("Reveiw Successful add! Thank You!");
+            System.out.println("Reveiw Successfully added! Thank You!");
             System.out.println("Press any to continue...");
             input.nextLine();
         }
@@ -1772,6 +1780,7 @@ public class PrimeEvents
      */      
     public void start()
     {
+        loading();
         while(mainOption != 4)
         {
             resetOption();
@@ -1792,6 +1801,7 @@ public class PrimeEvents
                             default: System.out.println("Please select an option between 1 and 4!");
                 }
         }
+        saving();
     }
     
     private int inputNumber()
@@ -1845,4 +1855,19 @@ public class PrimeEvents
     {
         
     }
+    
+    public void loading()
+    {
+        admin.readAdmin("admin.txt");
+        owners.readOwner("owner.txt");
+        customers.readCustomer("customer.txt");
+    }
+    
+    public void saving()
+    {
+        admin.writeAdmin("admin.txt");
+        owners.writeOwner("owner.txt");
+        customers.writeCustomer("customer.txt");
+    }
+
 }

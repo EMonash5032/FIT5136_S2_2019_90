@@ -1,9 +1,11 @@
 
 /**
- * Write a description of class Owner here.
+ * The Owner Class is responsible for the most basic functions of the owner account
+ * for the PrimeEvents system. It is used by the OwnerController Class
  *
  * @author Team 90
- * @version 09 September 2019
+ * @since 10 September 2019
+ * @version 21 October 2019
  */
 public class Owner
 {
@@ -39,6 +41,9 @@ public class Owner
 
     }
 
+    /**
+     * Method responsible for setting all owner data at once
+     */
     public Owner(String ownerFirstName, String ownerLastName, String ownerEmail, String ownerAddress, String ownerPassword, String ownerPhone, String ownerQuestion1, String ownerAnswer1, String ownerQuestion2, String ownerAnswer2)
     {
         this.ownerFirstName = ownerFirstName;
@@ -54,7 +59,7 @@ public class Owner
     }
     
     /**
-     * #1
+     * Mutator method for Owner's First name
      */
     public void setOwnerFirstName(String ownerFirstName)
     {
@@ -62,7 +67,7 @@ public class Owner
     }
     
     /**
-     * #2
+     * Mutator method for Owner's last name
      */
     public void setOwnerLastName(String ownerLastName)
     {
@@ -70,7 +75,7 @@ public class Owner
     }
     
     /**
-     * #3
+     * Mutator method for Owner Email (login)
      */
     public void setOwnerEmail(String ownerEmail)
     {
@@ -78,7 +83,7 @@ public class Owner
     }
     
     /**
-     * #4
+     * Mutator method for Owner Address
      */
     public void setOwnerAddress(String ownerAddress)
     {
@@ -86,7 +91,7 @@ public class Owner
     }
     
     /**
-     * #5
+     * Mutator method for owner password
      */
     public void setOwnerPassword(String ownerPassword)
     {
@@ -94,7 +99,7 @@ public class Owner
     }
     
     /**
-     * #6
+     * Mutator method for owner phone number
      */
     public void setOwnerPhone(String ownerPhone)
     {
@@ -102,7 +107,7 @@ public class Owner
     }
     
     /**
-     * #7
+     * Mutator method for owner secret question 1
      */
     public void setOwnerQuestion1(String ownerQuestion1)
     {
@@ -110,7 +115,7 @@ public class Owner
     }
     
     /**
-     * #8
+     * Mutator method for owner secret answer 1
      */
     public void setOwnerAnswer1(String ownerAnswer1)
     {
@@ -118,7 +123,7 @@ public class Owner
     }
     
     /**
-     * #9
+     * Mutator method for owner secret question 2
      */
     public void setOwnerQuestion2(String ownerQuestion2)
     {
@@ -126,7 +131,7 @@ public class Owner
     }
     
     /**
-     * #10
+     * #Mutator method for owner secret answer 2
      */
     public void setOwnerAnswer2(String ownerAnswer2)
     {
@@ -134,7 +139,7 @@ public class Owner
     }
     
     /**
-     * #11
+     * Accessor method for owner first name 
      */
     public String getOwnerFirstName()
     {
@@ -142,7 +147,7 @@ public class Owner
     }
     
     /**
-     * #12
+     * Accessor method for owner last name
      */
     public String getOwnerLastName()
     {
@@ -150,7 +155,7 @@ public class Owner
     }
     
     /**
-     * #13
+     * Accessor method for owner email
      */
     public String getOwnerEmail()
     {
@@ -158,7 +163,7 @@ public class Owner
     }
     
     /**
-     * #14
+     * Accessor method for owner address
      */
     public String getOwnerAddress()
     {
@@ -166,7 +171,7 @@ public class Owner
     }
     
     /**
-     * #15
+     * Accessor method for owner pasword
      */
     public String getOwnerPassword()
     {
@@ -174,7 +179,7 @@ public class Owner
     }
     
     /**
-     * #16
+     * Accessor method for owner phone number
      */
     public String getOwnerPhone()
     {
@@ -182,7 +187,7 @@ public class Owner
     }
     
     /**
-     * #17
+     * Accessor method for owner secret question 1
      */
     public String getOwnerQuestion1()
     {
@@ -190,7 +195,7 @@ public class Owner
     }
     
     /**
-     * #18
+     * Accessor method for owner secret answer 1
      */
     public String getOwnerAnswer1()
     {
@@ -198,7 +203,7 @@ public class Owner
     }
     
     /**
-     * #19
+     * Accessor method for owner secret question 2
      */
     public String getOwnerQuestion2()
     {
@@ -206,7 +211,7 @@ public class Owner
     }
     
     /**
-     * #20
+     * Accessor method for owner secret answer 2
      */
     public String getOwnerAnswer2()
     {

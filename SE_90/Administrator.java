@@ -1,9 +1,11 @@
 
 /**
- * Write a description of class Administrator here.
+ * The Administrator class is responsible for the most basic administrator actions for the
+ * PrimeEvents System. It is used by the AdminController Class
  *
  * @author Team 90
- * @version 10 September 2019
+ * @since 10 September 2019
+ * @version 21 October 2019
  */
 public class Administrator
 {
@@ -21,6 +23,9 @@ public class Administrator
         adminPassword = "admin";
     }
     
+    /**
+     * Responsible for setting both Administrator Email and password at once 
+     */
     public Administrator(String adminEmail, String adminPassword)
     {
         this.adminEmail = adminEmail;
@@ -28,7 +33,7 @@ public class Administrator
     }
     
     /**
-     * #1
+     * Accessor method for Administrator Email
      */
     public String getAdminEmail()
     {
@@ -36,7 +41,7 @@ public class Administrator
     }
     
     /**
-     * #2
+     * Accessor method for Administrator password
      */
     public String getAdminPassword()
     {
@@ -44,7 +49,7 @@ public class Administrator
     }
     
     /**
-     * #3
+     * Mutator method for Administrator Email
      */
     public void setAdminEmail()
     {
@@ -52,7 +57,7 @@ public class Administrator
     }
     
     /**
-     * #4
+     * Mutator method Administrator Password
      */
     public void setPassword()
     {

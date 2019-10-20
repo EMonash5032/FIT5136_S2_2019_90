@@ -2,17 +2,21 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Class ListOfAdmins
+ * The AdminController class is for the most bringing together and furthers
+ * the functions of admin Class. It interacts with the PrimeEvents Class
+ * for the PrimeEvents System.
+ *
+ * @author Team 90
+ * @since 10 September 2019
+ * @version 21 October 2019
  * 
- * @author Jialiang Wu && Yuekai Huang
- * @version 10 September 2019
  */
 public class AdminController
 {
     private Administrator[] admin;
 
     /**
-     * 
+     * Constructor class for AdminController
      */
     public AdminController()
     {        
@@ -25,7 +29,10 @@ public class AdminController
     }
     
     /**
-     * #1
+     * Accessor method to get administrator information
+     * 
+     * @param Index number must be specified
+     * @return administrator information within index as specified
      */
     public Administrator getAdmin(int index)
     {
@@ -33,23 +40,43 @@ public class AdminController
     }
     
     /**
-     * #2
+     * Set administrator information
+     * 
+     * @param Admin in list must be specified
      */
     public void setAdmin(Administrator[] admin)
     {
         this.admin = admin;
     }
     
+    /**
+     * Return all information regarding Administrator list
+     * @return administrator list information 
+     */
     public Administrator[] getAllAdmin()
     {
         return admin;
     }
     
+    /**
+     * Mutator method for administrator within specified index
+     * 
+     * @param index number must be specified for storage
+     * @param account name must be specified
+     * @param password must be specified
+     */
     public void setAdmin(int index, String account, String password)
     {
         admin[index] = new Administrator(account, password);
     }
     
+    /**
+     * Method to write administrator details to file
+     * 
+     * @param filename is to be specified
+     * @exception filename not found
+     * @exception Unexpected error occurs
+     */
     public void writeAdmin(String fileName)
     {
         String message = "";
@@ -77,6 +104,13 @@ public class AdminController
         }
     }
     
+    /**
+     * Method to read administrator details to file 
+     * 
+     * @param filename must be specified
+     * @exception filename not found
+     * @exception unexpected error occured
+     */
     public void readAdmin(String fileName)
     {
         try

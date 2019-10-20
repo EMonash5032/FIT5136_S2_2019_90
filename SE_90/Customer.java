@@ -1,10 +1,12 @@
 
 
 /**
- * Write a description of class Customer here.
+ * The Customer Class is responsible for the most basic functions for the owner account
+ * for the PrimeEvents system. This class is used by the CustomerController Class
  *
  * @author Team 90
- * @version 09 September 2019
+ * @since 10 September 2019
+ * @version 21 October 2019
  */
 public class Customer
 {
@@ -43,6 +45,9 @@ public class Customer
 
     }
     
+    /**
+     * Method to set customer details all at once (upon account creation)
+     */
     public Customer(String cusFirstName, String cusLastName, String cusEmail, String cusAddress, String cusPassword, String cusPhone, String cusQuestion1, String cusAnswer1, String cusQuestion2, String cusAnswer2, boolean cusIsConcession)
     {
         this.cusFirstName = cusFirstName;
@@ -59,7 +64,7 @@ public class Customer
     }
     
     /**
-     * #1
+     * Mutator method for Customer First name
      */
     public void setCusFirstName(String cusFirstName)
     {
@@ -67,7 +72,7 @@ public class Customer
     }
     
     /**
-     * #2
+     * Mutator method for Customer Last Name
      */
     public void setCusLastName(String cusLastName)
     {
@@ -75,7 +80,7 @@ public class Customer
     }
     
     /**
-     * #3
+     * Mutator method for Customer Email
      */
     public void setCusEmail(String cusEmail)
     {
@@ -83,7 +88,7 @@ public class Customer
     }
     
     /**
-     * #4
+     * Mutator method for Customer Address
      */
     public void setCusAddress(String cusAddress)
     {
@@ -91,7 +96,7 @@ public class Customer
     }
     
     /**
-     * #5
+     * Mutator method for Customer Password
      */
     public void setCusPassword(String cusPassword)
     {
@@ -99,7 +104,7 @@ public class Customer
     }
     
     /**
-     * #6
+     * Mutator method for Customer Phone number
      */
     public void setCusPhone(String cusPhone)
     {
@@ -107,7 +112,7 @@ public class Customer
     }
     
     /**
-     * #7
+     * Mutator method for Customer secret question 1
      */
     public void setCusQuestion1(String cusQuestion1)
     {
@@ -115,7 +120,7 @@ public class Customer
     }
     
     /**
-     * #8
+     * Mutator method for Customer secret answer 1
      */
     public void setCusAnswer1(String cusAnswer1)
     {
@@ -123,7 +128,7 @@ public class Customer
     }
     
     /**
-     * #9
+     * Mutator method for Customer secret question 2
      */
     public void setCusQuestion2(String cusQuestion2)
     {
@@ -131,7 +136,7 @@ public class Customer
     }
     
     /**
-     * #10
+     * Mutator method for Customer secret answer 2
      */
     public void setCusAnswer2(String cusAnswer2)
     {
@@ -139,7 +144,7 @@ public class Customer
     }
     
     /**
-     * #11
+     * Mutator method for Customer if they are concession and/or veteran - for discount purposes
      */
     public void setCusIsConcession(boolean cusIsConcession)
     {
@@ -147,7 +152,7 @@ public class Customer
     }
     
     /**
-     * #12
+     * Accessor method for Customer First name
      */
     public String getCusFirstName()
     {
@@ -155,7 +160,7 @@ public class Customer
     }
     
     /**
-     * #13
+     * Accessor method for Customer last name
      */
     public String getCusLastName()
     {
@@ -163,7 +168,7 @@ public class Customer
     }
     
     /**
-     * #14
+     * Accessor method for Customer email address
      */
     public String getCusEmail()
     {
@@ -171,7 +176,7 @@ public class Customer
     }
     
     /**
-     * #15
+     * Accessor method for Customer address
      */
     public String getCusAddress()
     {
@@ -179,7 +184,7 @@ public class Customer
     }
     
     /**
-     * #16
+     * Accessor method for Customer password
      */
     public String getCusPassword()
     {
@@ -187,7 +192,7 @@ public class Customer
     }
     
     /**
-     * #17
+     * Accessor method for Customer phone number
      */
     public String getCusPhone()
     {
@@ -195,7 +200,7 @@ public class Customer
     }
     
     /**
-     * #18
+     * Accessor method for Customer secret question 1
      */
     public String getCusQuestion1()
     {
@@ -203,7 +208,7 @@ public class Customer
     }
     
     /**
-     * #19
+     * Accessor method for Customer secret answer 1
      */
     public String getCusAnswer1()
     {
@@ -211,7 +216,7 @@ public class Customer
     }
     
     /**
-     * #20
+     * Accessor method for Customer secret question 2
      */
     public String getCusQuestion2()
     {
@@ -219,7 +224,7 @@ public class Customer
     }
     
     /**
-     * #21
+     * Accessor method for Customer secret answer 2
      */
     public String getCusAnswer2()
     {
@@ -227,7 +232,7 @@ public class Customer
     }
     
     /**
-     * #22
+     * Accessor method for Customer whether they are concession and/or veteran - for discount purposes
      */
     public boolean getCusIsConcession()
     {
