@@ -66,4 +66,30 @@ public class CustomerController
         }
         return 0;
     }
+    
+    public int custIndex()
+    {
+        int index = 0;
+        while(index < getAllCus().length)
+        {
+            if(getCustomer(index).getCusPassword().equals("????"))
+                return index;
+            index++;
+        }
+        return -1;
+    }
+    
+    /**
+     * #4
+     */
+    public int checkCust(String email)
+    {
+
+        for(int index = 0 ; index < getAllCus().length; index++)
+        {
+            if(getCustomer(index).getCusEmail().equals(email))
+                return index;
+        }
+        return -1;
+    }
 }

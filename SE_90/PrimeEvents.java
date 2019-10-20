@@ -36,64 +36,6 @@ public class PrimeEvents
     }
 
     /**
-     * #1
-     */
-    private int ownerIndex()
-    {
-        int index = 0;
-        while(index < owners.getAllOwner().length)
-        {
-            if(owners.getOwner(index).getOwnerPassword().equals("????"))
-                return index;
-            index++;
-        }
-        return -1;
-    }
-    
-    /**
-     * #2
-     */
-    private int checkOwner(String email)
-    {
-
-        for(int index = 0 ; index < owners.getAllOwner().length; index++)
-        {
-            if(owners.getOwner(index).getOwnerEmail().equals(email))
-                return index;
-        }
-        return -1;
-    }
-    
-    /**
-     * #3
-     */
-    private int custIndex()
-    {
-        int index = 0;
-        while(index < customers.getAllCus().length)
-        {
-            if(customers.getCustomer(index).getCusPassword().equals("????"))
-                return index;
-            index++;
-        }
-        return -1;
-    }
-    
-    /**
-     * #4
-     */
-    private int checkCust(String email)
-    {
-
-        for(int index = 0 ; index < customers.getAllCus().length; index++)
-        {
-            if(customers.getCustomer(index).getCusEmail().equals(email))
-                return index;
-        }
-        return -1;
-    }
-    
-    /**
      *#5
      *Home page Menu list
      */
@@ -125,20 +67,7 @@ public class PrimeEvents
         System.out.println("Press 3 Back to Home Page\r\n");
         System.out.println("Please Enter Your Choice: ");
     }
-    
-    /**
-     * #7
-     */
-    private int checkHallList()
-    {
-        for(int i = 0; i < bookCont.getAllHalls().length; i++)
-        {
-            if(bookCont.getHalls(i).getHallCapacity() != -1)
-                return 1;
-        }
-        return 0;
-    }
-    
+
     /**
      * #8
      */
@@ -361,7 +290,7 @@ public class PrimeEvents
         
         System.out.println("Please enter Owner Email Address: ");
         ownerEmail = input.nextLine();
-        int ownerId = checkOwner(ownerEmail);
+        int ownerId = owners.checkOwner(ownerEmail);
         if(ownerId == -1)
         {
             System.out.println("Account: " + ownerEmail + " is not registered yet! Press any key to go register!");
@@ -607,7 +536,7 @@ public class PrimeEvents
                     isConcession = false;
                 }
                 
-                int custId = custIndex();
+                int custId = customers.custIndex();
                 customers.setCustomer(custId, firstName, lastName, email, address, password, phone, question1, answer1, 
                                       question2, answer2, isConcession);
             }
@@ -638,7 +567,7 @@ public class PrimeEvents
                     address = input.nextLine();
                 }
                 
-                int ownerId = ownerIndex();
+                int ownerId = owners.ownerIndex();
                 owners.setOwner(ownerId, firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2);
             }
             resetPage();
@@ -660,7 +589,7 @@ public class PrimeEvents
         
         System.out.println("Please enter a Customer email: ");
         String userName = input.nextLine();
-        int custID = checkCust(userName);
+        int custID = customers.checkCust(userName);
         if(custID == -1)
         {
             System.out.println("Account: " + userName + " is not registered yet! Press any key to register!");
@@ -1114,20 +1043,7 @@ public class PrimeEvents
         System.out.println("Press any to continue...");
         input.nextLine();
     }
-    
-    /**
-     * #24
-     */
-    private int checkBook()
-    {
-        for(int i = 0; i < bookCont.getAllBook().length; i++)
-        {
-            if(bookCont.getBook(i).getQuotationIndex() != -1)
-                return 1;
-        }
-        return 0; 
-    }
-    
+
     private void booking()
     {
         //There are three difference type of  booking Status: O "on going" means during the time the 

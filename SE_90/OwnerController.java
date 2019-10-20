@@ -56,4 +56,30 @@ public class OwnerController
         
         return 0;
     }
+    
+    public int ownerIndex()
+    {
+        int index = 0;
+        while(index < getAllOwner().length)
+        {
+            if(getOwner(index).getOwnerPassword().equals("????"))
+                return index;
+            index++;
+        }
+        return -1;
+    }
+    
+    /**
+     * #2
+     */
+    public int checkOwner(String email)
+    {
+
+        for(int index = 0 ; index < getAllOwner().length; index++)
+        {
+            if(getOwner(index).getOwnerEmail().equals(email))
+                return index;
+        }
+        return -1;
+    }
 }
