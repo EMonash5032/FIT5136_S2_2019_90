@@ -50,22 +50,21 @@ public class BookingController
             reviews[index] = new Review(-1, -1, "????", -0.01, -0.01, -0.01, "????");
         }
     }
-        
-    /**
-     * #24
-     */
-    public void view(int inputIndex)
+    
+    public Review[] getAllReview()
     {
-        System.out.println("This is View Halls");
-        
-        //System.out.println("Select the hall number " + (inputIndex + 1) + ": ");
-        //System.out.println("Hall Name: " + halls[inputIndex].getHallName());
-        //System.out.println(" Address: " + halls[inputIndex].getHallAddress());
-        //System.out.println(" Capacity: " + halls[inputIndex].getHallCapacity());
-        //System.out.println(" Pirce: " + halls[inputIndex].getHallPrice());
-        //System.out.println(" Events Type: " + halls[inputIndex].getHallEvents() + "\r\n");
-        
-        System.out.println("Please Enter 'y' or 'n'");
+        return reviews;
+    }
+    
+    public Review getReview(int index)
+    {
+        return reviews[index];
+    }
+    
+    public void setReview(int index, int bookingNo, int hallNo, String cusEmail, double decorationRating, 
+                          double serviceRating, double overallRating, String reviewDesc)
+    {
+        reviews[index] = new Review(bookingNo,hallNo,cusEmail,decorationRating,serviceRating,overallRating,reviewDesc);
     }
     
     public Quotation[] getAllQuota()
@@ -76,6 +75,16 @@ public class BookingController
     public Quotation getQuota(int index)
     {
         return quotas[index];
+    }
+    
+    public int reviewIndex()
+    {
+        for(int index = 0; index < getAllReview().length; index++)
+        {
+            if(getReview(index).getBookingNo() == -1)
+                return index;
+        }
+        return -1;
     }
     
     public void setQuotation(int index, int hallNo, String ownerEmail, String customerEmail, String startDate, String endDate, 
@@ -113,19 +122,6 @@ public class BookingController
     {
         book[index] = new Booking(reviewStatus, bookingStatus, hallNo, customerNo, ownerEmail, customerEmail, quotationIndex, startDate, endDate,
                                   cardholderName, cardNumber, expiryDate, CVV, deposit);
-    }
-    
-    /**
-     * #28
-     */
-    public void displayBook(int inputIndex)
-    {
-        System.out.println("The Booking reference " + (inputIndex + 1) + ": ");
-        //System.out.println("Hall Name: " + book[inputIndex].getHallName());
-        //System.out.println("  Event Types: " + book[inputIndex].getEventType());
-        //System.out.println("  Hall Price: " + book[inputIndex].getPrice());
-       // System.out.println("  Acutal Cost: " + book[inputIndex].getActualFee());
-       // System.out.println("  Deposit: " + book[inputIndex].getDeposit() + "\r\n");
     }
 
      /**
@@ -175,29 +171,6 @@ public class BookingController
     {
         halls[index] = new Hall(hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, anniversary, birthday, weddingCeremony,
                                 weddingReception, catering, menuDesc, photography);
-    }
-    
-    /**
-     * #25
-     */
-    public void remove()
-    {
-        System.out.println("Please select from the following halls that you wish to remove: ");
-        for(int x = 0; x < halls.length; x++)
-        {
-            if(!halls[x].getHallName().equals("????"))
-            {
-                System.out.println("Select the hall number " + (x + 1) + ": ");
-                System.out.println("Hall Name: " + halls[x].getHallName());
-                System.out.println(" Address: " + halls[x].getHallAddress());
-                System.out.println(" Capacity: " + halls[x].getHallCapacity());
-                System.out.println(" Price: " + halls[x].getHallPrice());
-                //           System.out.println(" Event Type: " + halls[x].getHallEvents() + "\r\n");
-                
-            }
-        }
-        System.out.println("Enter Number 0 to exit remove menu");
-        System.out.println("Please Enter Hall Number You wish To Remove: ");
     }
     
     public void displayEventType(int index)
@@ -254,12 +227,76 @@ public class BookingController
         {
             System.out.println("  Service Type: " + catering + photo + "\r\n");
         }
+        if(avgDR(index) == 0)
+        {
+            System.out.println("  There is no Rate! No one book this hall yet! " );
+        }
+        if(avgDR(index) != 0)
+        {
+            System.out.println("  Decoration Rating: " + avgDR(index));
+            System.out.println("  Service Rating: " + avgSR(index));
+            System.out.println("  overall Rating: " + avgOR(index));
+        }
         if(halls[index].getCatering() == false || halls[index].getPhotography() == false)
         {
             System.out.println("\r\n");
         }
         
     }
+    
+    public double avgDR(int hallNo)
+    {
+        double dR = 0;
+        double times = 0;
+        double avgDR = 0;
+        for(int index = 0; index < getAllReview().length; index++)
+        {
+            if(getReview(index).getHallNo() == hallNo)
+            {
+                times = times + 1;
+                double temp = getReview(index).getDecorationRating();
+                dR = temp + dR;
+            }
+        }
+        avgDR = dR / times;
+        return avgDR;
+    }
+    
+    public double avgSR(int hallNo)
+    {
+        double sR = 0;
+        double times = 0;
+        double avgSR = 0;
+        for(int index = 0; index < getAllReview().length; index++)
+        {
+            if(getReview(index).getHallNo() == hallNo)
+            {
+                times = times + 1;
+                double temp = getReview(index).getServiceRating();
+                sR = temp + sR;
+            }
+        }
+        avgSR = sR / times;
+        return avgSR;
+    }
+    
+    public double avgOR(int hallNo)
+    {
+        double oR = 0;
+        double times = 0;
+        double avgOR = 0;
+        for(int index = 0; index < getAllReview().length; index++)
+        {
+            if(getReview(index).getHallNo() == hallNo)
+            {
+                times = times + 1;
+                double temp = getReview(index).getOverallRating();
+                oR = temp + oR;
+            }
+        }
+        avgOR = oR / times;
+        return avgOR;
+    }    
     
     /**
      * print all hall which relative the login owner by email address, email address is unique
@@ -277,57 +314,45 @@ public class BookingController
         
     }
     
-    public Review[] getAllReview()
+    public int checkReview(String cusEmail)
     {
-        return reviews;
-    }
-    
-    public Review getReview(int index)
-    {
-        return reviews[index];
-    }
-    
-    public void setReview(int index, int bookingNo, int hallNo, String cusEmail, double decorationRating,
-                          double serviceRating, double overallRating, String reviewDesc)
-    {
-        reviews[index] = new Review(bookingNo, hallNo, cusEmail, decorationRating,
-                                    serviceRating, overallRating, reviewDesc);
-    }
-    
-    /**
-     *
-     * "F" means Finished
-     * 
-     */
-        public Booking[] displayCompletedBooking(String cusEmail)
+        int index = -1;
+        for(index = 0; index < getAllBook().length; index++)
         {
-            Booking[] bookings = new Booking[99999];
-            Booking[] completedBookings = new Booking[99999];
-            int index = 0;
-            for(Booking booking: bookings)
+            if(getBook(index).getCustomerEmail().equals(cusEmail) && 
+                getBook(index).getBookingStatus().equals("F"))
             {
-                if(//booking.getCusEmail().equals(cusEmail) && 
-                   booking.getBookingStatus().equals("F"))
-                {
-                    completedBookings[index] = booking;
-                    System.out.print((index + 1) + ".");
-                    booking.displayBooking();
-                    index++;
-                }
+                return 1;
             }
-            
-            if(index == 0)
+        }
+        return 0;
+    }
+    
+    public void checkBookingReview(String cusEmail)
+    {
+        int index = -1;
+        boolean display = false;
+        for(index = 0; index < getAllBook().length; index++)
+        {
+            if(getBook(index).getCustomerEmail().equals(cusEmail) && 
+                getBook(index).getBookingStatus().equals("F") && getBook(index).getReviewStatus() == false)
             {
-                return null;
-            }
-            else
-            {
-                return completedBookings;
+                int quotaIndex = getBook(index).getQuotationIndex();
+                int hallIndex = getBook(index).getHallNo();
+                System.out.println("Your booking references " + index + ": ");
+                System.out.println("Hall Name: " + halls[hallIndex].getHallName());
+                System.out.println("  Date: " + getBook(index).getStartDate() + " to " + getBook(index).getEndDate() 
+                                    + "\r\n");
+                display = true;                    
             }
         }
         
-        
-    
+        if(display == true)
+            System.out.println("Do You want to rate a service(y/n): ");
+        if(display == false)
+            System.out.println("You have not complete a book yet! Please finish a book then come to make review!");
+    }
+
     public double getAverageRating(int hallNo)
         {
             Review[] hallReviews = new Review[9999];
@@ -354,19 +379,6 @@ public class BookingController
             }
             double avgRating = sumRating/index;
             return avgRating;
-        }
-        
-    public void setReview(int hallNo,String cusEmail,
-                            double decorationRating,double serviceRating,
-                            double overallRating,String reviewDesc, Booking booking)
-    {
-        Review review = new Review();
-        review.setReviewDesc(reviewDesc);
-        review.setDecorationRating(decorationRating);
-        review.setServiceRating(serviceRating);
-        review.setOverallRating(overallRating);
-        review.setHallNo(hallNo);
-        booking.setReviewStatus(true);            
     }
     
     public int checkDate(Date startDate, Date endDate)

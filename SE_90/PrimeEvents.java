@@ -723,7 +723,7 @@ public class PrimeEvents
     private void administratorLogin()
     {
         Scanner input = new Scanner(System.in);
-        System.out.println("Please enter admin user name: ");
+        System.out.println("Please enter admin user account: ");
         String userName = input.nextLine();
         System.out.println("Please enter admin password: ");
         String password = input.nextLine();
@@ -895,7 +895,7 @@ public class PrimeEvents
                 //hall still use by customer; F "Finish book" means finished book after end date and success 
                 //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
                 //the customer book; N "Not Start" means the booking process not start yet.
-                String bookingStatus = "N";
+                String bookingStatus = "F";
                 int hallNo = bookCont.getQuota(quotaChoice).getHallNo();
                 int customerNo = customers.checkCusIndex(cusEmail);
                 String ownerEmail = bookCont.getQuota(quotaChoice).getOwnerEmail();
@@ -976,84 +976,127 @@ public class PrimeEvents
     
     private void rateService(String cusEmail)
     {
-        if(bookCont.displayCompletedBooking(cusEmail) == null)
+        Scanner input = new Scanner(System.in);
+        bookCont.checkBookingReview(cusEmail);
+        String choice;
+        boolean validation;
+        int bookNo = -1;
+        if(bookCont.checkReview(cusEmail) == 1)
         {
-            System.out.println("You don't have any finished booking. Press enter to return to previous page.");
-            Scanner input = new Scanner(System.in);
+            choice = input.nextLine();
+            
+            while(!choice.toLowerCase().matches("[yn]"))
+            {
+                System.out.println("Error! you can only type in Y/y to rate or N/n for not rate");
+                choice = input.nextLine();
+            }
+                
+            if(choice.toLowerCase().equals("y"))
+            {
+                do
+                {
+                    validation = true;//set loop into while true
+                    try
+                    {
+                        System.out.println("You can pick the hall to rate by Your booking References: ");
+                        bookNo = Integer.parseInt(input.nextLine());//transfer the input value from String into int
+                        while(bookCont.getBook(bookNo).getReviewStatus() == true || 
+                              !bookCont.getBook(bookNo).getBookingStatus().equals("F"))
+                        {
+                            System.out.println("There is no option of " + bookNo  + "! Please enter again:");
+                            bookNo = Integer.parseInt(input.nextLine());
+                        }
+                        validation = false;
+                    }
+                    catch(Exception e)//if input not a string, then it cant transfer from string to int
+                    {
+                        System.out.println("You can only enter Number here!");
+                    }
+                }while(validation == true);
+            }
+            double dR = 0;
+            do
+            {
+                validation = true;//set loop into while true
+                try
+                {
+                    System.out.println("Please rate the decoration of the hall (rating from 1 - 5): ");
+                    dR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                    while(dR < 1 || dR > 5)//validate the input range
+                    {
+                        System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                        dR = Double.parseDouble(input.nextLine());
+                    }
+                    validation = false;
+                }
+                catch(Exception e)//if input not a string, then it cant transfer from string to int
+                {
+                    System.out.println("You can only Enter a number here! Please Enter again:");
+                }
+            }while(validation == true); 
+            
+            double sR = 0;
+            do
+            {
+                validation = true;//set loop into while true
+                try
+                {
+                    System.out.println("Please rate the service of the hall (rating from 1 - 5): ");
+                    sR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                    while(sR < 1 || sR > 5)//validate the input range
+                    {
+                        System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                        sR = Double.parseDouble(input.nextLine());
+                    }
+                    validation = false;
+                }
+                catch(Exception e)//if input not a string, then it cant transfer from string to int
+                {
+                    System.out.println("You can only Enter a number here! Please Enter again:");
+                }
+            }while(validation == true); 
+            
+            double oR = 0;
+            do
+            {
+                validation = true;//set loop into while true
+                try
+                {
+                    System.out.println("Please rate the overall performance of the hall (rating from 1 - 5): ");
+                    oR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                    while(oR < 1 || oR > 5)//validate the input range
+                    {
+                        System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                        dR = Double.parseDouble(input.nextLine());
+                    }
+                    validation = false;
+                }
+                catch(Exception e)//if input not a string, then it cant transfer from string to int
+                {
+                    System.out.println("You can only Enter a number here! Please Enter again:");
+                }
+            }while(validation == true); 
+            
+            System.out.println("Commands(hit enter to skip):");
+            String reviewDesc = input.nextLine();
+            int reviewIndex = bookCont.reviewIndex();
+            int hallNo = bookCont.getBook(bookNo).getHallNo();
+            bookCont.setReview(reviewIndex, bookNo,hallNo,cusEmail,dR,sR,oR,reviewDesc);
+            bookCont.getBook(bookNo).setReviewStatus(true);
+            
+            System.out.println("Reveiw Successful add! Thank You!");
+            System.out.println("Press any to continue...");
             input.nextLine();
         }
-        else
+        if(bookCont.checkReview(cusEmail) == 0)
         {
-            System.out.println("Select 1 to continue and review your booking(s) or 2 to return to previous page: ");
-            customerOption = inputNumber();
-            switch(customerOption)
-                {
-                    case 1: System.out.println("Return to customer home page");
-                            break;
-                    case 2: System.out.println("Please select a booking that hasn't been reviewed before to start: ");
-                            reviewSelectedBooking(cusEmail, bookCont.displayCompletedBooking(cusEmail));
-                            
-                            break;
-                            default: System.out.println("You can only choose 1 or 2!");
-                }
-            
+            System.out.println("Press any to continue...");
+            input.nextLine();
         }
     }
     
-    private void reviewSelectedBooking(String cusEmail, Booking[] completedBookings)
-        {
-            int size = 0;
-            for(Booking booking : completedBookings)
-            {
-                if(booking != null)
-                {
-                    size++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            Scanner input = new Scanner(System.in);
-            int selection = inputNumber();
-            while(selection < 1 || selection > size || completedBookings[selection - 1].getReviewStatus() == true)
-            {
-                System.out.println("Invalid selection, please reselect a booking to review from the list: ");
-                selection = input.nextInt();
-            }
-                       
-            System.out.println("Please rate the decoration of the hall (rating from 1 - 5): ");
-            double dR = input.nextDouble();
-            while(dR < 1 || dR > 5)
-            {
-                System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
-                dR = input.nextDouble();
-            }
-            
-            System.out.println("Please rate the service of the hall (rating from 1 - 5): ");
-            double sR = input.nextDouble();
-            while(sR < 1 || sR > 5)
-            {
-                System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
-                sR = input.nextDouble();
-            }
-            
-            System.out.println("Please rate the overall performance of the hall (rating from 1 - 5): ");
-            double oR = input.nextDouble();
-            while(oR < 1 || oR > 5)
-            {
-                System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
-                oR = input.nextDouble();
-            }
-            
-            System.out.println("Please leave a comment to the hall: ");
-            String description = input.nextLine();
-            bookCont.setReview(completedBookings[selection - 1].getHallNo(), cusEmail,
-                              dR, sR,oR, description, completedBookings[selection - 1]);
-        }
-    
     /**
-     * #23
+     * #23 not use for this method
      */
     private void bookHistroy(String cusEmail)
     {
@@ -1065,7 +1108,7 @@ public class PrimeEvents
         {
             if(bookCont.getBook(index).getCustomerEmail().equals(cusEmail)) //&& and booking status is finished
             {
-                bookCont.displayBook(index);
+                //bookCont.displayBook(index);
             }
         }
         System.out.println("Press any to continue...");
