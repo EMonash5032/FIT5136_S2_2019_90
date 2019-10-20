@@ -1715,7 +1715,7 @@ public class PrimeEvents
             menuDesc = input.nextLine();
             while(menuDesc.trim().length() < 10)
             {
-                System.out.println("You must enter something for the menu! Please enter again");
+                System.out.println("You must enter something for the menu(10 characters long at least)! Please enter again");
                 menuDesc = input.nextLine();
             }
         }
