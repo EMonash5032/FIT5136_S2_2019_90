@@ -1,1 +1,1 @@
-customer,custoemr,cus@cus.com,,customer,,cus11,cust1,cust1,cust1,true;
+customer,customer,cus@cus.com,,customer,,cus11,cust1,cust1,cust1,true;

@@ -915,6 +915,7 @@ public class PrimeEvents
      * Method to rate a service (once the service has been used)
      * 
      * @param A customer email must be specified 
+     * @exception e number validation
      */
     private void rateService(String cusEmail)
     {
@@ -1041,7 +1042,9 @@ public class PrimeEvents
     }
     
     /**
-     * #23 not use for this method
+     * Method to check booking history
+     * @param valid customer Email needs to be specified
+     * 
      */
     private void bookHistroy(String cusEmail)
     {
@@ -1060,6 +1063,11 @@ public class PrimeEvents
         input.nextLine();
     }
 
+    /**
+     * Method to see booking Status.
+     * 
+     * Refer to notes below 
+     */
     private void booking()
     {
         //There are three difference type of  booking Status: O "on going" means during the time the 
@@ -1070,7 +1078,10 @@ public class PrimeEvents
     }
     
     /**
-     * #25
+     * Method for customer making a quotation
+     * 
+     * @Exception e Number validtion
+     * @exception parseexception e Date formatting check
      */
     private void cusMakeQuota(String cusEmail)
     {
@@ -1288,7 +1299,7 @@ public class PrimeEvents
                 }
                 if(contactPhone.length() != 10)
                 {
-                    System.out.println("A phone number Must contain 10 digital Number, please enter again: ");
+                    System.out.println("A phone number Must contain 10 digits (Australian Mobile number) please enter again: ");
                     contactPhone = input.nextLine();
                 }
             }
@@ -1319,6 +1330,12 @@ public class PrimeEvents
         }
     }
     
+    /**
+     * Method for customer to reply to customer quotation
+     * 
+     * @param owner Email must be specified 
+     * @exception Exception e Number validation
+     */
     private void replyQuota(String ownerEmail)
     {
         Scanner input = new Scanner(System.in);
@@ -1408,7 +1425,9 @@ public class PrimeEvents
     }
 
     /**
-     * #27
+     * Method for owner home page user input
+     * 
+     * @param owner email must be specified
      */
     private void owner(String hallOwnerEmail)
     {           
@@ -1445,7 +1464,7 @@ public class PrimeEvents
     }
     
     /**
-     * #28
+     * Display method for owner hall menu
      */
     private void manageHallMenu()
     {
@@ -1463,7 +1482,9 @@ public class PrimeEvents
     }
     
     /**
-     * #29
+     * User input for owner manage hall
+     * 
+     * @param Owner email must be specified
      */
     private void manageHall(String hallOwnerEmail)
     {
@@ -1508,7 +1529,9 @@ public class PrimeEvents
     }
     
     /**
-     * #30
+     * Method for owner searching a hall
+     * 
+     * @method Owner email must be specified
      */
     private void ownerSearchHall(String hallOwnerEmail)
     {
@@ -1542,7 +1565,7 @@ public class PrimeEvents
     }
     
     /**
-     * #32
+     * Method to find maximum hall index of input
      */
     private int hallIndex()
     {
@@ -1557,7 +1580,13 @@ public class PrimeEvents
     }
     
     /**
-     * #33 type "e" means edit  type "c" means create
+     * Method for hall creation by owner
+     * type "e" means edit  type "c" means create
+     * 
+     * @param type Which method to use, either edit or create
+     * @param index Number of index must be specified to create a new list input
+     * @param owner email must be specified to identify which hall
+     * @exception e number validtion by user
      */
     private void createHall(String type, int index, String hallOwnerEmail)
     {
@@ -1780,8 +1809,7 @@ public class PrimeEvents
     }
     
     /**
-     * #36
-     * option of home page
+     * User input method for homepage. This is the method to begin the program
      */      
     public void start()
     {
@@ -1809,6 +1837,9 @@ public class PrimeEvents
         saving();
     }
     
+    /**
+     * Method to search whether number inputted by user is a number
+     */
     private int inputNumber()
     {
         Scanner input = new Scanner(System.in);
@@ -1823,7 +1854,7 @@ public class PrimeEvents
             }
             catch(Exception e)
             {
-                System.out.println("You are ONLY ALLOW input a NUMBER here!");
+                System.out.println("You are ONLY ALLOWED to input a NUMBER here!");
                 System.out.println("Please Enter Your Choice:");
             }
         }while(validation == true);
@@ -1832,7 +1863,7 @@ public class PrimeEvents
     }
     
     /**
-     * #37
+     * Method to reset page view (clean page)
      */
     private void resetPage()
     {
@@ -1840,7 +1871,7 @@ public class PrimeEvents
     }
     
     /**
-     * #38
+     * Reset all option
      */
     private void resetOption()
     {
@@ -1853,14 +1884,16 @@ public class PrimeEvents
     }
     
     /**
-     * 
-     * #39
+     * Test method
      */
     public void test()
     {
          
     }
     
+    /**
+     * Loading and reading text files
+     */
     public void loading()
     {
         admin.readAdmin("admin.txt");
@@ -1873,6 +1906,9 @@ public class PrimeEvents
         bookCont.readDisc("discount.txt");
     }
     
+    /**
+     * Writing to text files
+     */
     public void saving()
     {
         admin.writeAdmin("admin.txt");
