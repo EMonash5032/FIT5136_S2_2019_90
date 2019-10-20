@@ -313,6 +313,11 @@ public class PrimeEvents
                     {
                         ownerEmail = owners.getOwner(index).getOwnerEmail();
                         status = false;
+                        System.out.println("Welcome! You have successfully login");
+                        System.out.println("Press any key to continue...");
+                        input.nextLine();
+                        resetPage();
+                        owner(ownerEmail);
                     }
                     if(owners.getOwner(index).getOwnerEmail().equals(ownerEmail) && !owners.getOwner(index).getOwnerPassword().equals(password))
                     {
@@ -323,24 +328,13 @@ public class PrimeEvents
                     {
                         System.out.println("Please contact administrator or recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
                         status = false;
+                        System.out.println("Press any key to continue");
+                        input.nextLine();
+                        resetPage();
+                        break;
                     }
                 }
 
-            }
-            
-            if(password.toLowerCase().equals("f") && status == false)
-            {
-                System.out.println("Press any key to continue");
-                input.nextLine();
-                resetPage();
-            }
-            else
-            {
-                System.out.println("Welcome! You have successfully login");
-                System.out.println("Press any key to continue...");
-                input.nextLine();
-                resetPage();
-                owner(ownerEmail);
             }
         }
         
@@ -608,10 +602,17 @@ public class PrimeEvents
                 
                 for(index = 0; index < customers.getAllCus().length; index++)
                 {
-                    if(customers.getCustomer(index).getCusEmail().equals(userName) && customers.getCustomer(index).getCusPassword().equals(password) && !customers.getCustomer(index).getCusEmail().equals("????"))
+                    if(customers.getCustomer(index).getCusEmail().equals(userName) && 
+                        customers.getCustomer(index).getCusPassword().equals(password) && 
+                        !customers.getCustomer(index).getCusEmail().equals("????"))
                     {
                         custEmail = customers.getCustomer(index).getCusEmail();
                         status = false;
+                        System.out.println("Welcome! You are successfully login");
+                        System.out.println("Press any key to continue...");
+                        input.nextLine();
+                        resetPage();
+                        customer(custEmail);
                     }
                     if(customers.getCustomer(index).getCusEmail().equals(userName) && !customers.getCustomer(index).getCusPassword().equals(password))
                     {
@@ -622,25 +623,15 @@ public class PrimeEvents
                     {
                         System.out.println("Please contact administrator or recall security question!!");// method 一次验证机会，如果验证错误就直接admin信息 然后弹出
                         status = false;
+                        System.out.println("Press any key to continue");
+                        input.nextLine();
+                        resetPage();
+                        break;
                     }
                 }
 
             }
-            
-            if(password.toLowerCase().equals("f") && status == false)
-            {
-                System.out.println("Press any key to continue");
-                input.nextLine();
-                resetPage();
-            }
-            else
-            {
-                System.out.println("Welcome! You are successfully login");
-                System.out.println("Press any key to continue...");
-                input.nextLine();
-                resetPage();
-                customer(custEmail);
-            }
+
         }
     }
    
@@ -771,8 +762,9 @@ public class PrimeEvents
                 cardholderName = input.nextLine();
             }
             
+            System.out.println("Please enter your card number: ");
             String cardNumber = input.nextLine();
-            while(cardNumber.trim().length() != 16 || cardNumber.matches("[0-9]+"))
+            while(cardNumber.trim().length() != 16 || !cardNumber.matches("[0-9]+"))
             {
                 System.out.println("Card number must be 16 digital and with number only!");
                 System.out.println("Please enter your card number again: ");
@@ -803,7 +795,7 @@ public class PrimeEvents
             
             System.out.println("Please enter your card CVV: ");
             String cvv = input.nextLine();
-            while(cvv.trim().length() != 3 || cvv.matches("[0-9]+"))
+            while(cvv.trim().length() != 3 || !cvv.matches("[0-9]+"))
             {
                 System.out.println("Card number must be 3 digital only and with number only!");
                 System.out.println("Please enter your CVV again: ");
@@ -875,16 +867,27 @@ public class PrimeEvents
                 {
                     case 1: System.out.println("View Hall");
                             listHall();
-                            confrimQuotation(cusEmail);
+                            if(bookCont.checkHallList() == 1)
+                            {
+                                confrimQuotation(cusEmail);
+                            }
                             break;
                     case 2: System.out.println("Search Hall");
-                            bookCont.customerSearchHall();
-                            confrimQuotation(cusEmail);
+                            System.out.println("Please enter the hall name you want to search: ");
+                            searchName = input.nextLine();
+                            bookCont.customerSearchHall(searchName);
+                            if(bookCont.customerSearchHallValid(searchName) == 1)
+                            {
+                                confrimQuotation(cusEmail);
+                            }
                             break;
                             
                     case 3: System.out.println("View Quotation");
                             bookCont.quotationInfo(cusEmail);
-                            chooseQuotaToBook(cusEmail);
+                            if(bookCont.checkQuotationStatus(cusEmail) == 1)
+                            {
+                                chooseQuotaToBook(cusEmail);
+                            }
                             break;
                     case 4: System.out.println("Manage Booking");
                             //bookHistroy(cusEmail);
@@ -1102,7 +1105,7 @@ public class PrimeEvents
                 {
                     try
                     {
-                        System.out.println("Please enter the start date (format 'dd/MM/yyyy', must include '/'): ");
+                        System.out.println("Please enter the Start date (format 'dd/MM/yyyy', must include '/'): ");
                         String inputDate = input.nextLine();
                     
                         sDate = formatter.parse(inputDate);
@@ -1122,7 +1125,7 @@ public class PrimeEvents
                 {
                     try
                     {
-                        System.out.println("Please enter the date with format 'dd/MM/yyyy': ");
+                        System.out.println("Please enter the End date with format 'dd/MM/yyyy': ");
                         String inputDate = input.nextLine();
                     
                         eDate = formatter.parse(inputDate);
@@ -1223,6 +1226,7 @@ public class PrimeEvents
                 if(cateringOption.toLowerCase().equals("y"))
                 {
                     catering = true;
+                    System.out.println("Menu description from hall owner: " + bookCont.getHalls(hallNo).getMenuDesc());
                     System.out.println("Please Enter the menu that you want to service as: ");
                     menuOption = input.nextLine();
                     while(menuOption.isEmpty())
@@ -1236,7 +1240,7 @@ public class PrimeEvents
             boolean photography = false;
             if(bookCont.getHalls(hallNo).getPhotography() == true)
             {
-                System.out.println("Would you like catering services? Y/y for Yes, N/n for No");
+                System.out.println("Would you like photography services? Y/y for Yes, N/n for No");
                 String photographyOption = input.nextLine();
                 while(!photographyOption.toLowerCase().matches("[yn]"))
                 {
@@ -1479,6 +1483,7 @@ public class PrimeEvents
                     case 5: resetPage();
                             System.out.println("View Hall");
                             bookCont.displayOwnerHall(hallOwnerEmail);
+                            System.out.println("Enter any to continue:");
                             input.nextLine();
                             break;
                     case 6: 

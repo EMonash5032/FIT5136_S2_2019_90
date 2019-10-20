@@ -227,11 +227,11 @@ public class BookingController
         {
             System.out.println("  Service Type: " + catering + photo + "\r\n");
         }
-        if(avgDR(index) == 0)
+        if(avgDR(index) < 0)
         {
             System.out.println("  There is no Rate! No one book this hall yet! " );
         }
-        if(avgDR(index) != 0)
+        if(avgDR(index) > 0)
         {
             System.out.println("  Decoration Rating: " + avgDR(index));
             System.out.println("  Service Rating: " + avgSR(index));
@@ -320,7 +320,7 @@ public class BookingController
         for(index = 0; index < getAllBook().length; index++)
         {
             if(getBook(index).getCustomerEmail().equals(cusEmail) && 
-                getBook(index).getBookingStatus().equals("F"))
+                getBook(index).getBookingStatus().equals("F") && getBook(index).getReviewStatus() == false)
             {
                 return 1;
             }
@@ -351,34 +351,6 @@ public class BookingController
             System.out.println("Do You want to rate a service(y/n): ");
         if(display == false)
             System.out.println("You have not complete a book yet! Please finish a book then come to make review!");
-    }
-
-    public double getAverageRating(int hallNo)
-        {
-            Review[] hallReviews = new Review[9999];
-            int index = 0;
-            for(Review review : reviews)
-            {
-                if(review.getHallNo() == hallNo)
-                {
-                    hallReviews[index] = review;
-                    index++;
-                }
-            }
-            double sumRating = 0.0;
-            if(index == 0)
-            {
-                System.out.println("This hall hasn't been booked by now.");
-            }
-            else
-            {
-                for(int i = 0; i < index; i++)
-                {
-                    sumRating += hallReviews[i].getOverallRating();
-                }
-            }
-            double avgRating = sumRating/index;
-            return avgRating;
     }
     
     public int checkDate(Date startDate, Date endDate)
@@ -469,14 +441,25 @@ public class BookingController
         }
     }
     
-    public void customerSearchHall()
+    public int customerSearchHallValid(String searchName)
+    {
+        for(int index = 0; index < getAllHalls().length; index++)
+        {
+            if(getHalls(index).getHallName().equals(searchName))
+            {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    
+    public void customerSearchHall(String searchName)
     {
         Scanner input = new Scanner(System.in);
         int index = 0;
         boolean returnHall = false;
         int hallID = -1;
         
-        String searchName = input.nextLine();
         for(index = 0; index < getAllHalls().length; index++)
         {
             if(getHalls(index).getHallName().equals(searchName))
@@ -604,5 +587,17 @@ public class BookingController
             }
         }
     }
- 
+    
+    public int checkQuotationStatus(String cusEmail)
+    {
+        for(int index = 0; index < getAllQuota().length; index++)
+        {
+            if(getQuota(index).getCustomerEmail().equals(cusEmail) && getQuota(index).getOwnerConfirmation() == true)
+            {
+                return 1;
+            }
+        }
+        
+        return 0;
+    }
 }
