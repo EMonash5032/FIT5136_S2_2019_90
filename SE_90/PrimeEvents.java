@@ -1861,6 +1861,11 @@ public class PrimeEvents
         admin.readAdmin("admin.txt");
         owners.readOwner("owner.txt");
         customers.readCustomer("customer.txt");
+        bookCont.readReview("review.txt");
+        bookCont.readQuota("quotation.txt");
+        bookCont.readHall("hall.txt");
+        bookCont.readBook("booking.txt");
+        bookCont.readDisc("discount.txt");
     }
     
     public void saving()
@@ -1868,6 +1873,11 @@ public class PrimeEvents
         admin.writeAdmin("admin.txt");
         owners.writeOwner("owner.txt");
         customers.writeCustomer("customer.txt");
+        bookCont.writeReview("review.txt");
+        bookCont.writeQuota("quotation.txt");
+        bookCont.writeHall("hall.txt");
+        bookCont.writeBook("booking.txt");
+        bookCont.writeDisc("discount.txt");
     }
 
 }

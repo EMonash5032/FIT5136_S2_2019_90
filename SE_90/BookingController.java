@@ -1,4 +1,6 @@
+import java.io.*;
 import java.util.*;
+
 /**
  * Write a description of class BookingController here.
  *
@@ -12,6 +14,7 @@ public class BookingController
     private Hall[] halls;
     private Quotation[] quotas;
     private Review[] reviews;
+    private Discount[] discount;
     
     /**
      * Constructor for objects of class BookingController
@@ -23,6 +26,7 @@ public class BookingController
         int totalNumHalls = 99999;
         int totalQuot = 99999;        
         int totalReview = 99999;
+        int totalDiscount = 99999;
         
         halls = new Hall[totalNumHalls];
         for(int index = 0; index < totalNumHalls; index++)
@@ -48,6 +52,12 @@ public class BookingController
         for(int index = 0; index < totalReview; index++)
         {
             reviews[index] = new Review(-1, -1, "????", -0.01, -0.01, -0.01, "????");
+        }
+        
+        discount = new Discount[totalDiscount];
+        for(int index = 0; index < totalDiscount; index++)
+        {
+            discount[index] = new Discount("????","????",-0.01);
         }
     }
     
@@ -138,14 +148,6 @@ public class BookingController
     public Hall[] getAllHalls()
     {
         return halls;
-    }
-    
-    /**
-     * #23
-     */
-    public void setHalls(Hall[] halls)
-    {
-        this.halls = halls;
     }
     
     /**
@@ -599,5 +601,383 @@ public class BookingController
         }
         
         return 0;
+    }
+    
+    public Discount[] getAllDiscount()
+    {
+        return discount;
+    }
+    
+    public Discount getDiscount(int index)
+    {
+        return discount[index];
+    }
+    
+    public void setDiscount(int index, String discountName, String discountDesc, double discountRate)
+    {
+        discount[index] = new Discount(discountName,discountDesc,discountRate);
+    }
+    
+    public void writeDisc(String fileName)
+    {
+        String message = "";
+        String output = "";
+        try
+        {
+            PrintWriter outputFile = new PrintWriter(fileName);
+            for(int index = 0; index < getAllDiscount().length; index++)
+            {
+                if(getDiscount(index).getDiscountName().equals("????"))
+                    break;
+                message = getDiscount(index).getDiscountName()+ "," 
+                          + getDiscount(index).getDiscountDesc() + "," 
+                          + getDiscount(index).getDiscountRate() + ";";
+                output = output + message;
+            }
+            outputFile.println(output);
+            outputFile.close();
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    public void readDisc(String fileName)
+    {
+        try
+        {
+            FileReader inputFile = new FileReader(fileName);
+            Scanner parser = new Scanner(inputFile);
+            String[] array = parser.nextLine().split(";");
+            for(int index = 0; index < array.length; index++)
+            {
+                String[] elements = array[index].split(",");
+                String discountName = elements[0];
+                String discountDesc = elements[1];
+                double discountRate = Double.parseDouble(elements[2]);
+                
+                setDiscount(index, discountName, discountDesc, discountRate);
+            }
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }    
+    
+    public void writeReview(String fileName)
+    {
+        String message = "";
+        String output = "";
+        try
+        {
+            PrintWriter outputFile = new PrintWriter(fileName);
+            for(int index = 0; index < getAllReview().length; index++)
+            {
+                if(getReview(index).getCusEmail().equals("????"))
+                    break;
+                message = getReview(index).getBookingNo() + "," 
+                          + getReview(index).getHallNo() + "," 
+                          + getReview(index).getCusEmail() + ","
+                          + getReview(index).getDecorationRating() + "," 
+                          + getReview(index).getServiceRating() + ","
+                          + getReview(index).getOverallRating() + "," 
+                          + getReview(index).getReviewDesc() + ";";
+                output = output + message;
+            }
+            outputFile.println(output);
+            outputFile.close();
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    public void readReview(String fileName)
+    {
+        try
+        {
+            FileReader inputFile = new FileReader(fileName);
+            Scanner parser = new Scanner(inputFile);
+            String[] array = parser.nextLine().split(";");
+            for(int index = 0; index < array.length; index++)
+            {
+                String[] elements = array[index].split(",");
+                int bookingNo = Integer.parseInt(elements[0]);
+                int hallNo =  Integer.parseInt(elements[1]);
+                String cusEmail = elements[2];
+                double decorationRating = Double.parseDouble(elements[3]);
+                double serviceRating = Double.parseDouble(elements[4]);
+                double overallRating = Double.parseDouble(elements[5]);
+                String reviewDesc = elements[6];
+                
+                setReview(index, bookingNo, hallNo, cusEmail, decorationRating, serviceRating, overallRating, reviewDesc);
+            }
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    public void writeQuota(String fileName)
+    {
+        String message = "";
+        String output = "";
+        try
+        {
+            PrintWriter outputFile = new PrintWriter(fileName);
+            for(int index = 0; index < getAllQuota().length; index++)
+            {
+                if(getQuota(index).getCustomerEmail().equals("????"))
+                    break;
+                message = getQuota(index).getHallNo() + "," 
+                          + getQuota(index).getOwnerEmail() + "," 
+                          + getQuota(index).getCustomerEmail() + ","
+                          + getQuota(index).getStartDate() + "," 
+                          + getQuota(index).getEndDate() + "," 
+                          + getQuota(index).getBookEventType() + ","
+                          + getQuota(index).getNumberPeople() + "," 
+                          + getQuota(index).getCatering() + "," 
+                          + getQuota(index).getMenuOption() + ","
+                          + getQuota(index).getPhotography() + "," 
+                          + getQuota(index).getContactEmail() + "," 
+                          + getQuota(index).getContactPhone() + ","
+                          + getQuota(index).getAdditionalFee() + "," 
+                          + getQuota(index).getTotalPrice() + "," 
+                          + getQuota(index).getTotalPriceAfterDiscount() + "," 
+                          + getQuota(index).getOwnerConfirmation() + ","
+                          + getQuota(index).getCusIsConcession() + "," 
+                          + getQuota(index).getIsBook() + ";";
+                output = output + message;
+            }
+            outputFile.println(output);
+            outputFile.close();
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    public void readQuota(String fileName)
+    {
+        try
+        {
+            FileReader inputFile = new FileReader(fileName);
+            Scanner parser = new Scanner(inputFile);
+            String[] array = parser.nextLine().split(";");
+            for(int index = 0; index < array.length; index++)
+            {
+                String[] elements = array[index].split(",");
+                int hallNo = Integer.parseInt(elements[0]);
+                String ownerEmail = elements[1];
+                String customerEmail = elements[2];
+                String startDate = elements[3];
+                String endDate = elements[4];
+                String bookEventType = elements[5];
+                int numberPeople = Integer.parseInt(elements[6]); 
+                boolean catering = Boolean.parseBoolean(elements[7]);  
+                String menuOption = elements[8];
+                boolean photography = Boolean.parseBoolean(elements[9]);   
+                String contactEmail = elements[10];
+                String contactPhone = elements[11]; 
+                double additionalFee = Double.parseDouble(elements[12]);
+                double totalPrice = Double.parseDouble(elements[13]); //display
+                double totalPriceAfterDiscount = Double.parseDouble(elements[14]);
+                boolean ownerConfirmation = Boolean.parseBoolean(elements[15]);
+                boolean cusIsConcession = Boolean.parseBoolean(elements[16]);
+                boolean isBook = Boolean.parseBoolean(elements[17]);
+                
+                setQuotation(index, hallNo, ownerEmail, customerEmail, startDate, endDate, bookEventType, numberPeople, catering, 
+                             menuOption, photography, contactEmail, contactPhone, additionalFee, totalPrice, totalPriceAfterDiscount,
+                             ownerConfirmation,cusIsConcession,isBook);
+            }
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    public void writeHall(String fileName)
+    {
+        String message = "";
+        String output = "";
+        try
+        {
+            PrintWriter outputFile = new PrintWriter(fileName);
+            for(int index = 0; index < getAllHalls().length; index++)
+            {
+                if(getHalls(index).getHallName().equals("????"))
+                    break;
+                message = getHalls(index).getHallOwnerEmail() + "," 
+                          + getHalls(index).getHallName() + "," 
+                          + getHalls(index).getHallAddress() + ","
+                          + getHalls(index).getHallCapacity() + ","
+                          + getHalls(index).getHallPrice() + "," 
+                          + getHalls(index).getAnniversary() + "," 
+                          + getHalls(index).getBirthday() + "," 
+                          + getHalls(index).getWeddingCeremony() + "," 
+                          + getHalls(index).getWeddingReception() + "," 
+                          + getHalls(index).getCatering() + "," 
+                          + getHalls(index).getMenuDesc() + "," 
+                          + getHalls(index).getPhotography() + ";" ;
+                output = output + message;
+            }
+            outputFile.println(output);
+            outputFile.close();
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    public void readHall(String fileName)
+    {
+        try
+        {
+            FileReader inputFile = new FileReader(fileName);
+            Scanner parser = new Scanner(inputFile);
+            String[] array = parser.nextLine().split(";");
+            for(int index = 0; index < array.length; index++)
+            {
+                String[] elements = array[index].split(",");
+                String hallOwnerEmail = elements[0];
+                String hallAddress = elements[1];
+                String hallName = elements[2];
+                int hallCapacity = Integer.parseInt(elements[3]);
+                double hallPrice = Double.parseDouble(elements[4]);
+                boolean anniversary = Boolean.parseBoolean (elements[5]);
+                boolean birthday = Boolean.parseBoolean(elements[6]);
+                boolean weddingCeremony = Boolean.parseBoolean(elements[7]);
+                boolean weddingReception = Boolean.parseBoolean(elements[8]);
+                boolean catering = Boolean.parseBoolean(elements[9]);
+                String menuDesc = elements[10];
+                boolean photography = Boolean.parseBoolean(elements[11]);
+                
+                setHall(index, hallOwnerEmail, hallAddress, hallName, hallCapacity, hallPrice, anniversary,
+                        birthday, weddingCeremony, weddingReception, catering, menuDesc, photography);
+            }
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    public void writeBook(String fileName)
+    {
+        String message = "";
+        String output = "";
+        try
+        {
+            PrintWriter outputFile = new PrintWriter(fileName);
+            for(int index = 0; index < getAllBook().length; index++)
+            {
+                if(getBook(index).getCustomerEmail().equals("????"))
+                    break;
+                message = getBook(index).getReviewStatus() + "," 
+                          + getBook(index).getBookingStatus() + "," 
+                          + getBook(index).getHallNo() + ","
+                          + getBook(index).getCustomerNo() + ","
+                          + getBook(index).getOwnerEmail() + "," 
+                          + getBook(index).getCustomerEmail() + "," 
+                          + getBook(index).getQuotationIndex() + "," 
+                          + getBook(index).getStartDate() + "," 
+                          + getBook(index).getEndDate() + "," 
+                          + getBook(index).getCardholderName() + "," 
+                          + getBook(index).getCardNumber() + "," 
+                          + getBook(index).getExpiryDate() + ","
+                          + getBook(index).getCVV() + ","
+                          + getBook(index).getDeposit() + ";" ;
+                output = output + message;
+            }
+            outputFile.println(output);
+            outputFile.close();
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    public void readBook(String fileName)
+    {
+        try
+        {
+            FileReader inputFile = new FileReader(fileName);
+            Scanner parser = new Scanner(inputFile);
+            String[] array = parser.nextLine().split(";");
+            for(int index = 0; index < array.length; index++)
+            {
+                String[] elements = array[index].split(",");
+                
+                boolean reviewStatus = Boolean.parseBoolean(elements[0]);
+                String bookingStatus = elements[1];
+                int hallNo = Integer.parseInt(elements[2]);
+                int customerNo = Integer.parseInt(elements[3]);
+                String ownerEmail = elements[4];
+                String customerEmail = elements[5];
+                int quotationIndex = Integer.parseInt(elements[6]);
+                String startDate = elements[7];
+                String endDate = elements[8];
+                String cardholderName = elements[9];
+                String cardNumber = elements[10];
+                String expiryDate = elements[11];
+                String CVV = elements[12];
+                double deposit = Double.parseDouble(elements[13]);
+                
+                setBook(index, reviewStatus, bookingStatus, hallNo, customerNo, ownerEmail, customerEmail,
+                        quotationIndex, startDate, endDate, cardholderName, cardNumber, expiryDate, CVV, deposit);
+            }
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
     }
 }
