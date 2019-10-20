@@ -33,7 +33,7 @@ public class BookingController
         book = new Booking[bookingID];
         for(int index = 0; index < bookingID; index++)
         {
-            book[index] = new Booking(false,"????",-1,-1,"????","????",-1,"????","????","????",-1,"????",-1,-0.01);
+            book[index] = new Booking(false,"????",-1,-1,"????","????",-1,"????","????","????", "????","????","????",-0.01);
         }
         
 
@@ -109,7 +109,7 @@ public class BookingController
      */
     public void setBook(int index, boolean reviewStatus, String bookingStatus, int hallNo, int customerNo, String ownerEmail, 
                          String customerEmail, int quotationIndex, String startDate, String endDate, String cardholderName, 
-                         int cardNumber, String expiryDate, int CVV, double deposit)
+                         String cardNumber, String expiryDate, String CVV, double deposit)
     {
         book[index] = new Booking(reviewStatus, bookingStatus, hallNo, customerNo, ownerEmail, customerEmail, quotationIndex, startDate, endDate,
                                   cardholderName, cardNumber, expiryDate, CVV, deposit);

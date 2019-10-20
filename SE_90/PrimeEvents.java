@@ -53,7 +53,7 @@ public class PrimeEvents
     /**
      * #2
      */
-    public int checkOwner(String email)
+    private int checkOwner(String email)
     {
 
         for(int index = 0 ; index < owners.getAllOwner().length; index++)
@@ -82,7 +82,7 @@ public class PrimeEvents
     /**
      * #4
      */
-    public int checkCust(String email)
+    private int checkCust(String email)
     {
 
         for(int index = 0 ; index < customers.getAllCus().length; index++)
@@ -150,9 +150,6 @@ public class PrimeEvents
         if(check == 0)
         {
             System.out.println("There is no hall until Owner has added a hall!");
-            System.out.println("Press any key to continue");
-            input.nextLine();
-            resetPage();
         }
         else
         {
@@ -164,6 +161,10 @@ public class PrimeEvents
                 }
             }
         }
+        
+        System.out.println("Press any key to continue");
+        input.nextLine();
+        resetPage();
     }
     
     /**
@@ -748,7 +749,7 @@ public class PrimeEvents
         resetPage();
     }
     
-    public void confrimQuotation(String cusEmail)
+    private void confrimQuotation(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         System.out.println("Would you want to make Quotation?(y/n) If you want please record the hall No to further steps");
@@ -770,10 +771,167 @@ public class PrimeEvents
             resetPage();
         }
     }
+    
+    private void chooseQuotaToBook(String cusEmail)
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Do You want to Chooice your quotation to further booking?(y/n)");
+        String choice = input.nextLine();
+        boolean validation;
+        int quotaChoice = -1;
+        while(!choice.toLowerCase().matches("[yn]"))
+        {
+            System.out.println("Error! you can only type in Y/y to confirm or N/n to go back");
+            choice = input.nextLine();
+        }
+        if(choice.toLowerCase().equals("y"))
+        {
+            resetPage();
+            
+            do
+            {
+                validation = true;//set loop into while true
+                try
+                {
+                    System.out.println("Please enter your quotation number");
+                    quotaChoice = Integer.parseInt(input.nextLine());//transfer the input value from String into int
+                    while(!bookCont.getQuota(quotaChoice).getCustomerEmail().equals(cusEmail) || 
+                            bookCont.getQuota(quotaChoice).getIsBook() == true)
+                    {
+                        if(!bookCont.getQuota(quotaChoice).getCustomerEmail().equals(cusEmail))
+                        {
+                            System.out.println("There is no option of " + quotaChoice  + "! Please enter again:");
+                            quotaChoice = Integer.parseInt(input.nextLine());
+                        }
+                        if(bookCont.getQuota(quotaChoice).getIsBook() == true)
+                        {
+                            System.out.println("The Quotation of " + quotaChoice  + " is already booked, you cannot book it again!!");
+                            System.out.println("Please enter again: ");
+                            quotaChoice = Integer.parseInt(input.nextLine());
+                        }
+                    }
+                    validation = false;
+                }
+                catch(Exception e)//if input not a string, then it cant transfer from string to int
+                {
+                    System.out.println("You can only enter Number here!");
+                }
+            }while(validation == true);
+            
+            double totalPay = 0;
+            if(bookCont.getQuota(quotaChoice).getCusIsConcession() == true)
+            {
+                totalPay = bookCont.getQuota(quotaChoice).getTotalPriceAfterDiscount();
+            }
+            else
+            {
+                totalPay = bookCont.getQuota(quotaChoice).getTotalPrice();
+            }
+            System.out.println("Your total payment is: $" + totalPay);
+            double deposit = totalPay / 2 ; 
+            System.out.println("You need pay deposit: $" + deposit);
+            
+            System.out.println("Please enter your payment information: ");
+            System.out.println("Please enter your card holder name: ");
+            
+            String cardholderName = input.nextLine();
+            while(cardholderName.trim().length() < 3 || cardholderName.trim().length() > 25)
+            {
+                System.out.println("Must be between 3 and 25 character long!");
+                System.out.println("Please enter your card holder name again: ");
+                cardholderName = input.nextLine();
+            }
+            
+            String cardNumber = input.nextLine();
+            while(cardNumber.trim().length() != 16 || cardNumber.matches("[0-9]+"))
+            {
+                System.out.println("Card number must be 16 digital and with number only!");
+                System.out.println("Please enter your card number again: ");
+                cardNumber = input.nextLine();
+            }
+            
+            String expiredDate = "????";
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/yy");
+            Date eDate = new Date();
+            validation = true;
+            do
+            {
+                try
+                {
+                    System.out.println("Please enter your card expired day:(format 'MM/yy', must include '/') ");
+                    String inputDate = input.nextLine();
+                    eDate = formatter.parse(inputDate);
+                    expiredDate = formatter.format(eDate);
+                    System.out.println("Your card expired date is: " + expiredDate);
+                    validation = false;
+                }
+                catch(ParseException e)
+                {
+                    System.out.print("Invalid date format! You can only Enter format within 'MM/yy' by number");
+                }
+            }while(validation == true);
+            
+            System.out.println("Please enter your card CVV: ");
+            String cvv = input.nextLine();
+            while(cvv.trim().length() != 3 || cvv.matches("[0-9]+"))
+            {
+                System.out.println("Card number must be 3 digital only and with number only!");
+                System.out.println("Please enter your CVV again: ");
+                cvv = input.nextLine();
+            }
+            
+            System.out.println("Do you want to confirm your booking (y/n), y/Y for confirm, n/N for not confirm");
+            String confirm = input.nextLine();
+            while(!confirm.toLowerCase().matches("[yn]"))
+            {
+                System.out.println("Error! you can only type in Y/y to confirm or N/n to not book");
+                confirm = input.nextLine();
+            }
+            if(confirm.toLowerCase().equals("y"))
+            {
+                boolean reviewStatus = false;
+                //There are three difference type of  booking Status: O "on going" means during the time the 
+                //hall still use by customer; F "Finish book" means finished book after end date and success 
+                //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
+                //the customer book; N "Not Start" means the booking process not start yet.
+                String bookingStatus = "N";
+                int hallNo = bookCont.getQuota(quotaChoice).getHallNo();
+                int customerNo = customers.checkCusIndex(cusEmail);
+                String ownerEmail = bookCont.getQuota(quotaChoice).getOwnerEmail();
+                String startDate = bookCont.getQuota(quotaChoice).getStartDate();
+                String endDate = bookCont.getQuota(quotaChoice).getEndDate();
+                int bookIndex = bookCont.bookID();
+                bookCont.setBook(bookIndex, reviewStatus, bookingStatus, hallNo, customerNo, ownerEmail, cusEmail, quotaChoice, 
+                                 startDate, endDate, cardholderName, cardNumber, expiredDate, cvv, deposit);
+                bookCont.getQuota(quotaChoice).setIsBook(true);
+                
+                System.out.println("You have successful book! Enjoy the hall! You need pay the rest fee on date "+ 
+                                    startDate + " with amount $" + deposit);
+                System.out.println("Enter any to continue!");
+                input.nextLine();
+                resetPage();
+            }
+            if(confirm.toLowerCase().equals("n"))
+            {
+                System.out.println("Enter any to continue!");
+                input.nextLine();
+                resetPage();
+            }
+        }
+        
+        if(choice.toLowerCase().equals("n"))
+        {
+            System.out.println("Enter any to continue!");
+            input.nextLine();
+            resetPage();
+        }
+    }
+    
     /**
      * #21
      */
-    public void customer(String cusEmail)
+    private void customer(String cusEmail)
     {
         Scanner input = new Scanner(System.in);
         while(customerOption != 8)
@@ -797,12 +955,12 @@ public class PrimeEvents
                             
                     case 3: System.out.println("View Quotation");
                             bookCont.quotationInfo(cusEmail);
+                            chooseQuotaToBook(cusEmail);
                             break;
                     case 4: System.out.println("Manage Booking");
                             //bookHistroy(cusEmail);
                             break;
                     case 5: System.out.println("Book Hall");
-                            
                             break;
                     case 6: System.out.println("Rate service");
                             rateService(cusEmail);
@@ -816,7 +974,7 @@ public class PrimeEvents
         }
     }    
     
-    public void rateService(String cusEmail)
+    private void rateService(String cusEmail)
     {
         if(bookCont.displayCompletedBooking(cusEmail) == null)
         {
@@ -842,7 +1000,7 @@ public class PrimeEvents
         }
     }
     
-    public void reviewSelectedBooking(String cusEmail, Booking[] completedBookings)
+    private void reviewSelectedBooking(String cusEmail, Booking[] completedBookings)
         {
             int size = 0;
             for(Booking booking : completedBookings)
@@ -965,7 +1123,7 @@ public class PrimeEvents
                 }
                 catch(Exception e)//if input not a string, then it cant transfer from string to int
                 {
-                System.out.println("You can only enter Number here!");
+                    System.out.println("You can only enter Number here!");
                 }
             }while(validation == true);
     
@@ -1185,7 +1343,7 @@ public class PrimeEvents
         }
     }
     
-    public void replyQuota(String ownerEmail)
+    private void replyQuota(String ownerEmail)
     {
         Scanner input = new Scanner(System.in);
         boolean validation;
@@ -1375,7 +1533,7 @@ public class PrimeEvents
     /**
      * #30
      */
-    public void ownerSearchHall(String hallOwnerEmail)
+    private void ownerSearchHall(String hallOwnerEmail)
     {
         Scanner input = new Scanner(System.in);
         int index = 0;
@@ -1424,7 +1582,7 @@ public class PrimeEvents
     /**
      * #33 type "e" means edit  type "c" means create
      */
-    public void createHall(String type, int index, String hallOwnerEmail)
+    private void createHall(String type, int index, String hallOwnerEmail)
     {
         Scanner input = new Scanner(System.in);
         boolean validation = true;
@@ -1694,11 +1852,6 @@ public class PrimeEvents
         return option;
     }
     
-    private void viewQuotation()
-    {
-        
-    }
-    
     /**
      * #37
      */
@@ -1721,6 +1874,7 @@ public class PrimeEvents
     }
     
     /**
+     * 
      * #39
      */
     public void test()

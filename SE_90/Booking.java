@@ -18,9 +18,9 @@ public class Booking
     private String startDate;
     private String endDate;
     private String cardholderName;
-    private int cardNumber;
+    private String cardNumber;
     private String expiryDate;
-    private int CVV;
+    private String CVV;
     private double deposit;
 
     /**
@@ -39,9 +39,9 @@ public class Booking
         startDate = "????";
         endDate = "????";
         cardholderName = "????";
-        cardNumber = -1;
+        cardNumber = "????";
         expiryDate = "????";
-        CVV = -1;
+        CVV = "????";
         deposit = -0.01;
     } 
 
@@ -50,7 +50,7 @@ public class Booking
      */
     public Booking(boolean reviewStatus, String bookingStatus, int hallNo, int customerNo, String ownerEmail, 
                    String customerEmail, int quotationIndex, String startDate, String endDate, String cardholderName, 
-                   int cardNumber, String expiryDate, int CVV, double deposit) 
+                   String cardNumber, String expiryDate, String CVV, double deposit) 
     {
         this.reviewStatus = reviewStatus;
         this.bookingStatus = bookingStatus;
@@ -168,11 +168,11 @@ public class Booking
         this.cardholderName = cardholderName;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -184,11 +184,11 @@ public class Booking
         this.expiryDate = expiryDate;
     }
 
-    public int getCVV() {
+    public String getCVV() {
         return CVV;
     }
 
-    public void setCVV(int CVV) {
+    public void setCVV(String CVV) {
         this.CVV = CVV;
     }
 
