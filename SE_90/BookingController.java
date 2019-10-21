@@ -614,7 +614,7 @@ public class BookingController
         boolean returnHall = false;
         for(index = 0; index < getAllHalls().length; index++)
         {
-            if(getHalls(index).getHallName().equals(searchName))
+            if(getHalls(index).getHallName().contains(searchName))
             {
                 displayHalls(index);
                 returnHall = true;
@@ -622,7 +622,7 @@ public class BookingController
         }
         
         if(returnHall == false)
-            System.out.println("There is no hall named '" + searchName +"'!");
+            System.out.println("There is no hall name contain '" + searchName +"'!");
     }
 
     /**
@@ -636,7 +636,7 @@ public class BookingController
     {
         for(int index = 0; index < getAllHalls().length; index++)
         {
-            if(getHalls(index).getHallName().equals(searchName))
+            if(getHalls(index).getHallName().contains(searchName))
             {
                 return 1;
             }
@@ -658,7 +658,7 @@ public class BookingController
 
         for(index = 0; index < getAllHalls().length; index++)
         {
-            if(getHalls(index).getHallName().equals(searchName))
+            if(getHalls(index).getHallName().contains(searchName))
             {
                 returnHall = true;
                 displayHalls(index);
@@ -667,7 +667,7 @@ public class BookingController
 
         if(returnHall == false)
         {
-            System.out.println("There is no hall named '" + searchName +"'!");
+            System.out.println("There is no hall name contain '" + searchName +"'!");
         }
     }
 
@@ -779,7 +779,13 @@ public class BookingController
 
                     if(getQuota(index).getCusIsConcession() == true)
                     {
-                        double discountRate = 1 - 0.05;
+                        int discountIndex = 0; 
+                        for(int i = 0 ; i < getAllDiscount().length; i++)
+                        {
+                            if(getDiscount(index).getDiscountName().toLowerCase().equals("concession"))
+                                discountIndex = index;
+                        }
+                        double discountRate = 1 - getDiscount(discountIndex).getDiscountRate();
                         double afterTotal = total * discountRate;
                         System.out.println("  Total after Discout: $" + afterTotal);
                         getQuota(index).setTotalPriceAfterDiscount(afterTotal);
@@ -1322,5 +1328,42 @@ public class BookingController
             index++;
         }
         return -1;
+    }
+    
+        
+    /**
+     * Method for owner searching a hall
+     * 
+     * @method Owner email must be specified
+     */
+    public void ownerSearchHall(String hallOwnerEmail)
+    {
+        Scanner input = new Scanner(System.in);
+        int index = 0;
+        boolean returnHall = false;
+        int hallID = -1;
+        
+        String searchName = input.nextLine();
+        for(index = 0; index < getAllHalls().length; index++)
+        {
+            if(getHalls(index).getHallOwnerEmail().equals(hallOwnerEmail))
+            {
+                if(getHalls(index).getHallName().contains(searchName))
+                {
+                    returnHall = true;
+                    hallID = index;
+                    break;
+                }
+            }
+        }
+        
+        if(returnHall == true)
+        {
+            displayHalls(hallID);
+        }
+        else
+        {
+            System.out.println("There is no hall name contain '" + searchName +"'!");
+        }
     }
 }

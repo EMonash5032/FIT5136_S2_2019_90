@@ -70,6 +70,24 @@ public class AdminController
         admin[index] = new Administrator(account, password);
     }
     
+     /**
+     * Method to check Admin email validity
+     * 
+     * @param customer email is required to be specified
+     * @return if found, returns index number which stores the email
+     * @return if not found, then return -1
+     */
+    public int checkAdmin(String email)
+    {
+
+        for(int index = 0 ; index < getAllAdmin().length; index++)
+        {
+            if(getAdmin(index).getAdminEmail().toLowerCase().equals(email))
+                return index;
+        }
+        return -1;
+    }
+    
     /**
      * Method to write administrator details to file
      * 

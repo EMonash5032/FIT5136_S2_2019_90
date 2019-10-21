@@ -154,9 +154,9 @@ public class PrimeEvents
      */    
     private void customerMenu()
     {
-        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-        System.out.println("+ Welcome to Prime Events +");
-        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
+        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+        System.out.println("+ Welcome to Prime Events  -- Customer Page +");
+        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
         System.out.println("Press 1 to View Hall");
         System.out.println("Press 2 to Search Hall");
@@ -174,17 +174,15 @@ public class PrimeEvents
      */
     private void administratorMenu()
     {
-        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-        System.out.println("+ Welcome to Prime Events +");
-        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
+        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+        System.out.println("+ Welcome to Prime Events -- Admin Page +");
+        System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
-        System.out.println("Press 1 to View hall");
-        System.out.println("Press 2 to Login");
-        System.out.println("Press 3 to Register");
-        System.out.println("Press 4 to ");
-        System.out.println("Press 5 ");
-        System.out.println("Press 6 ");
-        System.out.println("Press 7 Exit\r\n");
+        System.out.println("Press 1 to Create Discount");
+        System.out.println("Press 2 to Check Account");
+        System.out.println("Press 3 to View Review");
+        System.out.println("Press 4 to View Booking History");
+        System.out.println("Press 5 to Logout and back to home page\r\n");
         System.out.println("Please Enter Your Choice: ");
     }
     
@@ -200,7 +198,7 @@ public class PrimeEvents
             searchMenu();
             
             searchOption = inputNumber();
-
+            resetPage();
             String searchName = "?";
                 switch(searchOption)
                 {
@@ -234,6 +232,7 @@ public class PrimeEvents
             viewMenu();
             
             viewOption = inputNumber();
+            resetPage();
                 switch(viewOption)
                 {
                     case 1: listHall();
@@ -255,6 +254,7 @@ public class PrimeEvents
         Scanner input = new Scanner(System.in);
         while(loginOption != 4)
         {
+            resetPage();
             loginMenu();
             
             loginOption = inputNumber();
@@ -283,7 +283,7 @@ public class PrimeEvents
         String ownerEmail = "????";
         
         System.out.println("Please enter Owner Email Address: ");
-        ownerEmail = input.nextLine();
+        ownerEmail = input.nextLine().toLowerCase();
         int ownerId = owners.checkOwner(ownerEmail);
         if(ownerId == -1)
         {
@@ -303,7 +303,7 @@ public class PrimeEvents
                 
                 for(index = 0; index < owners.getAllOwner().length; index++)
                 {
-                    if(owners.getOwner(index).getOwnerEmail().equals(ownerEmail) && owners.getOwner(index).getOwnerPassword().equals(password) && !owners.getOwner(index).getOwnerEmail().equals("????"))
+                    if(owners.getOwner(index).getOwnerEmail().toLowerCase().equals(ownerEmail) && owners.getOwner(index).getOwnerPassword().equals(password) && !owners.getOwner(index).getOwnerEmail().equals("????"))
                     {
                         ownerEmail = owners.getOwner(index).getOwnerEmail();
                         status = false;
@@ -314,7 +314,7 @@ public class PrimeEvents
                         owner(ownerEmail);
                         break;
                     }
-                    if(owners.getOwner(index).getOwnerEmail().equals(ownerEmail) && !owners.getOwner(index).getOwnerPassword().equals(password))
+                    if(owners.getOwner(index).getOwnerEmail().toLowerCase().equals(ownerEmail) && !owners.getOwner(index).getOwnerPassword().equals(password))
                     {
                         System.out.println("Password is incorrect for specified email! Please enter your password again(if your forgotten, choose F/f): ");
                         password = input.nextLine();
@@ -526,7 +526,7 @@ public class PrimeEvents
                 }
                 
                 int custId = customers.custIndex();
-                customers.setCustomer(custId, firstName, lastName, email, address, password, phone, question1, answer1, 
+                customers.setCustomer(custId, firstName, lastName, email.toLowerCase(), address, password, phone, question1, answer1, 
                                       question2, answer2, isConcession);
             }
             
@@ -557,7 +557,7 @@ public class PrimeEvents
                 }
                 
                 int ownerId = owners.ownerIndex();
-                owners.setOwner(ownerId, firstName, lastName, email, address, password, phone, question1, answer1, question2, answer2);
+                owners.setOwner(ownerId, firstName, lastName, email.toLowerCase(), address, password, phone, question1, answer1, question2, answer2);
             }
             resetPage();
             System.out.println("Congratulations! "+ firstName + " " + lastName + "!");
@@ -577,7 +577,7 @@ public class PrimeEvents
         String custEmail = "????";
         
         System.out.println("Please enter a Customer email: ");
-        String userName = input.nextLine();
+        String userName = input.nextLine().toLowerCase();
         int custID = customers.checkCust(userName);
         if(custID == -1)
         {
@@ -597,7 +597,7 @@ public class PrimeEvents
                 
                 for(index = 0; index < customers.getAllCus().length; index++)
                 {
-                    if(customers.getCustomer(index).getCusEmail().equals(userName) && 
+                    if(customers.getCustomer(index).getCusEmail().toLowerCase().equals(userName) && 
                         customers.getCustomer(index).getCusPassword().equals(password) && 
                         !customers.getCustomer(index).getCusEmail().equals("????"))
                     {
@@ -610,7 +610,7 @@ public class PrimeEvents
                         customer(custEmail);
                         break;
                     }
-                    if(customers.getCustomer(index).getCusEmail().equals(userName) && !customers.getCustomer(index).getCusPassword().equals(password))
+                    if(customers.getCustomer(index).getCusEmail().toLowerCase().equals(userName) && !customers.getCustomer(index).getCusPassword().equals(password))
                     {
                         System.out.println("You entered a wrong password! Please Enter your password again(if your forgot just type F/f): ");
                         password = input.nextLine();
@@ -639,18 +639,19 @@ public class PrimeEvents
     {
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter admin email account: ");
-        String userName = input.nextLine();
+        String userName = input.nextLine().toLowerCase();
+        int adminID = admin.checkAdmin(userName);
+        while(adminID == -1)
+        {
+            System.out.println("There is no Account: " + userName + "! Please Enter a valid admin account: ");
+            userName = input.nextLine().toLowerCase();
+            adminID = admin.checkAdmin(userName);
+        }
+        
         System.out.println("Please enter admin password: ");
         String password = input.nextLine();
-        while(!admin.getAdmin(0).getAdminEmail().equals(userName) || !admin.getAdmin(0).getAdminPassword().equals(password) )
+        while(!admin.getAdmin(adminID).getAdminEmail().toLowerCase().equals(userName) || !admin.getAdmin(adminID).getAdminPassword().equals(password) )
         {
-            if(!admin.getAdmin(0).getAdminEmail().equals(userName))
-            {
-                System.out.println("There is no account as '" + userName + "' Please try another account");
-                userName = input.nextLine();
-                System.out.println("Please enter password: ");
-                password = input.nextLine();
-            }
             if(!admin.getAdmin(0).getAdminPassword().equals(password))
             {
                 System.out.println("Your password is wrong! Please re-enter your password:");
@@ -662,6 +663,7 @@ public class PrimeEvents
         System.out.println("Press any key to continue...");
         input.nextLine();
         resetPage();
+        admin();
     }
     
     /**
@@ -862,6 +864,7 @@ public class PrimeEvents
         Scanner input = new Scanner(System.in);
         while(customerOption != 8)
         {
+            resetPage();
             resetOption();
             customerMenu();
             customerOption = inputNumber();
@@ -1420,6 +1423,7 @@ public class PrimeEvents
         Scanner input = new Scanner(System.in);
         while(ownerOption != 7)
         {
+            resetPage();
             resetOption();
             ownerMenu();
             
@@ -1455,7 +1459,7 @@ public class PrimeEvents
     private void manageHallMenu()
     {
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-        System.out.println("+ Welcome to Prime Events -- Owner Page +");
+        System.out.println("+ Welcome to Prime Events -- Manage Hall+");
         System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\r\n");
         System.out.println("Please Select from the following options: ");
         System.out.println("Press 1 to Create Hall");
@@ -1477,6 +1481,7 @@ public class PrimeEvents
         Scanner input = new Scanner(System.in);
         while(manageHallOption != 6)
         {
+            resetPage();
             manageHallMenu();
             manageHallOption = inputNumber();
             resetPage();
@@ -1490,7 +1495,7 @@ public class PrimeEvents
                             break;
                     case 2: System.out.println("Search Hall");
                             System.out.println("Please Enter the hall name you want to search");
-                            ownerSearchHall(hallOwnerEmail);
+                            bookCont.ownerSearchHall(hallOwnerEmail);
                             //no search validation here such as if there is no match
                             break;
                     case 3: System.out.println("Update Hall");
@@ -1512,43 +1517,7 @@ public class PrimeEvents
             
         }
     }
-    
-    /**
-     * Method for owner searching a hall
-     * 
-     * @method Owner email must be specified
-     */
-    private void ownerSearchHall(String hallOwnerEmail)
-    {
-        Scanner input = new Scanner(System.in);
-        int index = 0;
-        boolean returnHall = false;
-        int hallID = -1;
-        
-        String searchName = input.nextLine();
-        for(index = 0; index < bookCont.getAllHalls().length; index++)
-        {
-            if(bookCont.getHalls(index).getHallOwnerEmail().equals(hallOwnerEmail))
-            {
-                if(bookCont.getHalls(index).getHallName().equals(searchName))
-                {
-                    returnHall = true;
-                    hallID = index;
-                    break;
-                }
-            }
-        }
-        
-        if(returnHall == true)
-        {
-            bookCont.displayHalls(hallID);
-        }
-        else
-        {
-            System.out.println("There is no hall named '" + searchName +"'!");
-        }
-    }
-    
+
     /**
      * Method for hall creation by owner
      * type "e" means edit  type "c" means create
@@ -1779,6 +1748,7 @@ public class PrimeEvents
         loading();
         while(mainOption != 4)
         {
+            resetPage();
             resetOption();
             
             mainMenu();
@@ -1846,18 +1816,11 @@ public class PrimeEvents
         customerOption = 0;
     }
     
-    /**
-     * Test method
-     */
-    public void test()
-    {
-         
-    }
     
     /**
      * Loading and reading text files
      */
-    public void loading()
+    private void loading()
     {
         admin.readAdmin("admin.txt");
         owners.readOwner("owner.txt");
@@ -1872,7 +1835,7 @@ public class PrimeEvents
     /**
      * Writing to text files
      */
-    public void saving()
+    private void saving()
     {
         admin.writeAdmin("admin.txt");
         owners.writeOwner("owner.txt");
@@ -1884,7 +1847,7 @@ public class PrimeEvents
         bookCont.writeDisc("discount.txt");
     }
     
-    public void ownerEditHall(String ownerEmail)
+    private void ownerEditHall(String ownerEmail)
     {
         Scanner input = new Scanner(System.in);
         bookCont.displayOwnerHall(ownerEmail);
@@ -2168,5 +2131,32 @@ public class PrimeEvents
                 }                
             }
         }
+    }
+    
+    private void admin()
+    {
+        int adminOption = 0;
+        while(adminOption != 5)
+        {            
+            administratorMenu();
+            adminOption = inputNumber();
+
+            resetPage();
+                switch(adminOption)
+                {
+                    case 1: System.out.println("Create Discount");
+                            break;
+                    case 2: System.out.println("Check Account");
+                            break;
+                    case 3: System.out.println("View Review");
+                            break;
+                    case 4: System.out.println("View Booking History");
+                            break;
+                    case 5: loginOption = 4;
+                            break;
+                            default: System.out.println("Please select an option between 1 and 5!");
+                }
+        }
+        
     }
 }
