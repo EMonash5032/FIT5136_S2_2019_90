@@ -511,7 +511,7 @@ public class BookingController
      *@param endDate which date is booking supposed to end
      *@return 0 if booking is for 1 day
      *@return 1 if booking is for multiple days
-     *@return -1 if booking is not possible
+     *@return -1 if booking is End Date before Start Date
      */
     public int checkDate(Date startDate, Date endDate)
     {
@@ -604,7 +604,7 @@ public class BookingController
     }
 
     /**
-     *searching for specific hall methid
+     *searching for specific hall method
      *
      *@param searchName name must be specified by user when searching
      */
@@ -1365,5 +1365,65 @@ public class BookingController
         {
             System.out.println("There is no hall name contain '" + searchName +"'!");
         }
+    }
+    
+    /**
+     *searching for specific hall method by Event Types
+     *
+     *@param searchName name must be specified by user when searching
+     */
+    public void searchEventType(String type)
+    {
+        int index = 0;
+        boolean returnHall = false;
+        if(type.equals("a"))
+        {
+            for(index = 0; index < getAllHalls().length; index++)
+            {
+                if(getHalls(index).getAnniversary() == true)
+                {
+                    displayHalls(index);
+                    returnHall = true;
+                }
+            }
+        }
+        
+        if(type.equals("b"))
+        {
+            for(index = 0; index < getAllHalls().length; index++)
+            {
+                if(getHalls(index).getBirthday() == true)
+                {
+                    displayHalls(index);
+                    returnHall = true;
+                }
+            }
+        }
+        
+        if(type.equals("c"))
+        {
+            for(index = 0; index < getAllHalls().length; index++)
+            {
+                if(getHalls(index).getWeddingCeremony() == true)
+                {
+                    displayHalls(index);
+                    returnHall = true;
+                }
+            }
+        }
+        if(type.equals("r"))
+        {
+            for(index = 0; index < getAllHalls().length; index++)
+            {
+                if(getHalls(index).getWeddingReception() == true)
+                {
+                    displayHalls(index);
+                    returnHall = true;
+                }
+            }
+        }
+        
+        if(returnHall == false)
+            System.out.println("There is no hall contain the type you search for!");
     }
 }

@@ -210,6 +210,7 @@ public class PrimeEvents
                             resetPage();
                             break;
                     case 2: System.out.println("Function Search Hall by Event Type");
+                            searchEvent();
                             break;
                     case 3: System.out.println("Function Search Hall by Date");
                             break;
@@ -2135,6 +2136,7 @@ public class PrimeEvents
     
     private void admin()
     {
+        
         int adminOption = 0;
         while(adminOption != 5)
         {            
@@ -2159,4 +2161,21 @@ public class PrimeEvents
         }
         
     }
+    
+    public void searchEvent()
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please Enter Type of Event that You want to Search for by single Letter, Anniversary(a), Birthday(b), Wedding Ceremony(c) or Wedding Reception(r):");
+        String typeChoice = input.nextLine();
+        while(!typeChoice.toLowerCase().matches("[abcr]") || typeChoice.length() != 1)
+        {
+            System.out.println("Error! you can only type in ONE of Anniversary(a), Birthday(b), Wedding Ceremony(c) or Wedding Reception(r)");
+            typeChoice = input.nextLine();
+        }
+        bookCont.searchEventType(typeChoice);
+        System.out.println("Enter any to continue...");
+        input.nextLine();
+        resetPage();
+    }
+    
 }
