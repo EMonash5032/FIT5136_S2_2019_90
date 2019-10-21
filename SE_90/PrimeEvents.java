@@ -95,7 +95,6 @@ public class PrimeEvents
 
         System.out.println("Press any key to continue");
         input.nextLine();
-        resetPage();
     }
 
     /**
@@ -683,7 +682,6 @@ public class PrimeEvents
         }
         if(choice.toLowerCase().equals("y"))
         {
-            resetPage();
             cusMakeQuota(cusEmail);
         }
         if(choice.toLowerCase().equals("n"))
@@ -966,80 +964,85 @@ public class PrimeEvents
                         System.out.println("You can only enter a number here!");
                     }
                 }while(validation == true);
+                double dR = 0;
+                do
+                {
+                    validation = true;//set loop into while true
+                    try
+                    {
+                        System.out.println("Please rate the decoration of the hall (rating from 1 - 5): ");
+                        dR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                        while(dR < 1 || dR > 5)//validate the input range
+                        {
+                            System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                            dR = Double.parseDouble(input.nextLine());
+                        }
+                        validation = false;
+                    }
+                    catch(Exception e)//if input not a string, then it cant transfer from string to int
+                    {
+                        System.out.println("You can only Enter a number here! Please Enter again:");
+                    }
+                }while(validation == true); 
+    
+                double sR = 0;
+                do
+                {
+                    validation = true;//set loop into while true
+                    try
+                    {
+                        System.out.println("Please rate the service of the hall (rating from 1 - 5): ");
+                        sR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                        while(sR < 1 || sR > 5)//validate the input range
+                        {
+                            System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                            sR = Double.parseDouble(input.nextLine());
+                        }
+                        validation = false;
+                    }
+                    catch(Exception e)//if input not a string, then it cant transfer from string to int
+                    {
+                        System.out.println("You can only Enter a number here! Please Enter again:");
+                    }
+                }while(validation == true); 
+    
+                double oR = 0;
+                do
+                {
+                    validation = true;//set loop into while true
+                    try
+                    {
+                        System.out.println("Please rate the overall performance of the hall (rating from 1 - 5): ");
+                        oR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                        while(oR < 1 || oR > 5)//validate the input range
+                        {
+                            System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
+                            dR = Double.parseDouble(input.nextLine());
+                        }
+                        validation = false;
+                    }
+                    catch(Exception e)//if input not a string, then it cant transfer from string to int
+                    {
+                        System.out.println("You can only Enter a number here! Please Enter again:");
+                    }
+                }while(validation == true); 
+    
+                System.out.println("Commands(hit enter to skip):");
+                String reviewDesc = input.nextLine();
+                int reviewIndex = bookCont.reviewIndex();
+                int hallNo = bookCont.getBook(bookNo).getHallNo();
+                bookCont.setReview(reviewIndex, bookNo,hallNo,cusEmail,dR,sR,oR,reviewDesc);
+                bookCont.getBook(bookNo).setReviewStatus(true);
+    
+                System.out.println("Review Successfully added! Thank You!");
+                System.out.println("Press any to continue...");
+                input.nextLine();
             }
-            double dR = 0;
-            do
+            if(choice.toLowerCase().equals("n"))
             {
-                validation = true;//set loop into while true
-                try
-                {
-                    System.out.println("Please rate the decoration of the hall (rating from 1 - 5): ");
-                    dR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
-                    while(dR < 1 || dR > 5)//validate the input range
-                    {
-                        System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
-                        dR = Double.parseDouble(input.nextLine());
-                    }
-                    validation = false;
-                }
-                catch(Exception e)//if input not a string, then it cant transfer from string to int
-                {
-                    System.out.println("You can only Enter a number here! Please Enter again:");
-                }
-            }while(validation == true); 
-
-            double sR = 0;
-            do
-            {
-                validation = true;//set loop into while true
-                try
-                {
-                    System.out.println("Please rate the service of the hall (rating from 1 - 5): ");
-                    sR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
-                    while(sR < 1 || sR > 5)//validate the input range
-                    {
-                        System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
-                        sR = Double.parseDouble(input.nextLine());
-                    }
-                    validation = false;
-                }
-                catch(Exception e)//if input not a string, then it cant transfer from string to int
-                {
-                    System.out.println("You can only Enter a number here! Please Enter again:");
-                }
-            }while(validation == true); 
-
-            double oR = 0;
-            do
-            {
-                validation = true;//set loop into while true
-                try
-                {
-                    System.out.println("Please rate the overall performance of the hall (rating from 1 - 5): ");
-                    oR = Double.parseDouble(input.nextLine());//transfer the input value from String into int
-                    while(oR < 1 || oR > 5)//validate the input range
-                    {
-                        System.out.println("Invalid rating, please re-enter a rating from 1 - 5: ");
-                        dR = Double.parseDouble(input.nextLine());
-                    }
-                    validation = false;
-                }
-                catch(Exception e)//if input not a string, then it cant transfer from string to int
-                {
-                    System.out.println("You can only Enter a number here! Please Enter again:");
-                }
-            }while(validation == true); 
-
-            System.out.println("Commands(hit enter to skip):");
-            String reviewDesc = input.nextLine();
-            int reviewIndex = bookCont.reviewIndex();
-            int hallNo = bookCont.getBook(bookNo).getHallNo();
-            bookCont.setReview(reviewIndex, bookNo,hallNo,cusEmail,dR,sR,oR,reviewDesc);
-            bookCont.getBook(bookNo).setReviewStatus(true);
-
-            System.out.println("Review Successfully added! Thank You!");
-            System.out.println("Press any to continue...");
-            input.nextLine();
+                System.out.println("Enter any to continue...");
+                input.nextLine();
+            }
         }
 
     }
@@ -1077,7 +1080,6 @@ public class PrimeEvents
         Scanner input = new Scanner(System.in);
         boolean validation = true;
         int hallChoice = -1;
-        listHall();
         int checkHall = bookCont.checkHallList();
 
         if(checkHall == 1)

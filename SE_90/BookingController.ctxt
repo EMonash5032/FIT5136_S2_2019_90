@@ -148,6 +148,7 @@ comment53.target=void\ searchEventType(java.lang.String)
 comment53.text=\r\nsearching\ for\ specific\ hall\ method\ by\ Event\ Types\r\n\r\n@param\ searchName\ name\ must\ be\ specified\ by\ user\ when\ searching\r\n
 comment54.params=hallNo\ startDate\ endDate
 comment54.target=int\ checkBookDate(int,\ java.util.Date,\ java.util.Date)
+comment54.text=\r\n\ Check\ whether\ booking\ is\ the\ same\ as\ previously\ booked\ dates\ for\ same\ hall\r\n\ \r\n@param\ hallNo\ Requires\ specific\ hall\ number\ to\ be\ inputted\r\n@param\ startDate\ start\ Date\ of\ each\ booking\ of\ specified\ hall\r\n@param\ endDate\ end\ date\ of\ each\ booking\ of\ specified\ hall\r\n
 comment6.params=index
 comment6.target=Quotation\ getQuota(int)
 comment6.text=\r\n\ Get\ information\ about\ specific\ quotation\r\n\ \r\n\ @param\ index\ index\ number\ must\ be\ specified\ to\ find\ specific\ information\ regarding\ quotation\r\n\ @return\ quotation\ information\ about\ specific\ quotation\ within\ index\r\n

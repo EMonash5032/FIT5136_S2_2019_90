@@ -613,17 +613,36 @@ public class BookingController
     {
         int index = 0;
         boolean returnHall = false;
-        for(index = 0; index < getAllHalls().length; index++)
+        boolean validation = true;
+        
+        do
         {
-            if(getHalls(index).getHallName().contains(searchName))
+            try
             {
-                displayHalls(index);
-                returnHall = true;
+                validation = true;
+                for(index = 0; index < getAllHalls().length; index++)
+                {
+                    if(getHalls(index).getHallName().equals("????"))
+                    {
+                        break;
+                    }
+                    if(getHalls(index).getHallName().matches(searchName))
+                    {
+                        displayHalls(index);
+                        returnHall = true;
+                    }
+                    validation = false;
+                }
             }
-        }
-
+            catch(Exception e)//if input not a string, then it cant transfer from string to int
+            {
+                System.out.println("Please Enter a name!");
+                break;
+            }
+        }while(validation == true);
+  
         if(returnHall == false)
-            System.out.println("There is no hall name contain '" + searchName +"'!");
+            System.out.println("There is no hall name is '" + searchName +"'!");
     }
 
     /**
@@ -637,7 +656,7 @@ public class BookingController
     {
         for(int index = 0; index < getAllHalls().length; index++)
         {
-            if(getHalls(index).getHallName().contains(searchName))
+            if(getHalls(index).getHallName().contains(searchName) && !getHalls(index).getHallName().equals("????"))
             {
                 return 1;
             }
@@ -657,15 +676,33 @@ public class BookingController
         boolean returnHall = false;
         int hallID = -1;
 
-        for(index = 0; index < getAllHalls().length; index++)
+        boolean validation = true;
+        do
         {
-            if(getHalls(index).getHallName().contains(searchName))
+            try
             {
-                returnHall = true;
-                displayHalls(index);
+                validation = true;
+                for(index = 0; index < getAllHalls().length; index++)
+                {
+                    if(getHalls(index).getHallName().equals("????"))
+                    {
+                        break;
+                    }
+                    if(getHalls(index).getHallName().contains(searchName))
+                    {
+                        returnHall = true;
+                        displayHalls(index);
+                    }
+                }
+                validation = false;
             }
-        }
-
+            catch(Exception e)//if input not a string, then it cant transfer from string to int
+            {
+                System.out.println("Please Enter a name!");
+                break;
+            }
+        }while(validation == true);
+        
         if(returnHall == false)
         {
             System.out.println("There is no hall name contain '" + searchName +"'!");
@@ -1342,20 +1379,39 @@ public class BookingController
         int index = 0;
         boolean returnHall = false;
         int hallID = -1;
-
-        String searchName = input.nextLine();
-        for(index = 0; index < getAllHalls().length; index++)
+        boolean validation = true;
+        String searchName = "????";
+        do
         {
-            if(getHalls(index).getHallOwnerEmail().equals(hallOwnerEmail))
+            try
             {
-                if(getHalls(index).getHallName().contains(searchName))
+                validation = true;
+                searchName = input.nextLine();
+                for(index = 0; index < getAllHalls().length; index++)
                 {
-                    returnHall = true;
-                    hallID = index;
-                    break;
+                    if(getHalls(index).getHallOwnerEmail().equals(hallOwnerEmail))
+                    {
+                        if(getHalls(index).getHallName().equals("????"))
+                        {
+                            break;
+                        }
+                        if(getHalls(index).getHallName().matches(searchName))
+                        {
+                            returnHall = true; 
+                            hallID = index;
+                            break;
+                        }
+                    }
                 }
+                validation = false;
             }
-        }
+
+            catch(Exception e)//if input not a string, then it cant transfer from string to int
+            {
+                System.out.println("Please Enter a name!");
+                break;
+            }
+        }while(validation == true);
 
         if(returnHall == true)
         {
@@ -1456,7 +1512,7 @@ public class BookingController
                         sDate = formatter.parse(bookStart);
                         eDate = formatter.parse(bookEnd);
 
-                        if(endDate.compareTo(sDate) < 0 || eDate.compareTo(startDate) < 0)
+                        if(endDate.compareTo(sDate) >= 0 || eDate.compareTo(startDate) <= 0)
                         {
                             System.out.println("You cannot book between" + bookStart + " and " + bookEnd);
                             return 1;
