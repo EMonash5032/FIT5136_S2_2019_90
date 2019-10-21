@@ -654,7 +654,7 @@ public class BookingController
     {
         for(int index = 0; index < getAllHalls().length; index++)
         {
-            if(getHalls(index).getHallName().contains(searchName) && !getHalls(index).getHallName().equals("????"))
+            if(getHalls(index).getHallName().matches(searchName) && !getHalls(index).getHallName().equals("????"))
             {
                 return 1;
             }
@@ -703,7 +703,7 @@ public class BookingController
         
         if(returnHall == false)
         {
-            System.out.println("There is no hall name contain '" + searchName +"'!");
+            System.out.println("There is no hall name '" + searchName +"'!");
         }
     }
 
@@ -1434,7 +1434,7 @@ public class BookingController
         }
         else
         {
-            System.out.println("There is no hall name contain '" + searchName +"'!");
+            System.out.println("There is no hall name '" + searchName +"'!");
         }
     }
 

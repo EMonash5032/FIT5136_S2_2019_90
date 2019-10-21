@@ -1358,77 +1358,94 @@ public class PrimeEvents
         if(bookCont.checkQuotation(ownerEmail) == 1)
         {
             bookCont.displayOwnerQuotation(ownerEmail);
+            System.out.println("Do you want to confrim Quotation?(y/n)");
+            String confirmQuota = input.nextLine();
 
-            do
+            while(!confirmQuota.toLowerCase().matches("[yn]"))
             {
-                validation = true;//set loop into while true
-                try
-                {
-                    System.out.println("Please enter the quotation number to further comfirm: ");
-                    quotaChoice = Integer.parseInt(input.nextLine());//transfer the input value from String into int
-                    while(!bookCont.getQuota(quotaChoice).getOwnerEmail().equals(ownerEmail) 
-                    || bookCont.getQuota(quotaChoice).getOwnerConfirmation() == true)
-                    {
-                        System.out.println("There is no option of " + quotaChoice  + "! Please enter again:");
-                        quotaChoice = Integer.parseInt(input.nextLine());
-                    }
-                    validation = false;
-                }
-                catch(Exception e)//if input not a string, then it cant transfer from string to int
-                {
-                    System.out.println("You can only enter Number here!");
-                }
-            }while(validation == true);
-
-            double addFee = 0;
-            if(bookCont.getQuota(quotaChoice).getCatering() == true || bookCont.getQuota(quotaChoice).getPhotography() == true)
+                System.out.println("Error! you can only type in Y/y to confirm or N/n to go back");
+                confirmQuota = input.nextLine();
+            }
+            
+            if(confirmQuota.toLowerCase().equals("n"))
             {
+                System.out.println("Enter any to continue...");
+                input.nextLine();
+            }
+            
+            if(confirmQuota.toLowerCase().equals("y"))
+            {
+                
                 do
                 {
                     validation = true;//set loop into while true
                     try
                     {
-                        System.out.println("Please enter addition cost for catering or photography services:");
-                        addFee = Double.parseDouble(input.nextLine());//transfer the input value from String into int
-                        while(addFee < 0)//validate the input range
+                        System.out.println("Please enter the quotation number to further comfirm: ");
+                        quotaChoice = Integer.parseInt(input.nextLine());//transfer the input value from String into int
+                        while(!bookCont.getQuota(quotaChoice).getOwnerEmail().equals(ownerEmail) 
+                        || bookCont.getQuota(quotaChoice).getOwnerConfirmation() == true)
                         {
-                            System.out.println("Price of hall cannot be lower than 0");
-                            System.out.println("Please enter again:");
-                            addFee = Double.parseDouble(input.nextLine());
+                            System.out.println("There is no option of " + quotaChoice  + "! Please enter again:");
+                            quotaChoice = Integer.parseInt(input.nextLine());
                         }
                         validation = false;
                     }
                     catch(Exception e)//if input not a string, then it cant transfer from string to int
                     {
-                        System.out.println("You can only Enter a number here! Please Enter again:");
+                        System.out.println("You can only enter Number here!");
                     }
-                }while(validation == true); 
+                }while(validation == true);
+    
+                double addFee = 0;
+                if(bookCont.getQuota(quotaChoice).getCatering() == true || bookCont.getQuota(quotaChoice).getPhotography() == true)
+                {
+                    do
+                    {
+                        validation = true;//set loop into while true
+                        try
+                        {
+                            System.out.println("Please enter addition cost for catering or photography services:");
+                            addFee = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                            while(addFee < 0)//validate the input range
+                            {
+                                System.out.println("Price of hall cannot be lower than 0");
+                                System.out.println("Please enter again:");
+                                addFee = Double.parseDouble(input.nextLine());
+                            }
+                            validation = false;
+                        }
+                        catch(Exception e)//if input not a string, then it cant transfer from string to int
+                        {
+                            System.out.println("You can only Enter a number here! Please Enter again:");
+                        }
+                    }while(validation == true); 
+                }
+    
+                System.out.println("Are you sure you want to confirm this information? Please enter Y/y for yes, N/n for No");
+                String confirm = input.nextLine();
+    
+                while(!confirm.toLowerCase().matches("[yn]"))
+                {
+                    System.out.println("Error! you can only type in Y/y to confirm or N/n to go back");
+                    confirm = input.nextLine();
+                }
+    
+                if(confirm.toLowerCase().equals("y"))
+                {
+                    bookCont.getQuota(quotaChoice).setAdditionalFee(addFee);
+                    bookCont.getQuota(quotaChoice).setOwnerConfirmation(true);
+                    System.out.println("Quotation confirm successful!");
+                    System.out.println("Press any to continue...");
+                    input.nextLine();
+                }
+                if(confirm.toLowerCase().equals("n"))
+                {
+                    System.out.println("You are not comfirm this quotation");
+                    System.out.println("Press any to continue...");
+                    input.nextLine();
+                }
             }
-
-            System.out.println("Are you sure you want to confirm this information? Please enter Y/y for yes, N/n for No");
-            String confirm = input.nextLine();
-
-            while(!confirm.toLowerCase().matches("[yn]"))
-            {
-                System.out.println("Error! you can only type in Y/y to confirm or N/n to go back");
-                confirm = input.nextLine();
-            }
-
-            if(confirm.toLowerCase().equals("y"))
-            {
-                bookCont.getQuota(quotaChoice).setAdditionalFee(addFee);
-                bookCont.getQuota(quotaChoice).setOwnerConfirmation(true);
-                System.out.println("Quotation confirm successful!");
-                System.out.println("Press any to continue...");
-                input.nextLine();
-            }
-            if(confirm.toLowerCase().equals("n"))
-            {
-                System.out.println("You are not comfirm this quotation");
-                System.out.println("Press any to continue...");
-                input.nextLine();
-            }
-
         }
         else
         {
