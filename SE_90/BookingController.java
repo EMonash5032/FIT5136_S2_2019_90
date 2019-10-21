@@ -621,7 +621,7 @@ public class BookingController
                 returnHall = true;
             }
         }
-        
+
         if(returnHall == false)
             System.out.println("There is no hall name contain '" + searchName +"'!");
     }
@@ -1297,7 +1297,7 @@ public class BookingController
             System.out.println("Unexpected I/O error occured");
         }
     }
-    
+
     public int checkOwnerHall(String ownerEmail)
     {
         for(int index = 0; index < getAllHalls().length; index++)
@@ -1307,7 +1307,7 @@ public class BookingController
         }   
         return 0;   //the hall may not for this owner
     }
-    
+
     public int checkHallIsOwner(int hallNo, String ownerEmail)
     {
         if(getHalls(hallNo).getHallOwnerEmail().equals(ownerEmail))
@@ -1315,8 +1315,8 @@ public class BookingController
         else
             return 0;
     }
-    
-     /**
+
+    /**
      * Method to find maximum hall index of input
      */
     public int hallIndex()
@@ -1330,8 +1330,7 @@ public class BookingController
         }
         return -1;
     }
-    
-        
+
     /**
      * Method for owner searching a hall
      * 
@@ -1343,7 +1342,7 @@ public class BookingController
         int index = 0;
         boolean returnHall = false;
         int hallID = -1;
-        
+
         String searchName = input.nextLine();
         for(index = 0; index < getAllHalls().length; index++)
         {
@@ -1357,7 +1356,7 @@ public class BookingController
                 }
             }
         }
-        
+
         if(returnHall == true)
         {
             displayHalls(hallID);
@@ -1367,7 +1366,7 @@ public class BookingController
             System.out.println("There is no hall name contain '" + searchName +"'!");
         }
     }
-    
+
     /**
      *searching for specific hall method by Event Types
      *
@@ -1388,7 +1387,7 @@ public class BookingController
                 }
             }
         }
-        
+
         if(type.equals("b"))
         {
             for(index = 0; index < getAllHalls().length; index++)
@@ -1400,7 +1399,7 @@ public class BookingController
                 }
             }
         }
-        
+
         if(type.equals("c"))
         {
             for(index = 0; index < getAllHalls().length; index++)
@@ -1423,11 +1422,18 @@ public class BookingController
                 }
             }
         }
-        
+
         if(returnHall == false)
             System.out.println("There is no hall contain the type you search for!");
     }
-    
+
+    /**
+     * Check whether booking is the same as previously booked dates for same hall
+     * 
+     *@param hallNo Requires specific hall number to be inputted
+     *@param startDate start Date of each booking of specified hall
+     *@param endDate end date of each booking of specified hall
+     */
     public int checkBookDate(int hallNo, Date startDate, Date endDate)
     {
         String bookStart;
@@ -1449,7 +1455,7 @@ public class BookingController
                         bookEnd = getBook(index).getEndDate();
                         sDate = formatter.parse(bookStart);
                         eDate = formatter.parse(bookEnd);
-                        
+
                         if(endDate.compareTo(sDate) < 0 || eDate.compareTo(startDate) < 0)
                         {
                             System.out.println("You cannot book between" + bookStart + " and " + bookEnd);
