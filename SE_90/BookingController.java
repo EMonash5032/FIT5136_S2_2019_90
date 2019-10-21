@@ -845,7 +845,8 @@ public class BookingController
     {
         for(int index = 0; index < getAllQuota().length; index++)
         {
-            if(getQuota(index).getCustomerEmail().equals(cusEmail) && getQuota(index).getOwnerConfirmation() == false)
+            if(getQuota(index).getCustomerEmail().equals(cusEmail) && getQuota(index).getOwnerConfirmation() == true 
+                && getQuota(index).getIsBook() == false)
             {
                 return 1;
             }
@@ -1317,6 +1318,22 @@ public class BookingController
                 String expiryDate = elements[11];
                 String CVV = elements[12];
                 double deposit = Double.parseDouble(elements[13]);
+                
+                int checkBookStatus = checkBookingStatus(startDate,endDate);
+                if(checkBookStatus == 0)
+                {
+                    bookingStatus = "N";
+                }
+
+                if(checkBookStatus == 1)
+                {
+                    bookingStatus = "O";
+                }
+                
+                if(checkBookStatus == 2)
+                {
+                    bookingStatus = "F";
+                }
 
                 setBook(index, reviewStatus, bookingStatus, hallNo, customerNo, ownerEmail, customerEmail,
                     quotationIndex, startDate, endDate, cardholderName, cardNumber, expiryDate, CVV, deposit);
@@ -1529,6 +1546,85 @@ public class BookingController
             }
         }while(validation = true);
 
+        return -1;
+    }
+    
+    /**
+     * Check whether booking Date relate to today
+     * 
+     *@param startDate start Date of each booking of specified hall
+     */
+    public int checkToday(Date startDate)
+    {
+        boolean validation = true;
+        Date date = new Date();
+        do
+        {
+            validation = true;
+            try
+            {
+                if(startDate.compareTo(date) <= 0)
+                {   
+                    return 1;
+                }
+                else
+                {
+                    validation = false;
+                    return -1;
+                }
+            }
+            catch(Exception e)
+            {
+                System.out.print("Invalid date format!");
+            }
+        }while(validation = true);
+        
+        return -1;
+    }
+    
+    /**
+     * Check whether Date relate to today to auto update booking status
+     * 
+     *@param startDate end Date of each booking of specified hall
+     */
+    public int checkBookingStatus(String startDate,String endDate)
+    {
+        boolean validation = true;
+        Date date = new Date();
+        Date eDate = new Date();
+        Date sDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        
+        do
+        {
+            validation = true;
+            try
+            {
+                sDate = formatter.parse(startDate);
+                eDate = formatter.parse(endDate);
+                if(eDate.compareTo(date) < 0)
+                {   
+                    return 2; // End already
+                }
+                else if(sDate.compareTo(date) > 0)
+                {
+                    return 0; //not start yet
+                }
+                else if(sDate.compareTo(date) < 0 && eDate.compareTo(date) > 0)
+                {
+                    return 1; // on going
+                }
+                else
+                {
+                    return -1; //error
+                }
+            }
+            catch(Exception e)
+            {
+                System.out.print("Invalid date format!");
+            }
+        }while(validation = true);
+        
         return -1;
     }
 }

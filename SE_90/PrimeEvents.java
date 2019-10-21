@@ -821,7 +821,7 @@ public class PrimeEvents
                 //hall still use by customer; F "Finish book" means finished book after end date and success 
                 //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
                 //the customer book; N "Not Start" means the booking process not start yet.
-                String bookingStatus = "F";
+                String bookingStatus = "N";
                 int hallNo = bookCont.getQuota(quotaChoice).getHallNo();
                 int customerNo = customers.checkCusIndex(cusEmail);
                 String ownerEmail = bookCont.getQuota(quotaChoice).getOwnerEmail();
@@ -1113,11 +1113,12 @@ public class PrimeEvents
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             int checkDate = -1;
-            int checkBookDate = -1;
+            int checkBookDate = 1;
+            int checkToday = 1;
             Date sDate = new Date();
             Date eDate = new Date();
 
-            while(checkDate == -1 || checkBookDate == 1)
+            while(checkDate == -1 || checkBookDate == 1 || checkToday == 1)
             {
                 validation = true;
                 do
@@ -1161,9 +1162,18 @@ public class PrimeEvents
 
                 checkDate = bookCont.checkDate(sDate, eDate);
                 checkBookDate = bookCont.checkBookDate(hallNo, sDate, eDate);
+                checkToday = bookCont.checkToday(sDate);
+                if(checkDate == -1)
+                {
+                    System.out.println("Your end date '" + endDate + "' should not before startDate '" +startDate +"'!");
+                }
                 if(checkBookDate == 1)
                 {
                     System.out.println("Date: " + startDate + " to " + endDate + " already booked by others! Please the new Date!");
+                }
+                if(checkToday == 1)
+                {
+                    System.out.println("You cannot book earlier than Today"); 
                 }
             }
 
@@ -2181,7 +2191,7 @@ public class PrimeEvents
     /**
      * search halls by event, requires user input
      */
-    public void searchEvent()
+    private void searchEvent()
     {
         Scanner input = new Scanner(System.in);
         System.out.println("Please Enter Type of Event that You want to Search for by single Letter, Anniversary(a), Birthday(b), Wedding Ceremony(c) or Wedding Reception(r):");
