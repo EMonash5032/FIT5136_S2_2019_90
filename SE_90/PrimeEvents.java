@@ -890,6 +890,8 @@ public class PrimeEvents
 
                 case 3: System.out.println("View Quotation");
                 bookCont.quotationInfo(cusEmail);
+                System.out.println("Enter any to continue...");
+                input.nextLine();
                 if(bookCont.checkQuotationStatus(cusEmail) == 1)
                 {
                     chooseQuotaToBook(cusEmail);
@@ -1115,7 +1117,7 @@ public class PrimeEvents
             Date sDate = new Date();
             Date eDate = new Date();
 
-            while(checkDate == -1 || checkBookDate == -1)
+            while(checkDate == -1 || checkBookDate == 1)
             {
                 validation = true;
                 do
@@ -1159,7 +1161,7 @@ public class PrimeEvents
 
                 checkDate = bookCont.checkDate(sDate, eDate);
                 checkBookDate = bookCont.checkBookDate(hallNo, sDate, eDate);
-                if(checkBookDate == -1)
+                if(checkBookDate == 1)
                 {
                     System.out.println("Date: " + startDate + " to " + endDate + " already booked by others! Please the new Date!");
                 }

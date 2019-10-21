@@ -845,7 +845,7 @@ public class BookingController
     {
         for(int index = 0; index < getAllQuota().length; index++)
         {
-            if(getQuota(index).getCustomerEmail().equals(cusEmail) && getQuota(index).getOwnerConfirmation() == true)
+            if(getQuota(index).getCustomerEmail().equals(cusEmail) && getQuota(index).getOwnerConfirmation() == false)
             {
                 return 1;
             }
@@ -1514,6 +1514,11 @@ public class BookingController
                             System.out.println("You cannot book between" + bookStart + " and " + bookEnd);
                             return 1;
                         }
+                        
+                    }
+                    if(getBook(index).getHallNo() == -1)
+                    {
+                        return -1;
                     }
                 }
                 validation = false;
