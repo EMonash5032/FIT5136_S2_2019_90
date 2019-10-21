@@ -1290,4 +1290,37 @@ public class BookingController
             System.out.println("Unexpected I/O error occured");
         }
     }
+    
+    public int checkOwnerHall(String ownerEmail)
+    {
+        for(int index = 0; index < getAllHalls().length; index++)
+        {
+            if(getHalls(index).getHallOwnerEmail().equals(ownerEmail))
+                return 1; //there is a owner hall could select
+        }   
+        return 0;   //the hall may not for this owner
+    }
+    
+    public int checkHallIsOwner(int hallNo, String ownerEmail)
+    {
+        if(getHalls(hallNo).getHallOwnerEmail().equals(ownerEmail))
+            return 1;
+        else
+            return 0;
+    }
+    
+     /**
+     * Method to find maximum hall index of input
+     */
+    public int hallIndex()
+    {
+        int index = 0;
+        while(index < getAllHalls().length)
+        {
+            if(getHalls(index).getHallCapacity() == -1)
+                return index;
+            index++;
+        }
+        return -1;
+    }
 }

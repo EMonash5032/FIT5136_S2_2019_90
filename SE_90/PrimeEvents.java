@@ -1062,20 +1062,6 @@ public class PrimeEvents
         System.out.println("Press any to continue...");
         input.nextLine();
     }
-
-    /**
-     * Method to see booking Status.
-     * 
-     * Refer to notes below 
-     */
-    private void booking()
-    {
-        //There are three difference type of  booking Status: O "on going" means during the time the 
-            //hall still use by customer; F "Finish book" means finished book after end date and success 
-            //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
-            //the customer book; N "Not Start" means the booking process not start yet.
-            String bookingStatus = "N";
-    }
     
     /**
      * Method for customer making a quotation
@@ -1499,8 +1485,8 @@ public class PrimeEvents
                 switch(manageHallOption)
                 {
                     case 1: System.out.println("Create Hall");
-                            index = hallIndex();
-                            createHall("c",index, hallOwnerEmail);
+                            index = bookCont.hallIndex();
+                            createHall(index, hallOwnerEmail);
                             break;
                     case 2: System.out.println("Search Hall");
                             System.out.println("Please Enter the hall name you want to search");
@@ -1508,9 +1494,7 @@ public class PrimeEvents
                             //no search validation here such as if there is no match
                             break;
                     case 3: System.out.println("Update Hall");
-                            System.out.println("Plesase chose the hall you want to edit(by hall number)");
-                            index = input.nextInt() - 1;
-                            createHall("e",index , hallOwnerEmail);
+                            ownerEditHall(hallOwnerEmail);
                             break;
                     case 4: System.out.println("Delete Hall");
                             break;
@@ -1519,6 +1503,7 @@ public class PrimeEvents
                             bookCont.displayOwnerHall(hallOwnerEmail);
                             System.out.println("Enter any to continue:");
                             input.nextLine();
+                            resetPage();
                             break;
                     case 6: 
                             break;
@@ -1565,30 +1550,15 @@ public class PrimeEvents
     }
     
     /**
-     * Method to find maximum hall index of input
-     */
-    private int hallIndex()
-    {
-        int index = 0;
-        while(index < bookCont.getAllHalls().length)
-        {
-            if(bookCont.getHalls(index).getHallCapacity() == -1)
-                return index;
-            index++;
-        }
-        return -1;
-    }
-    
-    /**
      * Method for hall creation by owner
      * type "e" means edit  type "c" means create
      * 
-     * @param type Which method to use, either edit or create
+     * @param type Which method to use create hall
      * @param index Number of index must be specified to create a new list input
      * @param owner email must be specified to identify which hall
      * @exception e number validtion by user
      */
-    private void createHall(String type, int index, String hallOwnerEmail)
+    private void createHall(int index, String hallOwnerEmail)
     {
         Scanner input = new Scanner(System.in);
         boolean validation = true;
@@ -1667,7 +1637,6 @@ public class PrimeEvents
         }while(validation == true);   
         
         System.out.println("Pleas enter event type you want to host. If yes please enter Y/y, N/n for No. ");
-        //String hallEvents = input.nextLine();
         boolean anniversary = false;
         boolean birthday = false;
         boolean weddingCeremony = false;
@@ -1786,24 +1755,18 @@ public class PrimeEvents
             confirm = input.nextLine();
         }
         
-        if(confirm.toLowerCase().equals("y") && type.equals("c"))
+        if(confirm.toLowerCase().equals("y"))
         {
             System.out.println("Hall has been added in successfully! ");
             bookCont.setHall(index,hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, anniversary, birthday, weddingCeremony,
                                 weddingReception, catering, menuDesc, photography);
         }
         
-        //need create new edit function
-        if(confirm.toLowerCase().equals("y") && type.equals("e"))
-        {
-            System.out.println("Hall has been edited successfully! ");
-            bookCont.setHall(index,hallOwnerEmail, hallName, hallAddress, hallCapacity, hallPrice, anniversary, birthday, weddingCeremony,
-                                weddingReception, catering, menuDesc, photography);
-        }
-        
         if(confirm.toLowerCase().equals("n"))
         {
+            System.out.println("Enter any to continue");
             resetPage();
+            input.nextLine();
         }
         
     }
@@ -1920,5 +1883,290 @@ public class PrimeEvents
         bookCont.writeBook("booking.txt");
         bookCont.writeDisc("discount.txt");
     }
+    
+    public void ownerEditHall(String ownerEmail)
+    {
+        Scanner input = new Scanner(System.in);
+        bookCont.displayOwnerHall(ownerEmail);
+        boolean validation = true;
+        int index = -1;
+        
+        if(bookCont.checkOwnerHall(ownerEmail) == 0)
+        {
+            System.out.println("There is no hall in the list! Plesase create a hall first!");
+            System.out.println("Please enter any to continue: ");
+            input.nextLine();
+        }
+        else
+        {
+            System.out.println("Do you want edit any hall?(y/n)");
+            String editConfirm = input.nextLine();
+            while(!editConfirm.toLowerCase().matches("[yn]"))
+            {
+                System.out.println("Error! you can only type in Y/y to Edit or N/n to back");
+                editConfirm = input.nextLine();
+            }
+            
+            if(editConfirm.toLowerCase().equals("n"))
+            {
+                System.out.println("Enter any to continue: ");
+                input.nextLine();
+                resetPage();
+            }
+            
+            if(editConfirm.toLowerCase().equals("y"))
+            {
+                do
+                {
+                    validation = true;//set loop into while true
+                    try
+                    {
+                        System.out.println("Plesase chose the hall you want to edit(by hall number)");
+                        index = Integer.parseInt(input.nextLine()) - 1; //transfer the input value from String into int
+                            
+                        while(bookCont.checkHallIsOwner(index,ownerEmail) == 0 )
+                        {
+                            System.out.println("Input Error! You can only input the hall display with the relative hall number");
+                            System.out.println("Please Enter again: ");
+                            index = Integer.parseInt(input.nextLine()) - 1;
+                        }
+                        validation = false;
+                    }
+                    catch(Exception e)//if input not a string, then it cant transfer from string to int
+                    {
+                        System.out.println("You can only enter a Number here!");
+                    }
+                }while(validation == true);
+                
+                int editOption = 0;
+                    while(editOption != 7)
+                    {
+                        resetPage();
+                        System.out.println("You select the hall");
+                        bookCont.displayHalls(index);
+                        
+                        System.out.println("What information you want to edit with, Please select by following options: ");
+                        System.out.println("Press 1 to Edit Hall Name");
+                        System.out.println("Press 2 to Edit Hall Address");
+                        System.out.println("Press 3 to Edit Hall Capacity");
+                        System.out.println("Press 4 to Edit Hall Price");
+                        System.out.println("Press 5 to Edit Hall Event Types");
+                        System.out.println("Press 6 to Edit Hall Catering or Photography Services");
+                        System.out.println("Press 7 to Go Back");
+                        editOption = inputNumber();
 
+                        switch(editOption)
+                        {
+                            case 1: System.out.println("Pleas enter a New Hall Name: ");
+                                    String hallName = input.nextLine();
+                                    int checkName = bookCont.checkHallName(ownerEmail, hallName);
+                                    while(hallName.trim().length() < 5 || hallName.trim().length() > 25 || checkName != -1)
+                                    {
+                                        if(hallName.trim().length() < 5 || hallName.trim().length() > 25 )
+                                        {
+                                            System.out.println("Must be between 5 and 25 characters long!");
+                                            System.out.println("Please enter your hall name again: ");
+                                            hallName = input.nextLine();
+                                        }
+                                        if(checkName != -1)
+                                        {
+                                            System.out.println("Name " + "'" + hallName + "'" + " already exist, Please try another one:");
+                                            hallName = input.nextLine();
+                                            checkName = bookCont.checkHallName(ownerEmail, hallName);
+                                        }
+                                    } 
+                                    bookCont.getHalls(index).setHallName(hallName);
+                                    System.out.println("Hall Name edit successful! Enter any to continue: ");
+                                    input.nextLine();
+                                    break;
+                            case 2: System.out.println("Pleas enter the Hall Address: ");
+                                    String hallAddress = input.nextLine();
+                                    while(hallAddress.trim().length() < 5 || hallAddress.trim().length() > 50)
+                                    {
+                                        System.out.println("Must be between 5 and 50 characters long!");
+                                        System.out.println("Please enter your hall address again: ");
+                                        hallAddress = input.nextLine();
+                                    }
+                                    bookCont.getHalls(index).setHallAddress(hallAddress);
+                                    System.out.println("Hall Address edit successful! Enter any to continue: ");
+                                    input.nextLine();
+                                    break;
+                            case 3: int hallCapacity = 0;
+                                    do
+                                    {
+                                        validation = true;//set loop into while true
+                                        try
+                                        {
+                                            System.out.println("Please enter the New Hall Capacity: ");
+                                            hallCapacity = Integer.parseInt(input.nextLine());//transfer the input value from String into int
+                                            while(hallCapacity < 10 )//validate the input range
+                                            {
+                                                System.out.println("Hall capacity Must Be at least avaliable for 10 people");
+                                                System.out.println("Please enter again:");
+                                                hallCapacity = Integer.parseInt(input.nextLine());
+                                            }
+                                            validation = false;
+                                        }
+                                        catch(Exception e)//if input not a string, then it cant transfer from string to int
+                                        {
+                                        System.out.println("You can only Enter a number here!");
+                                        }
+                                    }while(validation == true);    
+                                    bookCont.getHalls(index).setHallCapacity(hallCapacity);
+                                    System.out.println("Hall Capacity edit successful! Enter any to continue: ");
+                                    input.nextLine();
+                                    break;
+                            case 4: double hallPrice = -1;
+                                    do
+                                    {
+                                        validation = true;//set loop into while true
+                                        try
+                                        {
+                                            System.out.println("Please enter the New Hall Price: ");
+                                            hallPrice = Double.parseDouble(input.nextLine());//transfer the input value from String into int
+                                            while(hallPrice < 0 )//validate the input range
+                                            {
+                                                System.out.println("Price of hall cannot be lower than 0");
+                                                System.out.println("Please enter again:");
+                                                hallPrice = Double.parseDouble(input.nextLine());
+                                            }
+                                            validation = false;
+                                        }
+                                        catch(Exception e)//if input not a string, then it cant transfer from string to int
+                                        {
+                                            System.out.println("You can only Enter a number here!");
+                                        }
+                                    }while(validation == true);   
+                                    bookCont.getHalls(index).setHallPrice(hallPrice);
+                                    System.out.println("Hall Price edit successful! Enter any to continue: ");
+                                    input.nextLine();
+                                    break;
+                            case 5: System.out.println("Pleas enter event type you want to host. If yes please enter Y/y, N/n for No. ");
+                                    boolean anniversary = false;
+                                    boolean birthday = false;
+                                    boolean weddingCeremony = false;
+                                    boolean weddingReception = false;
+                                    validation = true;
+                                    
+                                    while(validation == true)
+                                    {
+                                        System.out.println("The hall with event type anniversary? (y/n)");
+                                        String a = input.nextLine();
+                                        while(!a.toLowerCase().matches("[yn]"))
+                                        {
+                                            System.out.println("Error! you can only type in Y/y to add anniversary or N/n to no anniversary event");
+                                            System.out.println("Please enter again:");
+                                            a = input.nextLine();
+                                        }
+                                        
+                                        System.out.println("The hall with event type birthday? (y/n)");
+                                        String b = input.nextLine();
+                                        while(!b.toLowerCase().matches("[yn]"))
+                                        {
+                                            System.out.println("Error! you can only type in Y/y to add birthday or N/n to no birthday event");
+                                            System.out.println("Please enter again:");
+                                            b = input.nextLine();
+                                        }
+                                        
+                                        System.out.println("The hall with event type Wedding Ceremony? (y/n)");
+                                        String c = input.nextLine();
+                                        while(!c.toLowerCase().matches("[yn]"))
+                                        {
+                                            System.out.println("Error! you can only type in Y/y to add Wedding Ceremony or N/n to no Wedding Ceremony event");
+                                            System.out.println("Please enter again:");
+                                            c = input.nextLine();
+                                        }
+                                        
+                                        System.out.println("The hall with event type Wedding Reception? (y/n)");
+                                        String r = input.nextLine();
+                                        while(!r.toLowerCase().matches("[yn]"))
+                                        {
+                                            System.out.println("Error! you can only type in Y/y to add Wedding Reception or N/n to no Wedding Reception event");
+                                            System.out.println("Please enter again:");
+                                            r = input.nextLine();
+                                        }
+                                        
+                                        if(a.toLowerCase().equals("y"))
+                                        {
+                                            anniversary = true;
+                                        }
+                                        
+                                        if(b.toLowerCase().equals("y"))
+                                        {
+                                            birthday = true;
+                                        }
+                                        
+                                        if(c.toLowerCase().equals("y"))
+                                        {
+                                            weddingCeremony = true;
+                                        }
+                                        
+                                        if(r.toLowerCase().equals("y"))
+                                        {
+                                            weddingReception = true;
+                                        }
+                                        validation = false;
+                                        if(a.toLowerCase().equals("n") && b.toLowerCase().equals("n") && c.toLowerCase().equals("n") && r.toLowerCase().equals("n"))
+                                        {
+                                            System.out.println("Error! you need at least one event type! Please add the event types again:");
+                                            validation = true;
+                                        }
+                                    }
+                                    bookCont.getHalls(index).setAnniversary(anniversary);
+                                    bookCont.getHalls(index).setBirthday(birthday);
+                                    bookCont.getHalls(index).setWeddingCeremony(weddingCeremony);
+                                    bookCont.getHalls(index).setWeddingReception(weddingReception);
+                                    System.out.println("Hall Event edit successful! Enter any to continue: ");
+                                    input.nextLine();
+                                    break;
+                            case 6: boolean catering = false;
+                                    String menuDesc = "";
+                                    System.out.println("Do you want to add catering service to the hall?(y/n)");
+                                    String cateringOption = input.nextLine();
+                                    while(!cateringOption.toLowerCase().matches("[yn]"))
+                                    {
+                                        System.out.println("Error! you can only type in Y/y to add catering service to hall or N/n for no");
+                                        System.out.println("Please enter again:");
+                                        cateringOption = input.nextLine();
+                                    }
+                                    
+                                    if(cateringOption.toLowerCase().equals("y"))
+                                    {
+                                        catering = true;
+                                        System.out.println("Please enter the menu information into next line:");
+                                        menuDesc = input.nextLine();
+                                        while(menuDesc.trim().length() < 10)
+                                        {
+                                            System.out.println("You must enter something for the menu(10 characters long at least)! Please enter again");
+                                            menuDesc = input.nextLine();
+                                        }
+                                    }
+                                    
+                                    boolean photography = false;
+                                    System.out.println("Do you want to add photography service to the hall?(y/n)");
+                                    String photoOption = input.nextLine();
+                                    while(!photoOption.toLowerCase().matches("[yn]"))
+                                    {
+                                        System.out.println("Error! you can only type in Y/y to add photography service to hall or N/n for no");
+                                        System.out.println("Please enter again:");
+                                        photoOption = input.nextLine();
+                                    }
+                                    
+                                    if(photoOption.toLowerCase().equals("y"))
+                                    {
+                                        photography = true;
+                                    }
+                                    bookCont.getHalls(index).setCatering(catering);
+                                    bookCont.getHalls(index).setMenuDesc(menuDesc);
+                                    bookCont.getHalls(index).setPhotography(photography);
+                                    System.out.println("Hall Services edit successful! Enter any to continue: ");
+                                    input.nextLine();
+                                    break;
+                            case 7: break;
+                                    default: System.out.println("Please select an option between 1 and 7!");
+                        }
+                }                
+            }
+        }
+    }
 }
