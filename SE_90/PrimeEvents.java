@@ -1161,7 +1161,7 @@ public class PrimeEvents
                 checkBookDate = bookCont.checkBookDate(hallNo, sDate, eDate);
                 if(checkBookDate == -1)
                 {
-                    System.out.println("Date: " + startDate + " to " + endDate + "already booked by others! Please the new Date!");
+                    System.out.println("Date: " + startDate + " to " + endDate + " already booked by others! Please the new Date!");
                 }
             }
 

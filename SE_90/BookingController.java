@@ -518,17 +518,14 @@ public class BookingController
     {
         if(startDate.compareTo(endDate) == 0)
         {
-            System.out.println("Book success with 1 day");
             return 0;
         }
         else if(startDate.compareTo(endDate) < 0)
         {
-            System.out.println("Book success with multi days!");
             return 1;
         }
         else if(startDate.compareTo(endDate)> 0)
         {
-            System.out.println("Book fail!");
             return -1;
         }
 
