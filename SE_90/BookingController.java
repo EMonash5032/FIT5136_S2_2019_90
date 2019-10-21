@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat; 
 /**
  * The BookingController class is for the most bringing together and furthers
  * the functions of the Hall, Discount, Review
@@ -1425,5 +1426,45 @@ public class BookingController
         
         if(returnHall == false)
             System.out.println("There is no hall contain the type you search for!");
+    }
+    
+    public int checkBookDate(int hallNo, Date startDate, Date endDate)
+    {
+        String bookStart;
+        String bookEnd;
+        Date sDate = new Date();
+        Date eDate = new Date();
+        boolean validation = true;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        do
+        {
+            validation = true;
+            try
+            {
+                for(int index = 0; index < getAllBook().length; index++)
+                {
+                    if(getBook(index).getHallNo() == hallNo)
+                    {
+                        bookStart = getBook(index).getStartDate();
+                        bookEnd = getBook(index).getEndDate();
+                        sDate = formatter.parse(bookStart);
+                        eDate = formatter.parse(bookEnd);
+                        
+                        if(endDate.compareTo(sDate) < 0 || eDate.compareTo(startDate) < 0)
+                        {
+                            System.out.println("You cannot book between" + bookStart + " and " + bookEnd);
+                            return 1;
+                        }
+                    }
+                }
+                validation = false;
+            }
+            catch(Exception e)
+            {
+                System.out.print("Invalid date format!");
+            }
+        }while(validation = true);
+
+        return -1;
     }
 }

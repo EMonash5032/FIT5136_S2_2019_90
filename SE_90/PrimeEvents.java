@@ -1110,9 +1110,11 @@ public class PrimeEvents
             
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             int checkDate = -1;
+            int checkBookDate = -1;
             Date sDate = new Date();
             Date eDate = new Date();
-            while(checkDate == -1)
+            
+            while(checkDate == -1 || checkBookDate == -1)
             {
                 validation = true;
                 do
@@ -1155,6 +1157,11 @@ public class PrimeEvents
                 }while(validation == true);
             
                 checkDate = bookCont.checkDate(sDate, eDate);
+                checkBookDate = bookCont.checkBookDate(hallNo, sDate, eDate);
+                if(checkBookDate == -1)
+                {
+                    System.out.println("Date: " + startDate + " to " + endDate + "already booked by others! Please the new Date!");
+                }
             }
             
             System.out.println("Please Enter Type of Event that this book contain with, Anniversary(a), Birthday(b), Wedding Ceremony(c) or Wedding Reception(r):");
