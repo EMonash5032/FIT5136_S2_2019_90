@@ -628,8 +628,8 @@ public class BookingController
                         displayHalls(index);
                         returnHall = true;
                     }
-                    validation = false;
                 }
+                validation = false;
             }
             catch(Exception e)//if input not a string, then it cant transfer from string to int
             {
@@ -685,7 +685,7 @@ public class BookingController
                     {
                         break;
                     }
-                    if(getHalls(index).getHallName().contains(searchName))
+                    if(getHalls(index).getHallName().matches(searchName))
                     {
                         returnHall = true;
                         displayHalls(index);

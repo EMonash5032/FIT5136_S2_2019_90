@@ -886,6 +886,11 @@ public class PrimeEvents
                 {
                     confrimQuotation(cusEmail);
                 }
+                else
+                {
+                    System.out.println("Enter any to continue...");
+                    input.nextLine();
+                }
                 break;
 
                 case 3: System.out.println("View Quotation");
@@ -1516,7 +1521,8 @@ public class PrimeEvents
                 case 2: System.out.println("Search Hall");
                 System.out.println("Please Enter the hall name you want to search");
                 bookCont.ownerSearchHall(hallOwnerEmail);
-                //no search validation here such as if there is no match
+                System.out.println("Enter any to continue...");
+                input.nextLine();
                 break;
                 case 3: System.out.println("Update Hall");
                 ownerEditHall(hallOwnerEmail);
