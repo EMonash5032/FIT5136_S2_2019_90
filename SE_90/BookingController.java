@@ -542,11 +542,12 @@ public class BookingController
     public int blankQuota()
     {
         int index = 0;
-        while(index < getAllQuota().length)
+        for(index=0 ; index < getAllQuota().length; index++)
         {
-            if(getBook(index).getHallNo() == -1)
+            if(getQuota(index).getHallNo() == -1)
+            {
                 return index;
-            index++;
+            }
         }
         return -1;
     }
@@ -1526,9 +1527,9 @@ public class BookingController
                         sDate = formatter.parse(bookStart);
                         eDate = formatter.parse(bookEnd);
 
-                        if(endDate.compareTo(sDate) >= 0 || eDate.compareTo(startDate) <= 0)
+                        if(endDate.compareTo(sDate) <= 0 || eDate.compareTo(startDate) >= 0)
                         {
-                            System.out.println("You cannot book between" + bookStart + " and " + bookEnd);
+                            System.out.println("You cannot book between " + bookStart + " and " + bookEnd);
                             return 1;
                         }
                         
