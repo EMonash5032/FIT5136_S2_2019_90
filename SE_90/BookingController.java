@@ -344,7 +344,7 @@ public class BookingController
         }
         if(halls[index].getCatering() == true || halls[index].getPhotography() == true)
         {
-            System.out.println("  Service Type: " + catering + photo + "\r\n");
+            System.out.println("  Service Type: " + catering + photo);
         }
         if(avgDR(index) < 0)
         {
@@ -356,11 +356,7 @@ public class BookingController
             System.out.println("  Service Rating: " + avgSR(index));
             System.out.println("  overall Rating: " + avgOR(index));
         }
-        if(halls[index].getCatering() == false || halls[index].getPhotography() == false)
-        {
-            System.out.println("\r\n");
-        }
-
+        System.out.println("\r\n");
     }
 
     /**
@@ -615,11 +611,18 @@ public class BookingController
     public void searchHallName(String searchName)
     {
         int index = 0;
+        boolean returnHall = false;
         for(index = 0; index < getAllHalls().length; index++)
         {
             if(getHalls(index).getHallName().equals(searchName))
+            {
                 displayHalls(index);
+                returnHall = true;
+            }
         }
+        
+        if(returnHall == false)
+            System.out.println("There is no hall named '" + searchName +"'!");
     }
 
     /**
@@ -659,7 +662,6 @@ public class BookingController
             {
                 returnHall = true;
                 displayHalls(index);
-                break;
             }
         }
 
