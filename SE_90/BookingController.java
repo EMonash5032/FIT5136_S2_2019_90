@@ -347,7 +347,7 @@ public class BookingController
         {
             System.out.println("  Service Type: " + catering + photo);
         }
-        if(avgDR(index) < 0)
+        if(avgDR(index) <= 0)
         {
             System.out.println("  There is no Rate! No one book this hall yet! " );
         }
@@ -355,7 +355,7 @@ public class BookingController
         {
             System.out.println("  Decoration Rating: " + avgDR(index));
             System.out.println("  Service Rating: " + avgSR(index));
-            System.out.println("  overall Rating: " + avgOR(index));
+            System.out.println("  Overall Rating: " + avgOR(index));
         }
         System.out.println("\r\n");
     }

@@ -747,107 +747,150 @@ public class PrimeEvents
                     System.out.println("You can only enter a Number here!");
                 }
             }while(validation == true);
-
-            double totalPay = 0;
-            if(bookCont.getQuota(quotaChoice).getCusIsConcession() == true)
-            {
-                totalPay = bookCont.getQuota(quotaChoice).getTotalPriceAfterDiscount();
-            }
-            else
-            {
-                totalPay = bookCont.getQuota(quotaChoice).getTotalPrice();
-            }
-            System.out.println("Your total payment is: $" + totalPay);
-            double deposit = totalPay / 2 ; 
-            System.out.println("You need pay deposit: $" + deposit);
-
-            System.out.println("Please enter your payment information: ");
-            System.out.println("Please enter your card holder name: ");
-
-            String cardholderName = input.nextLine();
-            while(cardholderName.trim().length() < 3 || cardholderName.trim().length() > 25)
-            {
-                System.out.println("Must be between 3 and 25 character long!");
-                System.out.println("Please enter your card holder name again: ");
-                cardholderName = input.nextLine();
-            }
-
-            System.out.println("Please enter your card number: ");
-            String cardNumber = input.nextLine();
-            while(cardNumber.trim().length() != 16 || !cardNumber.matches("[0-9]+"))
-            {
-                System.out.println("Card number must be 16 digital and with number only!");
-                System.out.println("Please enter your card number again: ");
-                cardNumber = input.nextLine();
-            }
-
-            String expiredDate = "????";
-
-            SimpleDateFormat formatter = new SimpleDateFormat("MM/yy");
+            
+            int hallNo = bookCont.getQuota(quotaChoice).getHallNo();
+            String startDate = bookCont.getQuota(quotaChoice).getStartDate();
+            String endDate = bookCont.getQuota(quotaChoice).getEndDate();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date sDate = new Date();
             Date eDate = new Date();
-            validation = true;
+            int continueBook = 1;
+            
             do
             {
                 try
                 {
-                    System.out.println("Please enter your card expired day:(format 'MM/yy', must include '/') ");
-                    String inputDate = input.nextLine();
-                    eDate = formatter.parse(inputDate);
-                    expiredDate = formatter.format(eDate);
-                    System.out.println("Your card expired date is: " + expiredDate);
+                    validation = true;
+                    sDate = formatter.parse(startDate);
+                    sDate = formatter.parse(endDate);
                     validation = false;
                 }
                 catch(ParseException e)
                 {
-                    System.out.print("Invalid date format! You can only Enter format within 'MM/yy' by number");
+                    System.out.print("Invalid date!");
                 }
             }while(validation == true);
-
-            System.out.println("Please enter your card CVV: ");
-            String cvv = input.nextLine();
-            while(cvv.trim().length() != 3 || !cvv.matches("[0-9]+"))
+            
+            if(bookCont.checkBookDate(hallNo, sDate, eDate) == 1)
             {
-                System.out.println("Card number must be 3 digital only and with number only!");
-                System.out.println("Please enter your CVV again: ");
-                cvv = input.nextLine();
+                System.out.println("Date: " + startDate + " to " + endDate + " already booked by others! Please the new Date!");
+                continueBook = 0;
             }
-
-            System.out.println("Do you want to confirm your booking (y/n), y/Y for confirm, n/N for not confirm");
-            String confirm = input.nextLine();
-            while(!confirm.toLowerCase().matches("[yn]"))
+            if(bookCont.checkToday(sDate) == 1)
             {
-                System.out.println("Error! you can only type in Y/y to confirm or N/n to not book");
-                confirm = input.nextLine();
+                System.out.println("You Quotation is Expired! ");
+                continueBook = 0;
             }
-            if(confirm.toLowerCase().equals("y"))
+            
+            if(continueBook == 0)
             {
-                boolean reviewStatus = false;
-                //There are three difference type of  booking Status: O "on going" means during the time the 
-                //hall still use by customer; F "Finish book" means finished book after end date and success 
-                //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
-                //the customer book; N "Not Start" means the booking process not start yet.
-                String bookingStatus = "N";
-                int hallNo = bookCont.getQuota(quotaChoice).getHallNo();
-                int customerNo = customers.checkCusIndex(cusEmail);
-                String ownerEmail = bookCont.getQuota(quotaChoice).getOwnerEmail();
-                String startDate = bookCont.getQuota(quotaChoice).getStartDate();
-                String endDate = bookCont.getQuota(quotaChoice).getEndDate();
-                int bookIndex = bookCont.bookID();
-                bookCont.setBook(bookIndex, reviewStatus, bookingStatus, hallNo, customerNo, ownerEmail, cusEmail, quotaChoice, 
-                    startDate, endDate, cardholderName, cardNumber, expiredDate, cvv, deposit);
-                bookCont.getQuota(quotaChoice).setIsBook(true);
-
-                System.out.println("You have successfully booked! Enjoy the hall! You need pay the remaining fee on date "+ 
-                    startDate + " with amount $" + deposit);
-                System.out.println("Enter any to continue!");
+                System.out.println("Enter any to continue...");
                 input.nextLine();
                 resetPage();
             }
-            if(confirm.toLowerCase().equals("n"))
+            if(continueBook == 1)
             {
-                System.out.println("Enter any to continue!");
-                input.nextLine();
-                resetPage();
+                double totalPay = 0;
+                if(bookCont.getQuota(quotaChoice).getCusIsConcession() == true)
+                {
+                    totalPay = bookCont.getQuota(quotaChoice).getTotalPriceAfterDiscount();
+                }
+                else
+                {
+                    totalPay = bookCont.getQuota(quotaChoice).getTotalPrice();
+                }
+                System.out.println("Your total payment is: $" + totalPay);
+                double deposit = totalPay / 2 ; 
+                System.out.println("You need pay deposit: $" + deposit);
+    
+                System.out.println("Please enter your payment information: ");
+                System.out.println("Please enter your card holder name: ");
+    
+                String cardholderName = input.nextLine();
+                while(cardholderName.trim().length() < 3 || cardholderName.trim().length() > 25)
+                {
+                    System.out.println("Must be between 3 and 25 character long!");
+                    System.out.println("Please enter your card holder name again: ");
+                    cardholderName = input.nextLine();
+                }
+    
+                System.out.println("Please enter your card number: ");
+                String cardNumber = input.nextLine();
+                while(cardNumber.trim().length() != 16 || !cardNumber.matches("[0-9]+"))
+                {
+                    System.out.println("Card number must be 16 digital and with number only!");
+                    System.out.println("Please enter your card number again: ");
+                    cardNumber = input.nextLine();
+                }
+    
+                String expiredDate = "????";
+    
+                SimpleDateFormat formatter2 = new SimpleDateFormat("MM/yy");
+                Date expDate = new Date();
+
+                do
+                {
+                    try
+                    {
+                        validation = true;
+                        System.out.println("Please enter your card expired day:(format 'MM/yy', must include '/') ");
+                        String inputDate = input.nextLine();
+                        eDate = formatter2.parse(inputDate);
+                        expiredDate = formatter2.format(expDate);
+                        System.out.println("Your card expired date is: " + expiredDate);
+                        validation = false;
+                    }
+                    catch(ParseException e)
+                    {
+                        System.out.print("Invalid date format! You can only Enter format within 'MM/yy' by number");
+                    }
+                }while(validation == true);
+
+                System.out.println("Please enter your card CVV: ");
+                String cvv = input.nextLine();
+                while(cvv.trim().length() != 3 || !cvv.matches("[0-9]+"))
+                {
+                    System.out.println("Card number must be 3 digital only and with number only!");
+                    System.out.println("Please enter your CVV again: ");
+                    cvv = input.nextLine();
+                }
+    
+                System.out.println("Do you want to confirm your booking (y/n), y/Y for confirm, n/N for not confirm");
+                String confirm = input.nextLine();
+                while(!confirm.toLowerCase().matches("[yn]"))
+                {
+                    System.out.println("Error! you can only type in Y/y to confirm or N/n to not book");
+                    confirm = input.nextLine();
+                }
+                if(confirm.toLowerCase().equals("y"))
+                {
+                    boolean reviewStatus = false;
+                    //There are three difference type of  booking Status: O "on going" means during the time the 
+                    //hall still use by customer; F "Finish book" means finished book after end date and success 
+                    //finsh for book process and could make review; C "Cancel booking" means owner who cancel 
+                    //the customer book; N "Not Start" means the booking process not start yet.
+                    String bookingStatus = "N";
+                    int customerNo = customers.checkCusIndex(cusEmail);
+                    String ownerEmail = bookCont.getQuota(quotaChoice).getOwnerEmail();
+                    int bookIndex = bookCont.bookID();
+                    
+                    bookCont.setBook(bookIndex, reviewStatus, bookingStatus, hallNo, customerNo, ownerEmail, cusEmail, quotaChoice, 
+                        startDate, endDate, cardholderName, cardNumber, expiredDate, cvv, deposit);
+                    bookCont.getQuota(quotaChoice).setIsBook(true);
+    
+                    System.out.println("You have successfully booked! Enjoy the hall! You need pay the remaining fee on date "+ 
+                        startDate + " with amount $" + deposit);
+                    System.out.println("Enter any to continue!");
+                    input.nextLine();
+                    resetPage();
+                }
+            
+                if(confirm.toLowerCase().equals("n"))
+                {
+                    System.out.println("Enter any to continue!");
+                    input.nextLine();
+                    resetPage();
+                }
             }
         }
 
