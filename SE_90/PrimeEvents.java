@@ -711,8 +711,6 @@ public class PrimeEvents
         }
         if(choice.toLowerCase().equals("y"))
         {
-            resetPage();
-
             do
             {
                 validation = true;//set loop into while true
