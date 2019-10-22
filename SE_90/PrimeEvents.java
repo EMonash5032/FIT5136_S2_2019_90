@@ -721,7 +721,8 @@ public class PrimeEvents
                     System.out.println("Please enter your quotation number");
                     quotaChoice = Integer.parseInt(input.nextLine());//transfer the input value from String into int
                     while(!bookCont.getQuota(quotaChoice).getCustomerEmail().equals(cusEmail) || 
-                    bookCont.getQuota(quotaChoice).getIsBook() == true)
+                            bookCont.getQuota(quotaChoice).getIsBook() == true || 
+                            bookCont.getQuota(quotaChoice).getOwnerConfirmation() == false)
                     {
                         if(!bookCont.getQuota(quotaChoice).getCustomerEmail().equals(cusEmail))
                         {
@@ -731,6 +732,12 @@ public class PrimeEvents
                         if(bookCont.getQuota(quotaChoice).getIsBook() == true)
                         {
                             System.out.println("The Quotation of " + quotaChoice  + " is already booked, you cannot book it again!!");
+                            System.out.println("Please enter again: ");
+                            quotaChoice = Integer.parseInt(input.nextLine());
+                        }
+                        if(bookCont.getQuota(quotaChoice).getOwnerConfirmation() == false)
+                        {
+                            System.out.println("The Quotation of " + quotaChoice  + " is not avaliable to choice. Please Choice again:");
                             System.out.println("Please enter again: ");
                             quotaChoice = Integer.parseInt(input.nextLine());
                         }
